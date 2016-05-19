@@ -14,7 +14,7 @@ if($_POST){
 	if(mysqli_num_rows($r) == 1){
 		
 		$_SESSION['username'] = $_POST['email'];
-		header('Location: index.php');
+			header('Location: index.php');
 		
 	}
 }
@@ -53,7 +53,7 @@ if($_POST){
 							
 							<div class="panel-body"><!-- START PANEL BODY -->
 								
-								<form action="index.php" method="post" role="form"><!-- START FORM -->
+								<form action="login.php" method="post" role="form"><!-- START FORM -->
 									
 									<div class="form-group">
 										<label for="email">Email address</label>

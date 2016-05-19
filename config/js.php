@@ -12,8 +12,6 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="resources/bootstrap.min.js"></script>
 
-<script src="js/tinymce/tinymce.min.js"></script>
-
 <script>
 	
 	$(document).ready(function(){

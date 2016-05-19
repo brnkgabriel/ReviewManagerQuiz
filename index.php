@@ -2,8 +2,9 @@
  
 # Start the session:
 session_start();
+
 if(!isset($_SESSION['username']))	// username is the same as email
-	header('Location: index.php');
+	header('Location: login.php');
 
 include 'config/setup.php';
 //header('Refresh: 0');
@@ -15,7 +16,9 @@ include 'config/setup.php';
 	<head>
 		
 		<title>Review Portal</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- Mobile viewport optimized -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		
 		<?php /*error_reporting(0);*/include 'config/css.php'; ?>
 		<?php include 'config/js.php'; ?>
 		
@@ -28,7 +31,7 @@ include 'config/setup.php';
 			<?php include 'template/navigation.php'; ?><!-- Contains navigation bar that sets the $_GET array -->
 			
 			<?php include 'template/body.php'; ?><!-- Contains body container div that evaluated every time the $_GET array changes -->
-			
+	
 		</div>
 	</body>
 </html>
