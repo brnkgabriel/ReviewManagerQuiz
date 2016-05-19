@@ -8,5 +8,5 @@ include 'config/connection.php';
 include 'functions/data.php';				
 
 # User Setup:
-$user = data_user($dbc, $_SESSION['username']);
+$user = setUpBasicInformation($dbc, $_SESSION['username']); // username is the same as email
 ?>

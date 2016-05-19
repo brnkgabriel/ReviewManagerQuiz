@@ -4,10 +4,10 @@
 		<div class="well">
 			<h4>Profile <br></h4>
 			<img src="http://placehold.it/100" class="thumbnail pull-left">
-			<p>Name: <?php  echo $user['fullname']; ?></p>
-			<p>Age: <?php echo getAgeFromScoreTable($dbc, createTableNameFromFirstAndLastName($user)); ?></p><!-- The first element of the scores table will always have the current age-->
-			<p>Total Aggregate: <?php echo getTotalAggregateScore($dbc, $user); ?></p>
-			<p>Position: <?php echo getPositionFromProfilesTable($dbc, $_SESSION['username']) ?></p>
+			<p>Name: <?php  echo getFullName(); ?></p>
+			<p>Age: <?php echo getAge(); ?></p><!-- The first element of the scores table will always have the current age-->
+			<p>Total Aggregate: <?php echo getTotalAggregateScore(); ?></p>
+			<p>Position: <?php echo getPosition(); ?></p>
 		</div><!-- end well -->
 	</div><!-- ENDS UPPER ROW BIG SIZE -->
 

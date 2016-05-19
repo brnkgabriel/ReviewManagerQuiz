@@ -14,7 +14,7 @@
 			<ul class="nav navbar-nav"> <!-- START LOGOUT NAVIGATION -->
 				<li class="dropdown"><!-- START LOGOUT DROP DOWN MENU --> 
 					
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $user['fullname']; ?> <b class="caret"></b></a>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo getFullName(); ?> <b class="caret"></b></a>
 					
 					<ul class="dropdown-menu">
 						<li><a href="logout.php">Logout</a></li>
