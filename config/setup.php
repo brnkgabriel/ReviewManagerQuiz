@@ -5,7 +5,7 @@ error_reporting(0);
 include 'config/connection.php';
 
 # Functions:
-include 'functions/data.php';				
+include 'functions/DatabaseQueryFunctions.php';				
 
 # User Setup:
 $user = setUpBasicInformation($dbc, $_SESSION['username']); // username is the same as email

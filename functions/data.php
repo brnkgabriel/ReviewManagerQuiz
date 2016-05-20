@@ -9,6 +9,7 @@ $tableName = "";
 $age = "";
 $totalAggregateScore = "";
 $position = "";
+$dbcGlobal = "";
 
 function setUpBasicInformation($dbc, $id){
 	global $profileRow; 
@@ -16,6 +17,9 @@ function setUpBasicInformation($dbc, $id){
 	global $age;
 	global $totalAggregateScore;
 	global $position;
+	global $dbcGlobal;
+
+	$dbcGlobal = $dbc;
 
 	$profileRow = getProfileRow($dbc, $id); 
 	$tableName = createTableNameFromFirstAndLastName($profileRow);
@@ -24,7 +28,7 @@ function setUpBasicInformation($dbc, $id){
 	$position = getPositionFromProfilesTable($dbc, $id);
 
 	updateTotalAggregateInProfilesTable($dbc, $totalAggregateScore, $id); 
-	updatePositionsInProfilesTable($dbc);
+	updatePositionsInProfilesTable($dbcGlobal);
 	return $profileRow;
 }
 
@@ -125,12 +129,14 @@ function updateTotalAggregateInProfilesTable($dbc, $aggregate, $user){
 
 function getPositionFromProfilesTable($dbc, $user){
 	global $totalAggregateArray;  
+	global $reverseTotalAggregateArray;
 	global $userTotalAggregate; 
 	global $position; 
 	
 	$totalAggregateArray = getTotalAggregatesOfAllStudents($dbc);
 	$userTotalAggregate = getUserTotalAggregate($dbc, $user);
-	$position = evaluatePosition($userTotalAggregate, $totalAggregateArray);
+	setReverseTotalAggregateArray($totalAggregateArray);
+	$position = evaluatePosition($userTotalAggregate);
 	return $position;
 }
 
@@ -153,15 +159,19 @@ function getUserTotalAggregate($dbc, $user){
 	return $userTotalAggregate;
 } 
 
-function evaluatePosition($userTotalAggregate, $totalAggregateArray){  
-	global $reverseTotalAggregateArray; 
+function setReverseTotalAggregateArray($totalAggregateArray){
+	global $reverseTotalAggregateArray;
 	rsort($totalAggregateArray); 
-	
 	$reverseTotalAggregateArray = $totalAggregateArray;
 
+}
+
+function evaluatePosition($userTotalAggregate){  
+	global $reverseTotalAggregateArray; 
+
 	$position = "";
-	for($i = 0; $i < count($totalAggregateArray); $i++){ 
-		if($userTotalAggregate == $totalAggregateArray[$i]){
+	for($i = 0; $i < count($reverseTotalAggregateArray); $i++){ 
+		if($userTotalAggregate == $reverseTotalAggregateArray[$i]){
 			
 			switch ($i) {
 				case 0:
@@ -183,32 +193,17 @@ function evaluatePosition($userTotalAggregate, $totalAggregateArray){
 	return $position;
 }
 
-function updatePositionsInProfilesTable($dbc){
+function updatePositionsInProfilesTable($dbc){ 
 	global $reverseTotalAggregateArray;
-	global $profileRows;
-
+	global $profileRows; 
 	for($i = 0; $i < count($reverseTotalAggregateArray); $i++){
-		for($j =0; $j < count($profileRows); $j++){
+		for($j = 0; $j < count($profileRows); $j++){
 			if($reverseTotalAggregateArray[$i] == $profileRows[$j]['totalAggregate']){
-				switch ($i) {
-					case 0:
-						$position = ($i + 1) . "st";
-						break;
-					case 1:
-						$position = ($i + 1) . "nd";
-						break;
-					case 2:
-						$position = ($i + 1) . "rd";
-						break;
-					default: 
-						$position = ($i + 1) . "th"; 
-						break;
-				}
-
-
-				$q = "UPDATE profiles SET position = '$position' WHERE email = '$profileRows[$j][totalAggregate]'";
-				
-				$r = mysqli_query($dbc, $q);
+				$position = evaluatePosition($reverseTotalAggregateArray[$i]);
+				$user = $profileRows[$j]['email'];
+				$q = "UPDATE profiles SET position = '$position' WHERE email = '$user'";
+				$r = mysqli_query($dbc, $q); 
+				echo $reverseTotalAggregateArray[$i] . " is for " .  $user . " with position " . $position . "<br>"; 
 			}
 		}
 	}

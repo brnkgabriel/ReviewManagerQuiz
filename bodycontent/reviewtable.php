@@ -9,16 +9,14 @@
 					<th class="active">Prize ($)</th> 
 				</tr>
 
-				<?php   
-					$allProfileRows = getOrderProfileRowsAccordingToPosition();
-					$noProfileRows = count($allProfileRows); 
-					
-					for($j = 0; $j < $noProfileRows; $j++){ ?>
+				<?php     
+					$allProfileRows = getProfileRowsAccordingToPosition();
+					for($j = 0; $j < count($allProfileRows); $j++){ ?>
 						<tr>
 							<td class="active"><?php echo $allProfileRows[$j]['position']; ?></td>
 							<td class="active"><?php echo $allProfileRows[$j]['first'] . ' ' . $allProfileRows[$j]['last']; ?></td>
 							<td class="active"><?php echo $allProfileRows[$j]['totalAggregate']; ?></td>
-							<td class="active"><?php echo "0"; ?></td>
+							<td class="active"><?php echo $allProfileRows[$j]['prize']; ?></td>
 						</tr> 
 			 	 <?php } ?>
 			</table>
