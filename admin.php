@@ -1,3 +1,26 @@
+<?php 
+
+# Start Session:
+session_start();
+
+include 'config/setup.php'; 
+
+if($_POST){
+	
+	$q = "SELECT * FROM administrators WHERE email = '$_POST[email]' AND password = sha1('$_POST[password]')";
+	
+	$r = mysqli_query($dbc, $q); 
+	
+	if(mysqli_num_rows($r) == 1){
+		
+		$_SESSION['admin'] = $_POST['email'];
+			header('Location: adminIndex.php');
+		
+	}
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
 	
@@ -29,7 +52,7 @@
 							
 							<div class="panel-body"><!-- START PANEL BODY -->
 								
-								<form action="login.php" method="post" role="form"><!-- START FORM -->
+								<form action="admin.php" method="post" role="form"><!-- START FORM -->
 									
 									<div class="form-group">
 										<label for="email">Email address</label>

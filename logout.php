@@ -9,6 +9,4 @@ unset($_SESSION['username']);	// Delete the username key
 
 header('Location: login.php');	// Redirect to login.php
 
-
-
 ?>
