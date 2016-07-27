@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" style="font-family: Ubuntu">
 	
 	<h1>Quiz</h1>
 	
