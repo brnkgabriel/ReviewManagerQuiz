@@ -13,25 +13,24 @@ include 'config/setup.php';
 <!DOCTYPE html>
 <html>
 	
-	<head>
-		
+	<head> 
 		<title>Review Portal</title>
 		<!-- Mobile viewport optimized -->
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 		
 		<?php /*error_reporting(0);*/include 'config/css.php'; ?>
-		<?php include 'config/js.php'; ?>
-		
+		<?php include 'config/js.php'; ?> 
 	</head>
 	
 	<body>
 		
 		<div id="wrap"> <!-- BEGIN WRAP -->
-			
-			<?php include 'template/navigation.php'; ?><!-- Contains navigation bar that sets the $_GET array -->
-			
-			<?php include 'template/body.php'; ?><!-- Contains body container div that evaluated every time the $_GET array changes -->
-	
+			<?php 
+				include 'template/navigation.php';
+				if(!isset($_GET['nav']) || $_GET['nav'] === 'profile') include 'bodycontent/profile.php';
+				elseif($_GET['nav'] === 'quiz') include 'bodycontent/quiz.php'; 
+				elseif($_GET['nav'] === 'reviewTable') include 'bodycontent/reviewTable.php'; 
+			?>
 		</div>
 	</body>
 </html>

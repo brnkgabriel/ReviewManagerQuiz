@@ -3,8 +3,9 @@
 	
 
 ?>
+
 <!-- jQuery -->
-<script src="resources/jquery-2.2.3.min.js"></script>
+<script>window.jQuery || document.write('<script src="resources/jquery-3.1.0.min.js"><\/script>')</script>
 
 <!-- jQuery UI -->
 <script src="resources/jquery-ui.js"></script>

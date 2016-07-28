@@ -1,3 +1,3 @@
-<div class="container" style="font-family: Ubuntu">  
+<div class="container">  
 	<h1>Review Table</h1>
 </div>

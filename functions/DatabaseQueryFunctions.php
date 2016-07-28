@@ -44,6 +44,9 @@ function getDataFromArrayOfProfileRow($whatAreWeLookingFor){
 				case 'fullName': 
 						$data = $allProfileRows[$i]['first'] . " " . $allProfileRows[$i]['last'];
 					break;
+				case 'fullNameWithoutWhiteSpace': 
+						$data = $allProfileRows[$i]['first'] . $allProfileRows[$i]['last'];
+					break;
 				case 'age': 
 						$data = $allProfileRows[$i]['age'];
 					break; 
@@ -63,6 +66,8 @@ function getDataFromArrayOfProfileRow($whatAreWeLookingFor){
 }
 
 function getFullName(){return getDataFromArrayOfProfileRow('fullName');}
+
+function getFullNameWithoutWhiteSpace(){return getDataFromArrayOfProfileRow('fullNameWithoutWhiteSpace');}
 
 function getAge(){return getDataFromArrayOfProfileRow('age');}
 
