@@ -1,4 +1,0 @@
-May 18 2016 8:33pm
-. Create a setUpBasicInformation() function in the data.php file
-. Have the setup.php file call that function then.
-. Have the profile.php obtain the results of the setUpBasicInformation() function
