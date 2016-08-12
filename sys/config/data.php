@@ -11,7 +11,7 @@
 		
 		$data = mysqli_fetch_assoc($r);
 		$data['fullname'] = $data['first'] . ' ' . $data['last'];
-		$data['fullname_reversed'] = $data['last'] . ', ' . $data['first'];
+		$data['fullname_reverse'] = $data['last'] . ', ' . $data['first'];
 		return $data;
 	}
 ?>
