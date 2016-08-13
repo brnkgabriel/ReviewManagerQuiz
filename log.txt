@@ -1,0 +1,12 @@
+
+// August 12 2016 6:23pm
+> click the tab
+> get info from database
+> store all info in variables
+> build the markups by attaching the variables
+> all in jQuery
+
+// August 12 2016 7:36pm
+Decided to branch to Alan Quandt Time Tracker tutorials
+to learn how to transfer the data from the userScores.php
+file to the global.js file and store them as arrays

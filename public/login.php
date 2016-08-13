@@ -42,7 +42,7 @@
 	<body>
 		<div id="wrap"><!-- START WRAP -->
 			
-			<div class="container"><!-- START CONTAINER -->
+			<div class="container-fluid"><!-- START CONTAINER -->
 				
 				<div class="row"><!-- START ROW -->
 					

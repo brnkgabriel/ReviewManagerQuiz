@@ -14,4 +14,13 @@
 		$data['fullname_reverse'] = $data['last'] . ', ' . $data['first'];
 		return $data;
 	}
+	
+	function data_scores($dbc, $table){
+		$q = "SELECT * FROM $table";
+		$r = mysqli_query($dbc, $q);
+		
+		//Copy result into a associative array
+		$data = $r->fetch_all(MYSQLI_ASSOC); 
+ 		return $data;
+	}
 ?>

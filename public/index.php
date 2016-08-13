@@ -36,7 +36,7 @@
 		
 		<!-- Navbar --> 
 		<nav class="navbar navbar-inverse" role="navigation"> 
-			<div class="container">
+			<div class="container-fluid">
 				<div class="navbar-header">
 					<a class="navbar-brand" href="#">Quiz Manager</a>
 					<button class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
@@ -56,7 +56,7 @@
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> <?php echo $user['fullname_reverse']; ?></a>
 							<ul class="dropdown-menu"> 
 								<li>
-									<a href="logout.php">Logout</a>
+									<a href="logout.php" id="logout">Logout</a>
 								</li>
 							</ul>
 						</li>
@@ -66,79 +66,8 @@
 		</nav> 
 		<br><br>
 		<!-- Body -->
-		<div id="body" class="container">
-			<div class="row">
-				<div class="col-md-4">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h3 class="panel-title">Biodata</h3>
-						</div>
-						<div class="panel-body">
-							<div class="row">
-								<div class="col-md-6" align="center">
-									<p><img src=<?php echo "images/".$user['first'].$user['last'].'.png'; ?> alt="Image Icon"/></p>
-									<p><?php echo $user['first'].' '.$user['last']; ?></p> 
-									<p><?php echo $user['age'].'yrs'; ?></p>
-								</div>
-								<div class="col-md-6">
-									<p>Pos: <?php echo $user['position']; ?></p>
-									<p>Agg: <?php echo $user['totalAggregate']; ?></p> 
-								</div>
-							</div>  
-						</div>
-					</div>
-				</div>
-				<div class="col-md-8"> 
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h3 class="panel-title">Attributes</h3>
-						</div>
-						<div class="panel-body">
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12"> 
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h3 class="panel-title">Statistics</h3>
-						</div>
-						<div class="panel-body table-responsive">
-							<table class="table table-bordered table-condensed"> 
-								<thead>
-									<tr>
-										<th>Day</th>
-										<th>Exc</th>
-										<th>Typ</th>
-										<th>Src</th>
-										<th>Sco</th>
-										<th>Age</th>
-										<th>Agg</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>Jan 3 2016</td>
-										<td>Eternal Life</td>
-										<td>Review</td>
-										<td>Andrew Wommack</td>
-										<td>0</td>
-										<td>17</td>
-										<td>0.000</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div> 
-			</div>
+		<div id="centerStage" class="container-fluid">
+			
 		</div>
 	</body>
 </html>
