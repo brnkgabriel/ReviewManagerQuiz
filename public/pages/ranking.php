@@ -13,14 +13,25 @@
 					<thead>
 						<tr>
 							<th>Position</th>
-							<th>Prize($)</th>
-							<th>Name</th>
-							<th>Points</th>
+							<th>Name</th> 
 							<th>Age</th>
-							<th>Aggregate</th> 
+							<th>Aggregate</th>
+							<th>Prize($)</th> 
 						</tr>
 					</thead>
 					<tbody> 
+						<?php 
+							$tableSize = count($rankProfile);   
+							for($i = $tableSize - 1; $i > -1; $i--){ 
+						?>
+								<tr>
+									<td><?php echo $rankProfile[$i]['position'] ?></td>
+									<td><?php echo $rankProfile[$i]['first'] . ' ' . $rankProfile[$i]['last'] ?></td>
+									<td><?php echo $rankProfile[$i]['age'] ?></td>
+									<td><?php echo $rankProfile[$i]['totalAggregate'] ?></td>
+									<td><?php echo $rankProfile[$i]['prize'] ?></td> 
+								</tr>
+						<?php }?>
 					</tbody><!-- end score history tbody -->
 				</table><!-- end score history table -->
 			</div><!-- end score history panel body -->

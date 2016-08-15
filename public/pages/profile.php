@@ -39,15 +39,15 @@
 		</div><!-- end attributes panel -->
 	</div><!-- end attributes column -->
 </div><!-- end attributes row -->
-<div class="row" id="scoreRow">
+<div class="row">
 	<div class="col-md-12"> 
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h3 class="panel-title">Score History</h3>
 			</div><!-- end score history panel heading -->
-			<div class="panel-body table-responsive">
+			<div class="panel-body table-responsive" id="scoreHistoryPanelBody">
 				<table class="table table-bordered table-condensed"> 
-					<thead>
+					<thead id="scoreHistoryTableHead">
 						<tr>
 							<th>Day</th>
 							<th>Exc</th>
@@ -58,10 +58,10 @@
 							<th>Agg</th>
 						</tr>
 					</thead>
-					<tbody id="tbody">
+					<tbody id="scoreHistoryTableBody">
 						<?php 
 							$tableSize = count($user_scores);   
-							for($i = $tableSize - 1; $i > 0; $i--){ 
+							for($i = $tableSize - 1; $i > -1; $i--){ 
 						?>
 								<tr>
 									<td><?php echo $user_scores[$i]['date'] ?></td>

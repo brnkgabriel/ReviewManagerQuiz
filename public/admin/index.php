@@ -3,7 +3,7 @@
 	if(!isset($_SESSION['email']))
 		header('Location: login.php');
 	
-	include '../sys/config/setup.php';
+	include '../../sys/config/setupAdmin.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -33,7 +33,7 @@
 		<link rel="stylesheet" href="css/myCSSFile.css">
 
 
-		<title>HPM-Youths</title>
+		<title>HPM-Youths Admin Login</title>
 	</head>
 	<body>
 		
@@ -41,7 +41,7 @@
 		<nav class="navbar navbar-inverse" role="navigation"> 
 			<div class="container-fluid">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="#">Harvest Point Ministries Youths</a>
+					<a class="navbar-brand" href="#">HPM Youths Admin Portal</a>
 					<button class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
