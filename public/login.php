@@ -1,6 +1,5 @@
 <?php 
 	session_start();
-	
 	include '../sys/config/connection.php';
 	
 	if($_POST){
@@ -31,7 +30,7 @@
 		<script src="js/swfobject.js"></script>
 		<!-- <script src="js/googlemapsapi.js"></script> -->
 		<!-- <script src="http://maps.google.com/maps/api/js?sensor=false"></script> -->
-		<script src="js/global.js"></script>
+		<!-- <script src="js/global.js"></script> -->
 
 		<!-- CSS -->
 		<link rel="stylesheet" href="css/bootstrap.min.css">

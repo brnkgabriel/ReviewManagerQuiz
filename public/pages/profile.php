@@ -1,7 +1,6 @@
-<?php  
+<?php   
 	session_start();
-	include '../../sys/config/setup.php';
-	$name = "Olanrewaju Gabriel Ibironke"; 
+	include '../../sys/config/setup.php'; 
 ?>
 <div class="row">
 	<div class="col-md-4">
@@ -40,7 +39,7 @@
 		</div><!-- end attributes panel -->
 	</div><!-- end attributes column -->
 </div><!-- end attributes row -->
-<div class="row">
+<div class="row" id="scoreRow">
 	<div class="col-md-12"> 
 		<div class="panel panel-default">
 			<div class="panel-heading">
@@ -80,8 +79,4 @@
 			</div><!-- end score history panel body -->
 		</div><!-- end score history panel -->
 	</div><!-- end score history column -->
-</div><!-- end score history row --> 
-<script>
-	var myName = "<?php echo $name; ?>";
-	console.log(myName);
-</script>
+</div><!-- end score history row -->  
