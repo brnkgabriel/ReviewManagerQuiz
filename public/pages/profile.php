@@ -1,6 +1,7 @@
 <?php  
 	session_start();
 	include '../../sys/config/setup.php';
+	$name = "Olanrewaju Gabriel Ibironke"; 
 ?>
 <div class="row">
 	<div class="col-md-4">
@@ -12,7 +13,7 @@
 				<div class="row">
 					<div class="col-md-6" align="center">
 						<p><img src=<?php echo "images/".$user['first'].$user['last'].'.png'; ?> alt="Image Icon"/></p>
-						<p><?php echo $user['first'].' '.$user['last']; ?></p> 
+						<p id="userName"><?php echo $user['first'].' '.$user['last']; ?></p> 
 						<p><?php echo $user['age'].'yrs'; ?></p>
 					</div>
 					<div class="col-md-6" align="center">
@@ -58,7 +59,7 @@
 							<th>Agg</th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody id="tbody">
 						<?php 
 							$tableSize = count($user_scores);   
 							for($i = $tableSize - 1; $i > 0; $i--){ 
@@ -79,4 +80,8 @@
 			</div><!-- end score history panel body -->
 		</div><!-- end score history panel -->
 	</div><!-- end score history column -->
-</div><!-- end score history row -->
+</div><!-- end score history row --> 
+<script>
+	var myName = "<?php echo $name; ?>";
+	console.log(myName);
+</script>

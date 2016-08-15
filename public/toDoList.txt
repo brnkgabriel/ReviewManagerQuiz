@@ -1,0 +1,5 @@
+> using the ajax call
+> load all pages to their respective container
+> get the text or html properties of the containers
+> convert them to strings
+> place them in local storage

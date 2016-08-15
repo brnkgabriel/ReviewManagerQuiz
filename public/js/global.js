@@ -1,8 +1,12 @@
+var navSelection = localStorage.getItem('selectedPageNav');
+
 jQuery(document).ready(function(){ 
+	
+	saveServerDatabaseToLocalStorage();
+
 	var profile = jQuery('#profile');
 	var quiz = jQuery('#quiz');
-	var ranking = jQuery('#ranking');
-	var navSelection = localStorage.getItem('selectedPageNav');
+	var ranking = jQuery('#ranking'); 
 	
 	if(navSelection == null){
 		navSelection = 'profile';
@@ -10,33 +14,34 @@ jQuery(document).ready(function(){
 	}else 
 		switchNavigationAndPageContent(navSelection, profile, quiz, ranking);
 	
-	console.log(localStorage.getItem('selectedPageNav')); 
-	
+	// Click listener & handler for the 3 tabs
 	jQuery('#profile, #quiz, #ranking').click(function(){
 		navSelection = jQuery(this).attr('id'); 
-		switchNavigationAndPageContent(navSelection, profile, quiz, ranking);
+		switchNavigationAndPageContent(navSelection, profile, quiz, ranking);  
+		
 	});
 	
+	// Click listener & handler for the logout button
 	jQuery('#logout').click(function(){
 		localStorage.clear();
 	});
-	
+
 	function switchNavigationAndPageContent(navSelection, profile, quiz, ranking){
 		switch(navSelection){
 			case 'profile': 
 				localStorage.setItem('selectedPageNav', 'profile');
-				activateSelectedAndDeactivateTheRest(profile, quiz, ranking);
-				loadSelectedPage('profile'); 
+				activateSelectedAndDeactivateTheRest(profile, quiz, ranking); 
+				jQuery('#centerStage').html(localStorage.getItem('profileData'));
 				break;
 			case 'quiz':
 				localStorage.setItem('selectedPageNav', 'quiz');
 				activateSelectedAndDeactivateTheRest(quiz, profile, ranking);
-				loadSelectedPage('quiz'); 
+				jQuery('#centerStage').html(localStorage.getItem('quizData'));
 				break;
 			case 'ranking':
 				localStorage.setItem('selectedPageNav', 'ranking');
 				activateSelectedAndDeactivateTheRest(ranking, profile, quiz);
-				loadSelectedPage('ranking'); 
+				jQuery('#centerStage').html(localStorage.getItem('rankingData'));
 				break;
 			default:
 				break; 
@@ -48,19 +53,25 @@ jQuery(document).ready(function(){
 		other1.attr('class', '');
 		other2.attr('class', '');
 	}
-	
-	function loadSelectedPage(page){ 
-		switch(page){
-			case 'profile':
-				jQuery('#centerStage').load('pages/profile.php');
-				break;
-			case 'quiz':
-				jQuery('#centerStage').load('pages/quiz.php');
-				break;
-			case 'ranking':
-				jQuery('#centerStage').load('pages/ranking.php');
-				break;
-		} 
-	}
-	 
+
+	function saveServerDatabaseToLocalStorage(){ 
+		jQuery.ajax({
+			url		: 'pages/profile.php',
+			success : function(data){ 
+				localStorage.setItem('profileData', data);
+			}
+		});
+		jQuery.ajax({
+			url		: 'pages/quiz.php',
+			success : function(data){  
+				localStorage.setItem('quizData', data);
+			}
+		}); 
+		jQuery.ajax({
+			url		: 'pages/ranking.php',
+			success : function(data){  
+				localStorage.setItem('rankingData', data);
+			}
+		});
+	} 
 });

@@ -70,7 +70,7 @@
 										<input type="password" class="form-control" id="password" name="password" placeholder="Password">
 									</div>
 							   
-									<button type="submit" class="btn btn-default">Submit</button>
+									<button type="submit" id="login" class="btn btn-default">Login</button>
 							  
 								</form><!-- END FORM -->
 							

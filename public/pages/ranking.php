@@ -6,7 +6,7 @@
 	<div class="col-md-12"> 
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h3 class="panel-title">Overall Ranking</h3>
+				<h3 class="panel-title" id="ranking">Overall Ranking</h3>
 			</div><!-- end score history panel heading -->
 			<div class="panel-body table-responsive">
 				<table class="table table-bordered table-condensed"> 
