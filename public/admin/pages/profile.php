@@ -21,27 +21,27 @@
 			</div>
 			<div class="form-group">
 				<label for="date">Date</label>
-				<input type="text" class="form-control" placeholder="Enter Date...">
+				<input id="date" type="text" class="form-control" placeholder="Enter Date...">
 			</div>
 			<div class="form-group">
 				<label for="exercise">Exercise</label>
-				<input type="text" class="form-control" placeholder="Enter Exercise Name...">
+				<input id="exercise" type="text" class="form-control" placeholder="Enter Exercise Name...">
 			</div>
 			<div class="form-group">
 				<label for="type">Type</label>
-				<input type="text" class="form-control" placeholder="Enter Exercise Type...">
+				<input id="type" type="text" class="form-control" placeholder="Enter Exercise Type...">
 			</div>
 			<div class="form-group">
 				<label for="source">Source</label>
-				<input type="text" class="form-control" placeholder="Enter Exercise Source...">
+				<input id="source" type="text" class="form-control" placeholder="Enter Exercise Source...">
 			</div>
 			<div class="form-group">
 				<label for="score">Score</label>
-				<input type="text" class="form-control" placeholder="Enter Score...">
+				<input id="score" type="text" class="form-control" placeholder="Enter Score...">
 			</div>
 			<div class="form-group">
 				<label for="age">Age</label>
-				<input type="text" class="form-control" placeholder="Enter Age...">
+				<input id="age" type="text" class="form-control" placeholder="Enter Age...">
 			</div>
 		</form>
 	</div>
@@ -49,7 +49,7 @@
 		<form>
 			<div class="form-group">
 				<label for="aggregateScore">Aggregate Score</label>
-				<input type="text" disabled class="form-control">
+				<input id="aggregateScore" type="text" disabled class="form-control">
 			</div>
 			<div class="form-group">
 				<label for="storeInDatabase">Store in Database</label>
