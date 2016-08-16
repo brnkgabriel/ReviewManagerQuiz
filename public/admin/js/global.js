@@ -1,4 +1,11 @@
 var navSelection = localStorage.getItem('selectedPageNav');
+var studentJSONScore = {date: "", 
+						exercise: "", 
+						type: "", 
+						source: "", 
+						score: "",
+						currentage: "",
+						aggregate: ""};
 
 jQuery(document).ready(function(){ 
 	// document.location.reload(1);
@@ -23,13 +30,21 @@ jQuery(document).ready(function(){
 	jQuery('#profile, #quiz, #ranking').click(function(){
 		navSelection = jQuery(this).attr('id'); 
 		switchNavigationAndPageContent(navSelection, profile, quiz, ranking);  
-		
 	});
 	
 	// Click listener & handler for the logout button
 	jQuery('#logout').click(function(){
 		localStorage.clear(); 
 	});
+
+	jQuery('input, select').blur(function(){
+		if(jQuery(this).attr("id") === "listOfStudents")
+			console.log(jQuery(this).val());
+		else
+			console.log(jQuery(this).val());	
+	}); 
+
+
 
 	function switchNavigationAndPageContent(navSelection, profile, quiz, ranking){
 		switch(navSelection){

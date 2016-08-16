@@ -2,8 +2,8 @@
 	session_start();
 	include '../../sys/config/connection.php';
 	
-	if($_POST){
-		$q = "SELECT * FROM users WHERE email = '$_POST[email]' AND password = sha1('$_POST[password]')";
+	if($_POST){ 
+		$q = "CALL selectFromUsers('".$_POST["email"]."', '".$_POST["password"]."')";
 		$r = mysqli_query($dbc, $q);
 		
 		if(mysqli_num_rows($r) == 1){

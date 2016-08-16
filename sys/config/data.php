@@ -1,5 +1,5 @@
 <?php
-
+	// Contains utility functions for getting values from a table
 	function userProfile($dbc, $id, $tableName){
 		if(is_numeric($id))
 			$cond = "WHERE id = '$id'";

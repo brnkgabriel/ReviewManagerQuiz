@@ -6,4 +6,5 @@
 		echo "session not set";
 	}
 	$user = userProfile($dbc, $_SESSION['email'], 'users');
+	$allStudents = getAllDataFromTable($dbc, 'profiles');
 ?>
