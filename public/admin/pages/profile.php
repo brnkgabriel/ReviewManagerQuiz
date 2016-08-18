@@ -21,7 +21,7 @@
 			</div>
 			<div class="form-group">
 				<label for="date">Date</label>
-				<input id="date" type="text" class="form-control" placeholder="Enter Date...">
+				<input id="date" type="date" class="form-control" placeholder="Enter Date...">
 			</div>
 			<div class="form-group">
 				<label for="exercise">Exercise</label>
@@ -40,8 +40,8 @@
 				<input id="score" type="text" class="form-control" placeholder="Enter Score...">
 			</div>
 			<div class="form-group">
-				<label for="age">Age</label>
-				<input id="age" type="text" class="form-control" placeholder="Enter Age...">
+				<label for="currentage">Current Age</label>
+				<input id="currentage" type="text" class="form-control" placeholder="Enter Current Age...">
 			</div>
 		</form>
 	</div>
@@ -54,8 +54,9 @@
 			<div class="form-group">
 				<label for="storeInDatabase">Store in Database</label>
 				<br>
-				<button type="submit" id="storeInDatabase" class="btn btn-default">Store in Database</button>
+				<button type="button" id="storeInDatabase" class="btn btn-default">Store in Database</button>
 			</div> 
 		</form>
 	</div>
 </div>
+ 

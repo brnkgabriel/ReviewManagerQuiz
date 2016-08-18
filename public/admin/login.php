@@ -7,8 +7,8 @@
 		$r = mysqli_query($dbc, $q);
 		
 		if(mysqli_num_rows($r) == 1){
-			$_SESSION['email'] = $_POST['email'];
-			header('Location: index.php');
+			$_SESSION['username'] = $_POST['email'];
+			header('Location: adminIndex.php');
 		}
 	}
 	

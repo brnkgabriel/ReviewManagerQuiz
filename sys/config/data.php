@@ -35,4 +35,5 @@
 			return 0;
 		return ($array1['totalAggregate'] < $array2['totalAggregate']) ? -1 : 1;
 	}
+	
 ?>

@@ -1,17 +1,21 @@
 var navSelection = localStorage.getItem('selectedPageNav');
+var errorMessage = ""; 
 var studentJSONScore = {date: "", 
 						exercise: "", 
 						type: "", 
 						source: "", 
 						score: "",
 						currentage: "",
-						aggregate: ""};
+						aggregate: "",
+						first: "",
+						last: ""};
 var MINIMUM_AGE = 10;
+var amIPermittedToStoreInDatabase = false;
 
 jQuery(document).ready(function(){ 
-	// document.location.reload(1);
-	if(!localStorage.getItem("refreshPageOnce")){
-		localStorage.setItem("refreshPageOnce", "true");
+
+	if(!localStorage.getItem("refreshPageOnceAdmin")){
+		localStorage.setItem("refreshPageOnceAdmin", "true");
 		window.location.reload();
 	}
 
@@ -34,50 +38,81 @@ jQuery(document).ready(function(){
 	});
 	
 	// Click listener & handler for the logout button
-	jQuery('#logout').click(function(){
-		localStorage.clear(); 
+	jQuery('#logout').click(function(){localStorage.clear();}); 
+
+	jQuery('#currentage').blur(function(){processAggregateScore();}); 
+
+	jQuery('#storeInDatabase').click(function(){ 
+		errorMessage = "";
+		processAggregateScore();
+		getErrorMessage();
+		storeInputsInStudentJSONScore();
+		if(errorMessage !== "") {
+			alert(errorMessage); 
+			amIPermittedToStoreInDatabase = false;
+		}else{
+			amIPermittedToStoreInDatabase = true;
+		}
+
+		if(amIPermittedToStoreInDatabase === true){
+			if(jQuery('#listOfStudents').val() === "Select a Student...")
+				alert("Select a Student...");
+			else{
+				splitStudentNames();
+				sendToDatabase();
+			}
+		} 
 	});
-
-	jQuery('#age').blur(function(){
-		var errorMessage = ""; 
-		errorMessage += getErrorMessageOrStoreInputsInStudentJSONScore();
-		errorMessage += getErrorMessageOrProcessAggregateScore();
-
-		if(errorMessage === ""){ 
-			console.log(studentJSONScore);
-		}else{
-			alert(errorMessage);
-		}
-	}); 
-
 	
-	function getErrorMessageOrProcessAggregateScore(){
-		var errorMessage = "";
-		var score = jQuery('#score').val();
-		var age = jQuery('#age').val();
-		var aggregateScoreValue;
-
-		if(jQuery.isNumeric(age) && jQuery.isNumeric(score) && age > MINIMUM_AGE){
-			// Round aggregate score to 3 decimal places
-			aggregateScoreValue = Math.round(score * 1000 / age) / 1000;
-			jQuery('#aggregateScore').val(aggregateScoreValue);  
-			assembleStudentJSONScore('aggregateScore', aggregateScoreValue);
-		}else{
-			errorMessage += "Either age or score or both are not invalid";
-		}
-		return errorMessage;
+	function splitStudentNames(){
+		var joinedStudentNames = jQuery('#listOfStudents').val();
+		var firstAndLastName = joinedStudentNames.split(" ");
+		assembleStudentJSONScore('first', firstAndLastName[0]);
+		assembleStudentJSONScore('last', firstAndLastName[1]); 
 	}
 
-	function getErrorMessageOrStoreInputsInStudentJSONScore(){
-		var errorMessage = "";
-		jQuery('input:not(#aggregateScore)').each(function(i, element){
+	function sendToDatabase(){ 
+		jQuery.ajax({
+			type 	: "POST",
+			url	 	: "../../sys/config/storeInDB.php",
+			data 	: studentJSONScore,
+			success : function(data){
+				console.log(data);
+			}
+		});
+	}
+
+	function processAggregateScore(){ 
+		var score = jQuery('#score').val();
+		var age = jQuery('#currentage').val();
+		var aggregateScoreValue;
+
+		aggregateScoreValue = Math.round(score * 1000 / age) / 1000; 
+		if(jQuery.isNumeric(age) && jQuery.isNumeric(score) && age >= MINIMUM_AGE){
+			// Round aggregate score to 3 decimal places
+			assembleStudentJSONScore('aggregateScore', aggregateScoreValue);
+			jQuery('#aggregateScore').val(aggregateScoreValue); 
+		}else
+			jQuery('#aggregateScore').val("check age or score or both (age > 9)"); 
+	}
+
+	function getErrorMessage(){ 
+		jQuery('input').each(function(i, element){
 			var elementValue = jQuery(element).val(); 
-			if(jQuery.trim(elementValue) === "")
-				errorMessage += jQuery(element).attr("placeholder") + "\n";
-			else
-				assembleStudentJSONScore(jQuery(element).attr('id'), elementValue);
+			if(jQuery.trim(elementValue) === "" || jQuery.trim(elementValue) === "check age or score or both (age > 9)"){
+				if(jQuery(element).attr('id') === "aggregateScore")
+					errorMessage += "Either age or score or both are not invalid \n";
+				else
+					errorMessage += jQuery(element).attr("placeholder") + "\n";
+			}
+		});   
+	}
+
+	function storeInputsInStudentJSONScore(){
+		jQuery('input').each(function(i, element){
+			var elementValue = jQuery(element).val(); 
+			assembleStudentJSONScore(jQuery(element).attr('id'), elementValue);
 		}); 
-		return errorMessage;
 	}
 
 	function assembleStudentJSONScore(id, value){ 
@@ -97,11 +132,17 @@ jQuery(document).ready(function(){
 			case 'score':
 				studentJSONScore.score = value;
 				break;
-			case 'age':
-				studentJSONScore.age = value;
+			case 'currentage':
+				studentJSONScore.currentage = value;
 				break;
 			case 'aggregateScore':
 				studentJSONScore.aggregate = value;
+				break;
+			case 'first':
+				studentJSONScore.first = value;
+				break;
+			case 'last':
+				studentJSONScore.last = value;
 				break;
 		}
 	}
@@ -111,17 +152,17 @@ jQuery(document).ready(function(){
 			case 'profile': 
 				localStorage.setItem('selectedPageNav', 'profile');
 				activateSelectedAndDeactivateTheRest(profile, quiz, ranking); 
-				jQuery('#centerStage').html(localStorage.getItem('profileData'));
+				jQuery('#centerStage').html(localStorage.getItem('profileDataAdmin'));
 				break;
 			case 'quiz':
 				localStorage.setItem('selectedPageNav', 'quiz');
 				activateSelectedAndDeactivateTheRest(quiz, profile, ranking);
-				jQuery('#centerStage').html(localStorage.getItem('quizData'));
+				jQuery('#centerStage').html(localStorage.getItem('quizDataAdmin'));
 				break;
 			case 'ranking':
 				localStorage.setItem('selectedPageNav', 'ranking');
 				activateSelectedAndDeactivateTheRest(ranking, profile, quiz);
-				jQuery('#centerStage').html(localStorage.getItem('rankingData'));
+				jQuery('#centerStage').html(localStorage.getItem('rankingDataAdmin'));
 				break;
 			default:
 				break; 
@@ -138,19 +179,19 @@ jQuery(document).ready(function(){
 		jQuery.ajax({
 			url		: 'pages/profile.php',
 			success : function(data){ 
-				localStorage.setItem('profileData', data);
+				localStorage.setItem('profileDataAdmin', data);
 			}
 		});
 		jQuery.ajax({
 			url		: 'pages/quiz.php',
 			success : function(data){  
-				localStorage.setItem('quizData', data);
+				localStorage.setItem('quizDataAdmin', data);
 			}
 		}); 
 		jQuery.ajax({
 			url		: 'pages/ranking.php',
 			success : function(data){  
-				localStorage.setItem('rankingData', data);
+				localStorage.setItem('rankingDataAdmin', data);
 			}
 		});
 	} 

@@ -17,7 +17,7 @@
 					</div>
 					<div class="col-md-6" align="center">
 						<p>Pos(<strong><?php echo $user['position']; ?></strong>)</p>
-						<p>Agg(<strong><?php echo $user['totalAggregate']; ?></strong>)</p> 
+						<p>Agg(<strong><?php echo $totalAggregate; ?></strong>)</p> 
 					</div><!-- end position and aggregate panel -->
 				</div><!-- end biodata row -->
 			</div><!-- end biodata panel body -->
