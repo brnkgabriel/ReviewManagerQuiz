@@ -15,5 +15,3 @@
 	$totalAggregate = addAllAggregateScores($dbc, $tableScoresName);
 	echo "\n" . $totalAggregate;
 ?> 
-
-

@@ -26,7 +26,7 @@
 	<div class="col-md-8"> 
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h3 class="panel-title">Attributes</h3>
+				<h3 class="panel-title">Score Trend</h3>
 			</div>
 			<div class="panel-body">
 				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
@@ -72,8 +72,7 @@
 									<td><?php echo $student_scores[$i]['currentage'] ?></td>
 									<td><?php echo $student_scores[$i]['aggregate'] ?></td>
 								</tr>
-						<?php }?>
-						
+						<?php }?> 
 					</tbody><!-- end score history tbody -->
 				</table><!-- end score history table -->
 			</div><!-- end score history panel body -->

@@ -1,6 +1,5 @@
 <?php
 // Contains utility functions for updating values in a table
-	
 function queryDbForExistingEntry($dbc, $id, $tableName){
 	$cond = "WHERE date = '$id'";
 	
@@ -25,8 +24,7 @@ function addToOrUpdateDatabase($tableName, $dbc, $q, $action){
 function addAllAggregateScores($dbc, $tableScoresName){
 	$q = "SELECT aggregate FROM $tableScoresName";
 	$r = mysqli_query($dbc, $q);
-	
-	//Copy result into a associative array
+	 
 	$data = $r->fetch_all(MYSQLI_ASSOC);  
 	
 	$dataLength = count($data);
@@ -47,14 +45,12 @@ function insertToOrUpdateTable($dbc, $tableScoresName, $queryType, $date, $exerc
 			$q = "UPDATE $tableScoresName SET exercise = ?, type = ?, source = ?, score = ?, currentage = ?, aggregate = ? WHERE date = ?";
 			$stmt = $dbc->prepare($q);
 			$stmt->bind_param('sssssss', $exercise, $type, $source, $score, $currentage, $aggregate, $date);  
-			
 			break;
 		case 'insert':
 			echo "Entry doesn't exist" . "\n";
 			$q = "INSERT INTO $tableScoresName (date,exercise,type,source,score,currentage,aggregate) VALUES (?, ?, ?, ?, ?, ?, ?)";
 			$stmt = $dbc->prepare($q);
-			$stmt->bind_param('sssssss', $date, $exercise, $type, $source, $score, $currentage, $aggregate); 
-			
+			$stmt->bind_param('sssssss', $date, $exercise, $type, $source, $score, $currentage, $aggregate);  
 			break;
 	}
 	$stmt->execute();  

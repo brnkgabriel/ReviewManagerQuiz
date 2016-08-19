@@ -18,6 +18,5 @@
 	updateProfilesTable($dbc, 'age', $student_scores[$student_scores_length - 1]['currentage'], 'totalAggregate', $total_aggregate);
 	updatePositionAndPrice($dbc, $studentProfilesForPositionAndPrize, $total_prize); 
 	
-	$student_profiles = numericallyOrderedStudentProfiles($dbc, 'profiles');  
-	
+	$student_profiles = numericallyOrderedStudentProfiles($dbc, 'profiles');   
 ?>
