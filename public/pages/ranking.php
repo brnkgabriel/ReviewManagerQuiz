@@ -16,20 +16,22 @@
 							<th>Name</th> 
 							<th>Age</th>
 							<th>Aggregate</th>
-							<th>Prize($)</th> 
+							<th><?php echo "Prize($" . $total_prize . ")"; ?></th> 
 						</tr>
 					</thead>
 					<tbody> 
 						<?php 
-							$tableSize = count($rankProfile);   
+							$tableSize = count($student_profiles);
+							// in the student_profiles array the position is from last to first
+							// that's why the counter $i below starts from the last index to get the first position
 							for($i = $tableSize - 1; $i > -1; $i--){ 
 						?>
 								<tr>
-									<td><?php echo $rankProfile[$i]['position'] ?></td>
-									<td><?php echo $rankProfile[$i]['first'] . ' ' . $rankProfile[$i]['last'] ?></td>
-									<td><?php echo $rankProfile[$i]['age'] ?></td>
-									<td><?php echo $rankProfile[$i]['totalAggregate'] ?></td>
-									<td><?php echo $rankProfile[$i]['prize'] ?></td> 
+									<td><?php echo $student_profiles[$i]['position'] ?></td>
+									<td><?php echo $student_profiles[$i]['first'] . ' ' . $student_profiles[$i]['last'] ?></td>
+									<td><?php echo $student_profiles[$i]['age'] ?></td>
+									<td><?php echo $student_profiles[$i]['totalAggregate'] ?></td>
+									<td><?php echo $student_profiles[$i]['prize'] ?></td> 
 								</tr>
 						<?php }?>
 					</tbody><!-- end score history tbody -->

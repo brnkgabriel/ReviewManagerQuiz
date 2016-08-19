@@ -11,13 +11,13 @@
 			<div class="panel-body">
 				<div class="row">
 					<div class="col-md-6" align="center">
-						<p><img src=<?php echo "images/".$user['first'].$user['last'].'.png'; ?> alt="Image Icon"/></p>
-						<p id="userName"><?php echo $user['first'].' '.$user['last']; ?></p> 
-						<p><?php echo $user['age'].'yrs'; ?></p>
+						<p><img src=<?php echo "images/".$student_profile['first'].$student_profile['last'].'.png'; ?> alt="Image Icon"/></p>
+						<p id="student_profileName"><?php echo $student_profile['first'].' '.$student_profile['last']; ?></p> 
+						<p><?php echo $student_profile['age'].'yrs'; ?></p>
 					</div>
 					<div class="col-md-6" align="center">
-						<p>Pos(<strong><?php echo $user['position']; ?></strong>)</p>
-						<p>Agg(<strong><?php echo $totalAggregate; ?></strong>)</p> 
+						<p>Pos(<strong><?php echo $student_profile['position']; ?></strong>)</p>
+						<p>Agg(<strong><?php echo $total_aggregate; ?></strong>)</p> 
 					</div><!-- end position and aggregate panel -->
 				</div><!-- end biodata row -->
 			</div><!-- end biodata panel body -->
@@ -60,17 +60,17 @@
 					</thead>
 					<tbody id="scoreHistoryTableBody">
 						<?php 
-							$tableSize = count($user_scores);   
+							$tableSize = count($student_scores);   
 							for($i = $tableSize - 1; $i > -1; $i--){ 
 						?>
 								<tr>
-									<td><?php echo $user_scores[$i]['date'] ?></td>
-									<td><?php echo $user_scores[$i]['exercise'] ?></td>
-									<td><?php echo $user_scores[$i]['type'] ?></td>
-									<td><?php echo $user_scores[$i]['source'] ?></td>
-									<td><?php echo $user_scores[$i]['score'] ?></td>
-									<td><?php echo $user_scores[$i]['currentage'] ?></td>
-									<td><?php echo $user_scores[$i]['aggregate'] ?></td>
+									<td><?php echo $student_scores[$i]['date'] ?></td>
+									<td><?php echo $student_scores[$i]['exercise'] ?></td>
+									<td><?php echo $student_scores[$i]['type'] ?></td>
+									<td><?php echo $student_scores[$i]['source'] ?></td>
+									<td><?php echo $student_scores[$i]['score'] ?></td>
+									<td><?php echo $student_scores[$i]['currentage'] ?></td>
+									<td><?php echo $student_scores[$i]['aggregate'] ?></td>
 								</tr>
 						<?php }?>
 						

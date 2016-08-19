@@ -86,7 +86,7 @@ jQuery(document).ready(function(){
 		var score = jQuery('#score').val();
 		var age = jQuery('#currentage').val();
 		var aggregateScoreValue;
-
+		console.log("Processing Aggregate");
 		aggregateScoreValue = Math.round(score * 1000 / age) / 1000; 
 		if(jQuery.isNumeric(age) && jQuery.isNumeric(score) && age >= MINIMUM_AGE){
 			// Round aggregate score to 3 decimal places

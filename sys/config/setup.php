@@ -3,28 +3,21 @@
 	include 'data.php';
 	include 'dataAdmin.php';
  
-	if(!isset($_SESSION['email'])){
-		echo "session not set";
-	}
-	// 	Get user profile
-	$user = userProfile($dbc, $_SESSION['email'], 'profiles');
+	if(!isset($_SESSION['email']))
+		echo "session not set"; 
 	
-	// 	Get user scores
-	$tableName = $user['first'] . $user['last'] . 'scores';
-	$tableName = strtolower($tableName);
-	$totalAggregate = addAllAggregateScores($dbc, $tableName);
+	$student_profile = getFromTable($dbc, $_SESSION['email'], 'profiles'); 
+	$student_scores = getFromTable($dbc, "", getStudentScoresTableName($student_profile)); 
+	$total_aggregate = addAllAggregateScores($dbc, getStudentScoresTableName($student_profile)); 
+	$prizes = getFromTable($dbc, "", 'prizes');
+	$total_prize = getTotalPrize($prizes);
+	$student_scores_length = count($student_scores);
+	$studentProfilesForPositionAndPrize = numericallyOrderedStudentProfiles($dbc, 'profiles');
+	 
+	updateProfilesTable($dbc, 'totalAggregate', $total_aggregate, 'email', $_SESSION['email']);
+	updateProfilesTable($dbc, 'age', $student_scores[$student_scores_length - 1]['currentage'], 'totalAggregate', $total_aggregate);
+	updatePositionAndPrice($dbc, $studentProfilesForPositionAndPrize, $total_prize); 
 	
-	updateProfilesTable($dbc, $totalAggregate, $_SESSION['email']); 
+	$student_profiles = numericallyOrderedStudentProfiles($dbc, 'profiles');  
 	
-	$user_scores = getAllDataFromTable($dbc, $tableName);
-	// 	Get ranking table 
-	$rankProfile = numericallyOrderedUserProfiles($dbc, 'profiles');  
-	
-	function updateProfilesTable($dbc, $totalAggregate, $email){ 
-		$q = "UPDATE profiles SET totalAggregate = ? WHERE email = ?"; 
-		$stmt = $dbc->prepare($q);
-		$stmt->bind_param('ss', $totalAggregate, $email);
-		$stmt->execute();  
-		$stmt->close(); 
-	} 
 ?>

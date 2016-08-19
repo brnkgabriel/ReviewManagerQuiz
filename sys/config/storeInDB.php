@@ -13,6 +13,7 @@
 	$currentage = mysqli_real_escape_string($dbc, $_POST['currentage']);
 	$aggregate = mysqli_real_escape_string($dbc, $_POST['aggregate']);
 
+	print_r($_POST);
 	
 	$doesEntryExist = "";
 	
