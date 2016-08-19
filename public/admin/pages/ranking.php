@@ -1,4 +1,4 @@
 <?php  
 	session_start();
-	include '../../../sys/config/setupAdmin.php';
+	include_once '../../../sys/config/setupAdmin.php';
 ?>

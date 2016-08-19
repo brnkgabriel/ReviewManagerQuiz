@@ -54,9 +54,7 @@
 			$totalPrize += $prizes[$i]['amount']; 
 		return $totalPrize; 
 	}
-	
-	
-	
+	 
 // 	Thinking why one user should alter the table of everyone's entry
 //  This ought to be because one's position affects the others meaning if one person goes up others have to go down
 	function updatePositionAndPrice($dbc, $profiles, $totalPrize){

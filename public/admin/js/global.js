@@ -1,4 +1,4 @@
-var navSelection = localStorage.getItem('selectedPageNav');
+var navSelection = localStorage.getItem('selectedPageNavAdmin');
 var errorMessage = ""; 
 var studentJSONScore = {date: "", 
 						exercise: "", 
@@ -85,8 +85,7 @@ jQuery(document).ready(function(){
 	function processAggregateScore(){ 
 		var score = jQuery('#score').val();
 		var age = jQuery('#currentage').val();
-		var aggregateScoreValue;
-		console.log("Processing Aggregate");
+		var aggregateScoreValue; 
 		aggregateScoreValue = Math.round(score * 1000 / age) / 1000; 
 		if(jQuery.isNumeric(age) && jQuery.isNumeric(score) && age >= MINIMUM_AGE){
 			// Round aggregate score to 3 decimal places
@@ -150,17 +149,17 @@ jQuery(document).ready(function(){
 	function switchNavigationAndPageContent(navSelection, profile, quiz, ranking){
 		switch(navSelection){
 			case 'profile': 
-				localStorage.setItem('selectedPageNav', 'profile');
+				localStorage.setItem('selectedPageNavAdmin', 'profile');
 				activateSelectedAndDeactivateTheRest(profile, quiz, ranking); 
 				jQuery('#centerStage').html(localStorage.getItem('profileDataAdmin'));
 				break;
 			case 'quiz':
-				localStorage.setItem('selectedPageNav', 'quiz');
+				localStorage.setItem('selectedPageNavAdmin', 'quiz');
 				activateSelectedAndDeactivateTheRest(quiz, profile, ranking);
 				jQuery('#centerStage').html(localStorage.getItem('quizDataAdmin'));
 				break;
 			case 'ranking':
-				localStorage.setItem('selectedPageNav', 'ranking');
+				localStorage.setItem('selectedPageNavAdmin', 'ranking');
 				activateSelectedAndDeactivateTheRest(ranking, profile, quiz);
 				jQuery('#centerStage').html(localStorage.getItem('rankingDataAdmin'));
 				break;

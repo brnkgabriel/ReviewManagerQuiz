@@ -37,4 +37,27 @@ function addAllAggregateScores($dbc, $tableScoresName){
 	
 	return $totalAggregate;
 }
+
+function insertToOrUpdateTable($dbc, $tableScoresName, $queryType, $date, $exercise, $type, $source, $score, $currentage, $aggregate){
+	$q = "";
+	$stmt;
+	switch ($queryType) {
+		case 'update':
+			echo "Entry Exists" . "\n";
+			$q = "UPDATE $tableScoresName SET exercise = ?, type = ?, source = ?, score = ?, currentage = ?, aggregate = ? WHERE date = ?";
+			$stmt = $dbc->prepare($q);
+			$stmt->bind_param('sssssss', $exercise, $type, $source, $score, $currentage, $aggregate, $date);  
+			
+			break;
+		case 'insert':
+			echo "Entry doesn't exist" . "\n";
+			$q = "INSERT INTO $tableScoresName (date,exercise,type,source,score,currentage,aggregate) VALUES (?, ?, ?, ?, ?, ?, ?)";
+			$stmt = $dbc->prepare($q);
+			$stmt->bind_param('sssssss', $date, $exercise, $type, $source, $score, $currentage, $aggregate); 
+			
+			break;
+	}
+	$stmt->execute();  
+	$stmt->close();
+}
 ?>

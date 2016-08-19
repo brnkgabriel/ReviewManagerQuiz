@@ -1,7 +1,6 @@
 var navSelection = localStorage.getItem('selectedPageNav');
 
 jQuery(document).ready(function(){ 
-	// document.location.reload(1);
 	if(!localStorage.getItem("refreshPageOnce")){
 		localStorage.setItem("refreshPageOnce", "true");
 		window.location.reload();

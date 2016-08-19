@@ -1,6 +1,6 @@
 <?php 
 	session_start();
-	include '../sys/config/connection.php';
+	include_once '../sys/config/connection.php';
 	
 	if($_POST){ 
 		$q = "CALL selectFromProfiles('".$_POST["email"]."', '".$_POST["password"]."')";

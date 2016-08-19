@@ -1,6 +1,6 @@
 <?php   
 	session_start();
-	include '../../sys/config/setup.php'; 
+	include_once '../../sys/config/setup.php'; 
 ?>
 <div class="row">
 	<div class="col-md-4">

@@ -1,6 +1,6 @@
 <?php   
 	session_start();
-	include '../../../sys/config/setupAdmin.php';  
+	include_once '../../../sys/config/setupAdmin.php';  
 ?>
 <div class="row">
 	<div class="col-md-4 col-md-offset-2">

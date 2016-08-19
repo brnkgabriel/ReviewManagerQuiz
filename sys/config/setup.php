@@ -1,7 +1,7 @@
 <?php  
-	include 'connection.php';
-	include 'data.php';
-	include 'dataAdmin.php';
+	include_once 'connection.php';
+	include_once 'data.php';
+	include_once 'dataAdmin.php';
  
 	if(!isset($_SESSION['email']))
 		echo "session not set"; 

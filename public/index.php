@@ -2,8 +2,8 @@
 	session_start();
 	if(!isset($_SESSION['email']))
 		header('Location: login.php');
-	
-	include '../sys/config/setup.php';
+	 
+	include_once '../sys/config/setup.php';
 ?>
 <!DOCTYPE html>
 <html>
