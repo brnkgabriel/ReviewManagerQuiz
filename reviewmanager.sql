@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 19, 2016 at 04:39 AM
+-- Generation Time: Aug 20, 2016 at 02:32 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -741,15 +741,14 @@ CREATE TABLE IF NOT EXISTS `prizes` (
   `donor` varchar(50) NOT NULL,
   `amount` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `prizes`
 --
 
 INSERT INTO `prizes` (`id`, `donor`, `amount`) VALUES
-(1, 'Lanre Ibironke', '400'),
-(2, 'Mrs Shonde', '20');
+(1, 'Lanre Ibironke', '300');
 
 -- --------------------------------------------------------
 
@@ -767,33 +766,35 @@ CREATE TABLE IF NOT EXISTS `profiles` (
   `totalAggregate` varchar(200) NOT NULL,
   `position` varchar(200) NOT NULL,
   `prize` varchar(100) NOT NULL,
+  `color` varchar(10) NOT NULL,
+  `initials` varchar(2) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=32 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
 
 --
 -- Dumping data for table `profiles`
 --
 
-INSERT INTO `profiles` (`id`, `first`, `last`, `age`, `email`, `password`, `totalAggregate`, `position`, `prize`) VALUES
-(1, 'Timilehin', 'Adeosun', '14', 'fijitimi9900@gmail.com', 'cf6ad41c68eff82a4b248859f66af75cfabfc1ca', '71.472', '1st', '81'),
-(2, 'Eniola', 'Adewunmi', '16', 'iamboothang@gmail.com', 'cfefb695b6c30eb74335258988904b48eb8160d7', '58.274', '3rd', '66'),
-(3, 'Desola', 'Oladipupo', '16', 'desolaoladipupo@gmail.com', '10ef79bcfec75896db4779c6161919edd8167006', '37.566', '6th', '44'),
-(4, 'Wadud', 'Adamu', '14', 'swagpancakeyt@gmail.com', '55d483cea004e568cfdec7db383fceff2e745e86', '36.688', '7th', '43'),
-(5, 'Sefunmi', 'Adewunmi', '11', 'sefunmiadewumi8@gmail.com', '500c61e8fc1874799016e9f31acc6783f4697318', '63.582', '2nd', '72'),
-(6, 'Fola', 'Adeniyi', '10', 'folaadeniyi@gmail.com', '42b2edd950b35110362d8fcd8af278fc7f484603', '53', '4th', '60'),
-(7, 'Ayo', 'Adewusi', '14', 'roselene.johnson@gmail.com', 'ef9e7e0a0b43106d89fe400b0d0f5e3e772273f5', '24.077', '11th', '0'),
-(8, 'Michael', 'Alofe', '17', 'alofealofe@gmail.com', 'c8c254100e613b98e60b5bfc29b8929d70d6d8c4', '44.821', '5th', '53'),
-(9, 'Demilade', 'Oladipupo', '15', 'demmy.oladipupo01@gmail.com', '6419b672975226a3017fa423d9f14df000da159b', '31.428', '10th', '0'),
-(10, 'Funto', 'Adeniyi', '13', 'funtoadeniyi2016@yahoo.com', 'd85930a2b3bfa82b5c2d3c7b3023e54e33605f2e', '36.377', '8th', '0'),
-(11, 'Esther', 'Shonde', '15', 'esthershonde@gmail.com', '3f909d3d73f921605090add7f56ce1670995a7d4', '19.323', '14th', '0'),
-(12, 'Elizabeth', 'Shonde', '11', 'elizabethshonde@gmail.com', 'ffccf3a8126cce6efd829913babf3ff9a2cc8d7f', '21.545', '12th', '0'),
-(13, 'Oyin', 'Alofe', '11', 'oyinalofe@gmail.com', '217ec76423ce9bfc37dbb5b392985f5c18c4f018', '32.908', '9th', '0'),
-(14, 'Elijah', 'Shonde', '13', 'elijahshonde@gmail.com', 'b8e11e2d4cf35d6e1c7df1db642f7a4fea4921d6', '18.386', '15th', '0'),
-(15, 'Shola', 'Apetuje', '17', 'adekumbiapetuje@gmail.com', 'c9f8cd9e55eac309f406f540f4e7f91a92bd54b3', '12.707', '18th', '0'),
-(16, 'Tolu', 'Apetuje', '15', 'toluapetuje@gmail.com', '114b218c1f97e835a64b6e2f236c96624a011d24', '19.533', '13th', '0'),
-(17, 'Ebubechukwu', 'Igwegbe', '13', 'ebubechukwuigwegbe@gmail.com', '26d64a4d4b5a2a6eef1d7372e3a565bfed5e3295', '1.385', '19th', '0'),
-(18, 'David', 'Alamu', '15', 'jarvis.alamu@gmail.com', 'f5b470627f796cce9f3df5b1a271768b8f4b7295', '16.066', '16th', '0'),
-(19, 'Praise', 'Shonde', '10', 'praiseshonde@gmail.com', '3a2df635607564dca00cfed89bb2ec60b6df119b', '15.6', '17th', '0');
+INSERT INTO `profiles` (`id`, `first`, `last`, `age`, `email`, `password`, `totalAggregate`, `position`, `prize`, `color`, `initials`) VALUES
+(1, 'Timilehin', 'Adeosun', '14', 'fijitimi9900@gmail.com', 'cf6ad41c68eff82a4b248859f66af75cfabfc1ca', '71.472', '1st', '58', '690056', 'TA'),
+(2, 'Eniola', 'Adewunmi', '16', 'iamboothang@gmail.com', 'cfefb695b6c30eb74335258988904b48eb8160d7', '58.274', '3rd', '47', '1F54BF', 'EA'),
+(3, 'Desola', 'Oladipupo', '16', 'desolaoladipupo@gmail.com', '10ef79bcfec75896db4779c6161919edd8167006', '37.566', '6th', '32', '722386', 'DO'),
+(4, 'Wadud', 'Adamu', '14', 'swagpancakeyt@gmail.com', '55d483cea004e568cfdec7db383fceff2e745e86', '36.688', '7th', '31', '212334', 'WA'),
+(5, 'Sefunmi', 'Adewunmi', '11', 'sefunmiadewumi8@gmail.com', '500c61e8fc1874799016e9f31acc6783f4697318', '63.582', '2nd', '52', '730202', 'SA'),
+(6, 'Fola', 'Adeniyi', '10', 'folaadeniyi@gmail.com', '42b2edd950b35110362d8fcd8af278fc7f484603', '53', '4th', '43', 'D91A1A', 'FA'),
+(7, 'Ayo', 'Adewusi', '14', 'roselene.johnson@gmail.com', 'ef9e7e0a0b43106d89fe400b0d0f5e3e772273f5', '24.077', '11th', '0', '24870B', 'AA'),
+(8, 'Michael', 'Alofe', '17', 'alofealofe@gmail.com', 'c8c254100e613b98e60b5bfc29b8929d70d6d8c4', '44.821', '5th', '38', '242424', 'MA'),
+(9, 'Demilade', 'Oladipupo', '15', 'demmy.oladipupo01@gmail.com', '6419b672975226a3017fa423d9f14df000da159b', '31.428', '10th', '0', '010125', 'DO'),
+(10, 'Funto', 'Adeniyi', '13', 'funtoadeniyi2016@yahoo.com', 'd85930a2b3bfa82b5c2d3c7b3023e54e33605f2e', '36.377', '8th', '0', 'CC1E68', 'FA'),
+(11, 'Esther', 'Shonde', '15', 'esthershonde@gmail.com', '3f909d3d73f921605090add7f56ce1670995a7d4', '19.323', '14th', '0', '080B46', 'ES'),
+(12, 'Elizabeth', 'Shonde', '11', 'elizabethshonde@gmail.com', 'ffccf3a8126cce6efd829913babf3ff9a2cc8d7f', '21.545', '12th', '0', 'A60048', 'ES'),
+(13, 'Oyin', 'Alofe', '11', 'oyinalofe@gmail.com', '217ec76423ce9bfc37dbb5b392985f5c18c4f018', '32.908', '9th', '0', '3B0A4F', 'OA'),
+(14, 'Elijah', 'Shonde', '13', 'elijahshonde@gmail.com', 'b8e11e2d4cf35d6e1c7df1db642f7a4fea4921d6', '18.386', '15th', '0', '3F0E00', 'ES'),
+(15, 'Shola', 'Apetuje', '17', 'adekumbiapetuje@gmail.com', 'c9f8cd9e55eac309f406f540f4e7f91a92bd54b3', '12.707', '18th', '0', '291515', 'SA'),
+(16, 'Tolu', 'Apetuje', '15', 'toluapetuje@gmail.com', '114b218c1f97e835a64b6e2f236c96624a011d24', '19.533', '13th', '0', 'D13401', 'TA'),
+(17, 'Ebubechukwu', 'Igwegbe', '13', 'ebubechukwuigwegbe@gmail.com', '26d64a4d4b5a2a6eef1d7372e3a565bfed5e3295', '1.385', '19th', '0', '80305D', 'EI'),
+(18, 'David', 'Alamu', '15', 'jarvis.alamu@gmail.com', 'f5b470627f796cce9f3df5b1a271768b8f4b7295', '16.066', '16th', '0', '200F0D', 'DA'),
+(19, 'Praise', 'Shonde', '10', 'praiseshonde@gmail.com', '3a2df635607564dca00cfed89bb2ec60b6df119b', '15.6', '17th', '0', 'F5100C', 'PS');
 
 -- --------------------------------------------------------
 
@@ -913,7 +914,7 @@ CREATE TABLE IF NOT EXISTS `timilehinadeosunscores` (
   `currentage` mediumint(9) NOT NULL,
   `aggregate` varchar(200) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=45 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=44 ;
 
 --
 -- Dumping data for table `timilehinadeosunscores`
