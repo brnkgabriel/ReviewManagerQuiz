@@ -63,3 +63,8 @@ body{
   color: #ffffff;
   background-color: #080808;
 }
+
+.tab-pane p, .panel-body p, .panel-title a {
+	text-align: center;
+}
+

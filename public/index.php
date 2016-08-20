@@ -38,6 +38,9 @@
 			.panel .panel-heading{
 				background-color: <?php echo "#" . $student_profile['color']; ?>
 			}
+			.panel .panel-body .nav li a{
+				color: <?php echo "#" . $student_profile['color']; ?>;
+			}
 		</style>
 		<title>HPM-Youths</title>
 	</head>
