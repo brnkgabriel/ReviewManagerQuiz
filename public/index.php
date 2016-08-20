@@ -38,12 +38,6 @@
 			.panel .panel-heading{
 				background-color: <?php echo "#" . $student_profile['color']; ?>
 			}
-			.panel .panel-heading .panel-title{
-				color: white;
-			}
-			.navbar-inverse{
-				border-color: white;
-			}
 		</style>
 		<title>HPM-Youths</title>
 	</head>
@@ -53,7 +47,7 @@
 		<nav class="navbar navbar-inverse" role="navigation"> 
 			<div class="container-fluid">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="#">Harvest Point Ministries Youths</a>
+					<a class="navbar-brand" href="#"><strong>Harvest Point Ministries (Youths)</strong></a>
 					<button class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>

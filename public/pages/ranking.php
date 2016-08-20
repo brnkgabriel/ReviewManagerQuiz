@@ -16,7 +16,7 @@
 							<th>Colors</th>
 							<th>Name</th> 
 							<th>Age</th>
-							<th>Aggregate</th>
+							<th>Total Aggregate</th>
 							<th><?php echo "Prize($" . $total_prize . ")"; ?></th> 
 						</tr>
 					</thead>
