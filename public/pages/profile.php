@@ -1,7 +1,7 @@
 <?php   
 	session_start();
 	include_once '../../sys/config/setup.php'; 
-?>
+?> 
 <div class="row">
 	<div class="col-md-4">
 		<div class="panel panel-default">
@@ -11,7 +11,7 @@
 			<div class="panel-body">
 				<div class="row">
 					<div class="col-md-6" align="center">
-						<p><img src=<?php echo "images/".$student_profile['first'].$student_profile['last'].'.png'; ?> alt="Image Icon"/></p>
+						<p><div id="circle" style="background: <?php echo "#" . $student_profile['color']; ?>"><span id="verticalAlignmentWithinCircle"><strong style="color:white;"><?php echo $student_profile['initials']; ?></strong></span></div></p>
 						<p id="student_profileName"><?php echo $student_profile['first'].' '.$student_profile['last']; ?></p> 
 						<p><?php echo $student_profile['age'].'yrs'; ?></p>
 					</div>

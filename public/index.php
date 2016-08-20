@@ -31,8 +31,20 @@
 		<link rel="stylesheet" href="css/jquery-ui.css">
 		<link rel="stylesheet" href="css/bootstrap-glyphicons.css">
 		<link rel="stylesheet" href="css/myCSSFile.css">
-
-
+		<style>
+			.navbar{
+				background-color: <?php echo "#" . $student_profile['color']; ?>
+			}
+			.panel .panel-heading{
+				background-color: <?php echo "#" . $student_profile['color']; ?>
+			}
+			.panel .panel-heading .panel-title{
+				color: white;
+			}
+			.navbar-inverse{
+				border-color: white;
+			}
+		</style>
 		<title>HPM-Youths</title>
 	</head>
 	<body>
@@ -69,7 +81,7 @@
 		</nav> 
 		<br><br>
 		<!-- Body -->
-		<div id="centerStage" class="container-fluid">
+		<div id="centerStage" class="container-fluid" style="color:<?php echo "#" . $student_profile['color']; ?>;">
 			
 		</div>
 	</body>
