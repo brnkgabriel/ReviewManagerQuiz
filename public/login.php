@@ -8,7 +8,7 @@
 		
 		if(mysqli_num_rows($r) == 1){
 			$_SESSION['email'] = $_POST['email'];
-			header('Location: index.php');
+			header('Location: profile.php?page=profile');
 		}
 	}
 	
@@ -51,7 +51,7 @@
 							
 							<div class="panel-heading"><!-- START PANEL HEADING -->
 								
-								<strong>Login</strong>
+								<strong>Harvest Point Ministries Youth Login</strong>
 								
 							</div><!-- END PANEL HEADING -->
 							

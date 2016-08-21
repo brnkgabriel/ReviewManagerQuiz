@@ -1,4 +1,3 @@
-var navSelection = localStorage.getItem('selectedPageNavAdmin');
 var errorMessage = ""; 
 var studentJSONScore = {date: "", 
 						exercise: "", 
@@ -12,34 +11,8 @@ var studentJSONScore = {date: "",
 var MINIMUM_AGE = 10;
 var amIPermittedToStoreInDatabase = false;
 
-jQuery(document).ready(function(){ 
-
-	if(!localStorage.getItem("refreshPageOnceAdmin")){
-		localStorage.setItem("refreshPageOnceAdmin", "true");
-		window.location.reload();
-	}
-
-	saveServerDatabaseToLocalStorage();
-
-	var profile = jQuery('#profile');
-	var quiz = jQuery('#quiz');
-	var ranking = jQuery('#ranking'); 
-	
-	if(navSelection == null){
-		navSelection = 'profile';
-		switchNavigationAndPageContent(navSelection, profile, quiz, ranking);
-	}else 
-		switchNavigationAndPageContent(navSelection, profile, quiz, ranking);
-	
-	// Click listener & handler for the 3 tabs
-	jQuery('#profile, #quiz, #ranking').click(function(){
-		navSelection = jQuery(this).attr('id'); 
-		switchNavigationAndPageContent(navSelection, profile, quiz, ranking);  
-	});
-	
-	// Click listener & handler for the logout button
-	jQuery('#logout').click(function(){localStorage.clear();}); 
-
+jQuery(document).ready(function(){   
+	 
 	jQuery('#currentage').blur(function(){processAggregateScore();}); 
 
 	jQuery('#storeInDatabase').click(function(){ 
@@ -145,53 +118,4 @@ jQuery(document).ready(function(){
 				break;
 		}
 	}
-
-	function switchNavigationAndPageContent(navSelection, profile, quiz, ranking){
-		switch(navSelection){
-			case 'profile': 
-				localStorage.setItem('selectedPageNavAdmin', 'profile');
-				activateSelectedAndDeactivateTheRest(profile, quiz, ranking); 
-				jQuery('#centerStage').html(localStorage.getItem('profileDataAdmin'));
-				break;
-			case 'quiz':
-				localStorage.setItem('selectedPageNavAdmin', 'quiz');
-				activateSelectedAndDeactivateTheRest(quiz, profile, ranking);
-				jQuery('#centerStage').html(localStorage.getItem('quizDataAdmin'));
-				break;
-			case 'ranking':
-				localStorage.setItem('selectedPageNavAdmin', 'ranking');
-				activateSelectedAndDeactivateTheRest(ranking, profile, quiz);
-				jQuery('#centerStage').html(localStorage.getItem('rankingDataAdmin'));
-				break;
-			default:
-				break; 
-		}
-	}
-	
-	function activateSelectedAndDeactivateTheRest(selection, other1, other2){
-		selection.attr('class', 'active');
-		other1.attr('class', '');
-		other2.attr('class', '');
-	}
-
-	function saveServerDatabaseToLocalStorage(){ 
-		jQuery.ajax({
-			url		: 'pages/profile.php',
-			success : function(data){ 
-				localStorage.setItem('profileDataAdmin', data);
-			}
-		});
-		jQuery.ajax({
-			url		: 'pages/quiz.php',
-			success : function(data){  
-				localStorage.setItem('quizDataAdmin', data);
-			}
-		}); 
-		jQuery.ajax({
-			url		: 'pages/ranking.php',
-			success : function(data){  
-				localStorage.setItem('rankingDataAdmin', data);
-			}
-		});
-	} 
 });

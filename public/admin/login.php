@@ -8,7 +8,7 @@
 		
 		if(mysqli_num_rows($r) == 1){
 			$_SESSION['username'] = $_POST['email'];
-			header('Location: adminIndex.php');
+			header('Location: profile.php?page=profile');
 		}
 	}
 	
@@ -51,7 +51,7 @@
 							
 							<div class="panel-heading"><!-- START PANEL HEADING -->
 								
-								<strong>Login</strong>
+								<strong>HPM Youths Admin Login</strong>
 								
 							</div><!-- END PANEL HEADING -->
 							
