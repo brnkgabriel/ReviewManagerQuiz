@@ -1,7 +1,7 @@
 <?php   
 	session_start();
 	if(!isset($_SESSION['username']))
-		header('Location: login.php');
+		header('Location: index.php');
 	include_once '../../sys/config/setupAdmin.php';  
 ?>
 <!DOCTYPE html>
