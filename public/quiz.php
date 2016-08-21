@@ -41,7 +41,7 @@
 				color: <?php echo "#" . $student_profile['color']; ?>;
 			}
 		</style>
-		<title>Quiz-HPM Youths]</title>
+		<title>Quiz-HPM Youths</title>
 	</head>
 	<body>
 		
