@@ -10,3 +10,10 @@
 Decided to branch to Alan Quandt Time Tracker tutorials
 to learn how to transfer the data from the userScores.php
 file to the global.js file and store them as arrays
+
+// August 8 2016 8:45pm
+For the Admin quiz section:
+Create a select list that updates details column of the quiz row on quizsettings table to either with 
+> materials or
+> questions
+Then based on this two options, javaScript should populate the tab pane content forms that update the [x]materials table or [x]questions table

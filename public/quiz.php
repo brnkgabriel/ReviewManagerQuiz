@@ -23,7 +23,7 @@
 		<script>
 			
 		</script>
-		<script src="js/global.js"></script>
+		<script src="js/quiz.js"></script>
 
 		<!-- CSS -->
 		<link rel="stylesheet" href="css/bootstrap.min.css">
@@ -52,7 +52,7 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title">Quiz</h3>
-				</div><!-- end biodata panel heading -->
+				</div><!-- end quiz panel heading -->
 				<div class="panel-body"> 
 					<ul class="nav nav-tabs">
 						<li class="active"><a href="#worship" data-toggle="tab">Worship</a></li>
@@ -131,12 +131,11 @@
 							<textarea class="form-control"></textarea>
 							<?php	}else{ ?>
 										
-							<?php	} ?>
-							
+							<?php	} ?> 
 						</div>
-					</div>
-				</div><!-- end biodata panel body -->
-			</div><!-- end biodata panel -->
+					</div><!-- end quiz tab-pane -->
+				</div><!-- end quiz panel body -->
+			</div><!-- end quiz panel -->
 		</div>
 	</body>
 </html>

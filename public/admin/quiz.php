@@ -23,7 +23,7 @@
 		<script>
 			
 		</script>
-		<script src="js/global.js"></script>
+		<script src="js/quiz.js"></script>
 
 		<!-- CSS -->
 		<link rel="stylesheet" href="css/bootstrap.min.css">
@@ -40,7 +40,65 @@
 		<br><br>
 		<!-- Body -->
 		<div id="centerStage" class="container-fluid">
-			
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Quiz</h3>
+				</div><!-- end quiz panel heading -->
+				<div class="panel-body"> 
+					<div class="row">
+						<div class="col-md-4 col-md-offset-4">
+							<form>
+								<div class="form-group">
+									<label for="name">Quiz Options</label>
+									<select id="quizOptions" class="form-control">
+										<option>Select Quiz Content...</option> 
+										<option>Materials</option>
+										<option>Questions</option> 
+									</select><!-- end select options (materials, questions) for quiz -->
+								</div><!-- end form-group div -->
+							</form>
+						</div>
+					</div>
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#worship" data-toggle="tab">Worship</a></li>
+						<li><a href="#message" data-toggle="tab">Message</a></li>
+						<li><a href="#scripture" data-toggle="tab">Scripture</a></li>
+					</ul>
+					<div id="myTabContent" class="tab-content"> 
+						<div class="tab-pane fade in active" id="worship">
+							<div class="row">
+								<div class="col-md-4 col-md-offset-4">
+									<form id="worshipForm">
+										 
+									</form> 
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane fade" id="message">
+							<div class="row">
+								<div class="col-md-4 col-md-offset-4">
+									<form>
+										<div class="form-group"> 
+											
+										</div><!-- end form-group div -->
+									</form>
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane fade" id="scripture">
+							<div class="row">
+								<div class="col-md-4 col-md-offset-4">
+									<form>
+										<div class="form-group"> 
+											
+										</div><!-- end form-group div -->
+									</form>
+								</div>
+							</div>
+						</div>
+					</div><!-- end quiz tab-pane -->
+				</div><!-- end quiz panel body -->
+			</div><!-- end quiz panel -->
 		</div>
 	</body>
 </html>

@@ -23,7 +23,7 @@
 		<script>
 			
 		</script>
-		<script src="js/global.js"></script>
+		<script src="js/ranking.js"></script>
 
 		<!-- CSS -->
 		<link rel="stylesheet" href="css/bootstrap.min.css">

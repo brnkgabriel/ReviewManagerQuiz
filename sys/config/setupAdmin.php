@@ -5,6 +5,6 @@
 	if(!isset($_SESSION['username'])){
 		echo "session not set";
 	} 
-	$admin = getFromTable($dbc, 'all', $_SESSION['username'], 'users'); 
+	$admin = getFromTable($dbc, 'email', $_SESSION['username'], 'users'); 
 	$allStudents = getFromTable($dbc, 'all', "", 'profiles'); 
 ?>
