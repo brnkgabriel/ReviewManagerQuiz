@@ -64,7 +64,7 @@
 								</div>
 								<div class="col-md-6" align="center">
 									<p>Position(<strong><?php echo $student_profile['position']; ?></strong>)</p>
-									<p>Total Aggregate(<strong><?php echo $total_aggregate; ?></strong>)</p> 
+									<p>Total Aggregate(<strong><?php echo $student_profile['totalAggregate']; ?></strong>)</p> 
 								</div><!-- end position and aggregate panel -->
 							</div><!-- end biodata row -->
 						</div><!-- end biodata panel body -->

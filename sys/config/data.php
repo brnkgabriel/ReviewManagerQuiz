@@ -1,17 +1,13 @@
 <?php  
-	function getFromTable($dbc, $id, $tableName){
+	function getFromTable($dbc, $columnName, $id, $tableName){
 		switch ($id) {
 			case "": 
 				$cond = "";
 				break; 
 			default:
-				if(is_numeric($id))
-					$cond = "WHERE id = '$id'";
-				else
-					$cond = "WHERE email = '$id'";
+				$cond = "WHERE $columnName = '$id'";
 				break;
-		} 
-		
+		}  
 		$q = "SELECT * FROM $tableName $cond";
 		$r = mysqli_query($dbc, $q);
 		
@@ -22,8 +18,10 @@
 				break; 
 			default: 
 				$data = mysqli_fetch_assoc($r);
-				$data['fullname'] = $data['first'] . ' ' . $data['last'];
-				$data['fullname_reverse'] = $data['last'] . ', ' . $data['first'];
+				if($columnName === 'email'){
+					$data['fullname'] = $data['first'] . ' ' . $data['last'];
+					$data['fullname_reverse'] = $data['last'] . ', ' . $data['first'];
+				}
 				break;
 		}
 		return $data;
@@ -36,7 +34,7 @@
 	} 
 
 	function numericallyOrderedStudentProfiles($dbc, $table){
-		$profiles = getFromTable($dbc, "", $table);
+		$profiles = getFromTable($dbc, 'all', "", $table);
 		usort($profiles, "cmp");  
 		return $profiles;
 	}
@@ -57,7 +55,7 @@
 	 
 // 	Thinking why one user should alter the table of everyone's entry
 //  This ought to be because one's position affects the others meaning if one person goes up others have to go down
-	function updatePositionAndPrice($dbc, $profiles, $totalPrize){
+	function updatePositionAndPrize($dbc, $profiles, $totalPrize){
 		$numOfStudents = count($profiles);   
 		$sumOfFirstToFourthTotalAggregate = sumOfTotalAggregates($profiles, "firstToFourth");
 		$sumOfFifthToSeventhTotalAggregate = sumOfTotalAggregates($profiles, "fifthToSeventh"); 
@@ -66,31 +64,31 @@
 			$position = ""; 
 			$prize = 0;
 			switch ($i) {
-				case 18:
+				case $numOfStudents - 1:
 					$position = $profiles[$i]['position'] = ($j + 1) . "st"; 
 					$prize = (($profiles[$i]['totalAggregate']) / $sumOfFirstToFourthTotalAggregate) * ((2 * $totalPrize) / 3);
 					break;
-				case 17:
+				case $numOfStudents - 2:
 					$position = $profiles[$i]['position'] = ($j + 1) . "nd"; 
 					$prize = (($profiles[$i]['totalAggregate']) / $sumOfFirstToFourthTotalAggregate) * ((2 * $totalPrize) / 3);
 					break;
-				case 16:
+				case $numOfStudents - 3:
 					$position = $profiles[$i]['position'] = ($j + 1) . "rd"; 
 					$prize = (($profiles[$i]['totalAggregate']) / $sumOfFirstToFourthTotalAggregate) * ((2 * $totalPrize) / 3);
 					break; 
-				case 15:
+				case $numOfStudents - 4:
 					$position = $profiles[$i]['position'] = ($j + 1) . "th"; 
 					$prize = (($profiles[$i]['totalAggregate']) / $sumOfFirstToFourthTotalAggregate) * ((2 * $totalPrize) / 3);
 					break;
-				case 14:
+				case $numOfStudents - 5:
 					$position = $profiles[$i]['position'] = ($j + 1) . "th"; 
 					$prize = (($profiles[$i]['totalAggregate']) / $sumOfFifthToSeventhTotalAggregate) * ((2 * $totalPrize) / 6);
 					break;
-				case 13:
+				case $numOfStudents - 6:
 					$position = $profiles[$i]['position'] = ($j + 1) . "th"; 
 					$prize = (($profiles[$i]['totalAggregate']) / $sumOfFifthToSeventhTotalAggregate) * ((2 * $totalPrize) / 6);
 					break;
-				case 12:
+				case $numOfStudents - 7:
 					$position = $profiles[$i]['position'] = ($j + 1) . "th"; 
 					$prize = (($profiles[$i]['totalAggregate']) / $sumOfFifthToSeventhTotalAggregate) * ((2 * $totalPrize) / 6);
 					break;
@@ -100,8 +98,8 @@
 					break;
 			}
 			$totalAggregate = $profiles[$i]['totalAggregate'];
-			updateProfilesTable($dbc, 'position', $position, 'totalAggregate', $totalAggregate);
-			updateProfilesTable($dbc, 'prize', round($prize), 'totalAggregate', $totalAggregate);
+			updateTable($dbc, 'position', $position, 'totalAggregate', $totalAggregate);
+			updateTable($dbc, 'prize', round($prize), 'totalAggregate', $totalAggregate);
 		}
 	} 
 
@@ -141,11 +139,29 @@
 		return $totalAggregate;
 	}
 	
-	function updateProfilesTable($dbc, $column, $columnEntry, $idColumn, $id){ 
+	function updateTable($dbc, $column, $columnEntry, $idColumn, $id){ 
 		$q = "UPDATE profiles SET $column = ? WHERE $idColumn = ?"; 
 		$stmt = $dbc->prepare($q);
 		$stmt->bind_param('ss', $columnEntry, $id);
 		$stmt->execute();  
 		$stmt->close(); 
 	}  
+	 
+	function updateAllProfilesTableEntries($dbc){
+		// Get Student's Profiles 					(1)
+		// Get Student scores 						(2)
+		// Get Total Aggregate						(3)
+		// Update Total Aggregate in profiles table	(4)
+		// Update Age in profiles table				(5)
+		$allStudents_profile = getFromTable($dbc, 'all', "", 'profiles'); // (1)
+		$totalNumberOfStudents = count($allStudents_profile);
+		
+		for($i = 0; $i < $totalNumberOfStudents; $i++){
+			$student_scores = getFromTable($dbc, 'all', "", getStudentScoresTableName($allStudents_profile[$i])); // (2)
+			$total_aggregate = addAllAggregateScores($dbc, getStudentScoresTableName($allStudents_profile[$i])); // (3)
+			updateTable($dbc, 'totalAggregate', $total_aggregate, 'email', $allStudents_profile[$i]['email']); // (4)
+			$student_scores_length = count($student_scores); // (5)
+			updateTable($dbc, 'age', $student_scores[$student_scores_length - 1]['currentage'], 'totalAggregate', $total_aggregate);
+		}
+	}
 ?>

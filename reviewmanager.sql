@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 21, 2016 at 05:32 AM
+-- Generation Time: Aug 22, 2016 at 08:27 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `ayoadewusiscores` (
   `currentage` mediumint(9) NOT NULL,
   `aggregate` varchar(200) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=30 ;
 
 --
 -- Dumping data for table `ayoadewusiscores`
@@ -85,7 +85,8 @@ INSERT INTO `ayoadewusiscores` (`id`, `date`, `exercise`, `type`, `source`, `sco
 (25, '2016-07-24', 'Memory Test', 'Theory Questions', 'Lanre Ibironke', 35, 14, '2.5'),
 (26, '2016-07-31', 'Scripture Expansion', 'Presentation', 'Lanre Ibironke', 15, 14, '1.071'),
 (27, '2016-08-07', 'Multiple Choice', 'General Quiz 4', 'Lanre Ibironke', 31, 14, '2.214'),
-(28, '2016-08-14', 'Tower of Hanoi & Marriage', 'Puzzle  & Annotation', 'Lanre Ibironke', 0, 14, '0');
+(28, '2016-08-14', 'Tower of Hanoi & Marriage', 'Puzzle  & Annotation', 'Lanre Ibironke', 0, 14, '0'),
+(29, '2016-08-21', 'The Innovative Demands of Leadership', 'Quiz 5', 'Myles Munroe', 14, 14, '1');
 
 -- --------------------------------------------------------
 
@@ -103,7 +104,7 @@ CREATE TABLE IF NOT EXISTS `davidalamuscores` (
   `currentage` mediumint(9) NOT NULL,
   `aggregate` varchar(200) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
 
 --
 -- Dumping data for table `davidalamuscores`
@@ -136,7 +137,8 @@ INSERT INTO `davidalamuscores` (`id`, `date`, `exercise`, `type`, `source`, `sco
 (24, '2016-07-24', 'Memory Test', 'Theory Questions', 'Lanre Ibironke', 0, 15, '0'),
 (25, '2016-07-31', 'Scripture Expansion', 'Presentation', 'Lanre Ibironke', 0, 15, '0'),
 (26, '2016-08-07', 'Multiple Choice', 'General Quiz 4', 'Lanre Ibironke', 53, 15, '3.533'),
-(27, '2016-08-14', 'Tower of Hanoi & Marriage', 'Puzzle  & Annotation', 'Lanre Ibironke', 0, 15, '0');
+(27, '2016-08-14', 'Tower of Hanoi & Marriage', 'Puzzle  & Annotation', 'Lanre Ibironke', 0, 15, '0'),
+(28, '2016-08-21', 'The Innovative Demands of Leadership', 'Quiz 5', 'Myles Munroe', 16, 15, '1.067');
 
 -- --------------------------------------------------------
 
@@ -154,7 +156,7 @@ CREATE TABLE IF NOT EXISTS `demiladeoladipuposcores` (
   `currentage` mediumint(9) NOT NULL,
   `aggregate` varchar(200) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
 
 --
 -- Dumping data for table `demiladeoladipuposcores`
@@ -187,7 +189,8 @@ INSERT INTO `demiladeoladipuposcores` (`id`, `date`, `exercise`, `type`, `source
 (24, '2016-07-24', 'Memory Test', 'Theory Questions', 'Lanre Ibironke', 0, 15, '0'),
 (25, '2016-07-31', 'Scripture Expansion', 'Presentation', 'Lanre Ibironke', 0, 15, '0'),
 (26, '2016-08-07', 'Multiple Choice', 'General Quiz 4', 'Lanre Ibironke', 0, 15, '0'),
-(27, '2016-08-14', 'Tower of Hanoi & Marriage', 'Puzzle  & Annotation', 'Lanre Ibironke', 80, 15, '5.333');
+(27, '2016-08-14', 'Tower of Hanoi & Marriage', 'Puzzle  & Annotation', 'Lanre Ibironke', 80, 15, '5.333'),
+(28, '2016-08-21', 'The Innovative Demands of Leadership', 'Quiz 5', 'Myles Munroe', 54, 15, '3.6');
 
 -- --------------------------------------------------------
 
@@ -205,7 +208,7 @@ CREATE TABLE IF NOT EXISTS `desolaoladipuposcores` (
   `currentage` mediumint(9) NOT NULL,
   `aggregate` varchar(200) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
 
 --
 -- Dumping data for table `desolaoladipuposcores`
@@ -238,7 +241,8 @@ INSERT INTO `desolaoladipuposcores` (`id`, `date`, `exercise`, `type`, `source`,
 (24, '2016-07-24', 'Memory Test', 'Theory Questions', 'Lanre Ibironke', 0, 16, '0'),
 (25, '2016-07-31', 'Scripture Expansion', 'Presentation', 'Lanre Ibironke', 0, 16, '0'),
 (26, '2016-08-07', 'Multiple Choice', 'General Quiz 4', 'Lanre Ibironke', 0, 16, '0'),
-(27, '2016-08-14', 'Tower of Hanoi & Marriage', 'Puzzle  & Annotation', 'Lanre Ibironke', 59, 16, '3.688');
+(27, '2016-08-14', 'Tower of Hanoi & Marriage', 'Puzzle  & Annotation', 'Lanre Ibironke', 59, 16, '3.688'),
+(28, '2016-08-21', 'The Innovative Demands of Leadership', 'Quiz 5', 'Myles Munroe', 77, 16, '4.813');
 
 -- --------------------------------------------------------
 
@@ -256,7 +260,7 @@ CREATE TABLE IF NOT EXISTS `ebubechukwuigwegbescores` (
   `currentage` mediumint(9) NOT NULL,
   `aggregate` varchar(200) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
 
 --
 -- Dumping data for table `ebubechukwuigwegbescores`
@@ -289,7 +293,8 @@ INSERT INTO `ebubechukwuigwegbescores` (`id`, `date`, `exercise`, `type`, `sourc
 (24, '2016-07-24', 'Memory Test', 'Theory Questions', 'Lanre Ibironke', 0, 13, '0'),
 (25, '2016-07-31', 'Scripture Expansion', 'Presentation', 'Lanre Ibironke', 0, 13, '0'),
 (26, '2016-08-07', 'Multiple Choice', 'General Quiz 4', 'Lanre Ibironke', 0, 13, '0'),
-(27, '2016-08-14', 'Tower of Hanoi & Marriage', 'Puzzle  & Annotation', 'Lanre Ibironke', 0, 13, '0');
+(27, '2016-08-14', 'Tower of Hanoi & Marriage', 'Puzzle  & Annotation', 'Lanre Ibironke', 0, 13, '0'),
+(28, '2016-08-21', 'The Innovative Demands of Leadership', 'Quiz 5', 'Myles Munroe', 0, 13, '0');
 
 -- --------------------------------------------------------
 
@@ -307,7 +312,7 @@ CREATE TABLE IF NOT EXISTS `elijahshondescores` (
   `currentage` mediumint(9) NOT NULL,
   `aggregate` varchar(200) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
 
 --
 -- Dumping data for table `elijahshondescores`
@@ -340,7 +345,33 @@ INSERT INTO `elijahshondescores` (`id`, `date`, `exercise`, `type`, `source`, `s
 (24, '2016-07-24', 'Memory Test', 'Theory Questions', 'Lanre Ibironke', 0, 13, '0'),
 (25, '2016-07-31', 'Scripture Expansion', 'Presentation', 'Lanre Ibironke', 24, 13, '1.846'),
 (26, '2016-08-07', 'Multiple Choice', 'General Quiz 4', 'Lanre Ibironke', 58, 13, '4.462'),
-(27, '2016-08-14', 'Tower of Hanoi & Marriage', 'Puzzle  & Annotation', 'Lanre Ibironke', 0, 13, '0');
+(27, '2016-08-14', 'Tower of Hanoi & Marriage', 'Puzzle  & Annotation', 'Lanre Ibironke', 0, 13, '0'),
+(28, '2016-08-21', 'The Innovative Demands of Leadership', 'Quiz 5', 'Myles Munroe', 25, 13, '1.923');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `elizabethadeyemiscores`
+--
+
+CREATE TABLE IF NOT EXISTS `elizabethadeyemiscores` (
+  `id` mediumint(9) NOT NULL AUTO_INCREMENT,
+  `date` varchar(100) NOT NULL,
+  `exercise` varchar(200) NOT NULL,
+  `type` varchar(200) NOT NULL,
+  `source` varchar(200) NOT NULL,
+  `score` mediumint(9) NOT NULL,
+  `currentage` mediumint(9) NOT NULL,
+  `aggregate` varchar(200) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `elizabethadeyemiscores`
+--
+
+INSERT INTO `elizabethadeyemiscores` (`id`, `date`, `exercise`, `type`, `source`, `score`, `currentage`, `aggregate`) VALUES
+(1, '2016-08-21', 'The Innovative Demands of Leadership', 'Quiz 5', 'Myles Munroe', 146, 10, '14.6');
 
 -- --------------------------------------------------------
 
@@ -358,7 +389,7 @@ CREATE TABLE IF NOT EXISTS `elizabethshondescores` (
   `currentage` mediumint(9) NOT NULL,
   `aggregate` varchar(200) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
 
 --
 -- Dumping data for table `elizabethshondescores`
@@ -391,7 +422,8 @@ INSERT INTO `elizabethshondescores` (`id`, `date`, `exercise`, `type`, `source`,
 (24, '2016-07-24', 'Memory Test', 'Theory Questions', 'Lanre Ibironke', 0, 11, '0'),
 (25, '2016-07-31', 'Scripture Expansion', 'Presentation', 'Lanre Ibironke', 25, 11, '2.273'),
 (26, '2016-08-07', 'Multiple Choice', 'General Quiz 4', 'Lanre Ibironke', 48, 11, '4.364'),
-(27, '2016-08-14', 'Tower of Hanoi & Marriage', 'Puzzle  & Annotation', 'Lanre Ibironke', 0, 11, '0');
+(27, '2016-08-14', 'Tower of Hanoi & Marriage', 'Puzzle  & Annotation', 'Lanre Ibironke', 0, 11, '0'),
+(28, '2016-08-21', 'The Innovative Demands of Leadership', 'Quiz 5', 'Myles Munroe', 22, 11, '2');
 
 -- --------------------------------------------------------
 
@@ -409,7 +441,7 @@ CREATE TABLE IF NOT EXISTS `eniolaadewunmiscores` (
   `currentage` mediumint(9) NOT NULL,
   `aggregate` varchar(200) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
 
 --
 -- Dumping data for table `eniolaadewunmiscores`
@@ -442,7 +474,8 @@ INSERT INTO `eniolaadewunmiscores` (`id`, `date`, `exercise`, `type`, `source`, 
 (24, '2016-07-24', 'Memory Test', 'Theory Questions', 'Lanre Ibironke', 78, 16, '4.875'),
 (25, '2016-07-31', 'Scripture Expansion', 'Presentation', 'Lanre Ibironke', 75, 16, '4.688'),
 (26, '2016-08-07', 'Multiple Choice', 'General Quiz 4', 'Lanre Ibironke', 0, 16, '0'),
-(27, '2016-08-14', 'Tower of Hanoi & Marriage', 'Puzzle  & Annotation', 'Lanre Ibironke', 49, 16, '3.063');
+(27, '2016-08-14', 'Tower of Hanoi & Marriage', 'Puzzle  & Annotation', 'Lanre Ibironke', 49, 16, '3.063'),
+(28, '2016-08-21', 'The Innovative Demands of Leadership', 'Quiz 5', 'Myles Munroe', 50, 16, '3.125');
 
 -- --------------------------------------------------------
 
@@ -460,7 +493,7 @@ CREATE TABLE IF NOT EXISTS `esthershondescores` (
   `currentage` mediumint(9) NOT NULL,
   `aggregate` varchar(200) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=30 ;
 
 --
 -- Dumping data for table `esthershondescores`
@@ -493,7 +526,8 @@ INSERT INTO `esthershondescores` (`id`, `date`, `exercise`, `type`, `source`, `s
 (25, '2016-07-24', 'Memory Test', 'Theory Questions', 'Lanre Ibironke', 0, 15, '0'),
 (26, '2016-07-31', 'Scripture Expansion', 'Presentation', 'Lanre Ibironke', 45, 15, '3'),
 (27, '2016-08-07', 'Multiple Choice', 'General Quiz 4', 'Lanre Ibironke', 62, 15, '4.133'),
-(28, '2016-08-14', 'Tower of Hanoi & Marriage', 'Puzzle  & Annotation', 'Lanre Ibironke', 0, 15, '0');
+(28, '2016-08-14', 'Tower of Hanoi & Marriage', 'Puzzle  & Annotation', 'Lanre Ibironke', 0, 15, '0'),
+(29, '2016-08-21', 'The Innovative Demands of Leadership', 'Quiz 5', 'Myles Munroe', 29, 15, '1.933');
 
 -- --------------------------------------------------------
 
@@ -511,7 +545,7 @@ CREATE TABLE IF NOT EXISTS `folaadeniyiscores` (
   `currentage` mediumint(9) NOT NULL,
   `aggregate` varchar(200) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
 
 --
 -- Dumping data for table `folaadeniyiscores`
@@ -544,7 +578,8 @@ INSERT INTO `folaadeniyiscores` (`id`, `date`, `exercise`, `type`, `source`, `sc
 (24, '2016-07-24', 'Memory Test', 'Theory Questions', 'Lanre Ibironke', 0, 10, '0'),
 (25, '2016-07-31', 'Scripture Expansion', 'Presentation', 'Lanre Ibironke', 24, 10, '2.4'),
 (26, '2016-08-07', 'Multiple Choice', 'General Quiz 4', 'Lanre Ibironke', 41, 10, '4.1'),
-(27, '2016-08-14', 'Tower of Hanoi & Marriage', 'Puzzle  & Annotation', 'Lanre Ibironke', 30, 10, '3');
+(27, '2016-08-14', 'Tower of Hanoi & Marriage', 'Puzzle  & Annotation', 'Lanre Ibironke', 30, 10, '3'),
+(28, '2016-08-21', 'The Innovative Demands of Leadership', 'Quiz 5', 'Myles Munroe', 0, 10, '0');
 
 -- --------------------------------------------------------
 
@@ -562,7 +597,7 @@ CREATE TABLE IF NOT EXISTS `funtoadeniyiscores` (
   `currentage` mediumint(9) NOT NULL,
   `aggregate` varchar(200) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
 
 --
 -- Dumping data for table `funtoadeniyiscores`
@@ -595,7 +630,37 @@ INSERT INTO `funtoadeniyiscores` (`id`, `date`, `exercise`, `type`, `source`, `s
 (24, '2016-07-24', 'Memory Test', 'Theory Questions', 'Lanre Ibironke', 0, 13, '0'),
 (25, '2016-07-31', 'Scripture Expansion', 'Presentation', 'Lanre Ibironke', 35, 13, '2.692'),
 (26, '2016-08-07', 'Multiple Choice', 'General Quiz 4', 'Lanre Ibironke', 47, 13, '3.615'),
-(27, '2016-08-14', 'Tower of Hanoi & Marriage', 'Puzzle  & Annotation', 'Lanre Ibironke', 34, 13, '2.615');
+(27, '2016-08-14', 'Tower of Hanoi & Marriage', 'Puzzle  & Annotation', 'Lanre Ibironke', 34, 13, '2.615'),
+(28, '2016-08-21', 'The Innovative Demands of Leadership', 'Quiz 5', 'Myles Munroe', 0, 13, '0');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `messagematerials`
+--
+
+CREATE TABLE IF NOT EXISTS `messagematerials` (
+  `id` mediumint(9) NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) NOT NULL,
+  `author` varchar(50) NOT NULL,
+  `link` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `messagequestions`
+--
+
+CREATE TABLE IF NOT EXISTS `messagequestions` (
+  `id` mediumint(9) NOT NULL AUTO_INCREMENT,
+  `question` varchar(500) NOT NULL,
+  `type` varchar(50) NOT NULL,
+  `options` varchar(300) NOT NULL,
+  `answers` varchar(200) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -613,7 +678,7 @@ CREATE TABLE IF NOT EXISTS `michaelalofescores` (
   `currentage` mediumint(9) NOT NULL,
   `aggregate` varchar(200) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
 
 --
 -- Dumping data for table `michaelalofescores`
@@ -646,7 +711,8 @@ INSERT INTO `michaelalofescores` (`id`, `date`, `exercise`, `type`, `source`, `s
 (24, '2016-07-24', 'Memory Test', 'Theory Questions', 'Lanre Ibironke', 65, 17, '3.824'),
 (25, '2016-07-31', 'Scripture Expansion', 'Presentation', 'Lanre Ibironke', 35, 17, '2.059'),
 (26, '2016-08-07', 'Multiple Choice', 'General Quiz 4', 'Lanre Ibironke', 66, 17, '3.882'),
-(27, '2016-08-14', 'Tower of Hanoi & Marriage', 'Puzzle  & Annotation', 'Lanre Ibironke', 0, 17, '0');
+(27, '2016-08-14', 'Tower of Hanoi & Marriage', 'Puzzle  & Annotation', 'Lanre Ibironke', 0, 17, '0'),
+(28, '2016-08-21', 'The Innovative Demands of Leadership', 'Quiz 5', 'Myles Munroe', 52, 17, '3.059');
 
 -- --------------------------------------------------------
 
@@ -664,7 +730,7 @@ CREATE TABLE IF NOT EXISTS `oyinalofescores` (
   `currentage` mediumint(9) NOT NULL,
   `aggregate` varchar(200) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=30 ;
 
 --
 -- Dumping data for table `oyinalofescores`
@@ -697,7 +763,8 @@ INSERT INTO `oyinalofescores` (`id`, `date`, `exercise`, `type`, `source`, `scor
 (25, '2016-07-24', 'Memory Test', 'Theory Questions', 'Lanre Ibironke', 27, 11, '2.455'),
 (26, '2016-07-31', 'Scripture Expansion', 'Presentation', 'Lanre Ibironke', 17, 11, '1.545'),
 (27, '2016-08-07', 'Multiple Choice', 'General Quiz 4', 'Lanre Ibironke', 57, 11, '5.182'),
-(28, '2016-08-14', 'Tower of Hanoi & Marriage', 'Puzzle  & Annotation', 'Lanre Ibironke', 0, 11, '0');
+(28, '2016-08-14', 'Tower of Hanoi & Marriage', 'Puzzle  & Annotation', 'Lanre Ibironke', 0, 11, '0'),
+(29, '2016-08-21', 'The Innovative Demands of Leadership', 'Quiz 5', 'Myles Munroe', 40, 11, '3.636');
 
 -- --------------------------------------------------------
 
@@ -715,7 +782,7 @@ CREATE TABLE IF NOT EXISTS `praiseshondescores` (
   `currentage` mediumint(9) NOT NULL,
   `aggregate` varchar(200) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `praiseshondescores`
@@ -728,7 +795,8 @@ INSERT INTO `praiseshondescores` (`id`, `date`, `exercise`, `type`, `source`, `s
 (4, '2016-07-24', 'Memory Test', 'Theory Questions', 'Lanre Ibironke', 0, 10, '0'),
 (5, '2016-07-31', 'Scripture Expansion', 'Presentation', 'Lanre Ibironke', 24, 10, '2.4'),
 (6, '2016-08-07', 'Multiple Choice', 'General Quiz 4', 'Lanre Ibironke', 48, 10, '4.8'),
-(7, '2016-08-14', 'Tower of Hanoi & Marriage', 'Puzzle & Annotation', 'Lanre Ibironke', 0, 10, '0');
+(7, '2016-08-14', 'Tower of Hanoi & Marriage', 'Puzzle & Annotation', 'Lanre Ibironke', 0, 10, '0'),
+(8, '2016-08-21', 'The Innovative Demands of Leadership', 'Quiz 5', 'Myles Munroe', 17, 10, '1.7');
 
 -- --------------------------------------------------------
 
@@ -741,7 +809,7 @@ CREATE TABLE IF NOT EXISTS `prizes` (
   `donor` varchar(50) NOT NULL,
   `amount` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `prizes`
@@ -770,32 +838,68 @@ CREATE TABLE IF NOT EXISTS `profiles` (
   `initials` varchar(2) NOT NULL,
   `codename` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
 
 --
 -- Dumping data for table `profiles`
 --
 
 INSERT INTO `profiles` (`id`, `first`, `last`, `age`, `email`, `password`, `totalAggregate`, `position`, `prize`, `color`, `initials`, `codename`) VALUES
-(1, 'Timilehin', 'Adeosun', '14', 'fijitimi9900@gmail.com', 'cf6ad41c68eff82a4b248859f66af75cfabfc1ca', '75.543', '1st', '101', '690056', 'TA', 'Chocolate87'),
-(2, 'Eniola', 'Adewunmi', '16', 'iamboothang@gmail.com', 'cfefb695b6c30eb74335258988904b48eb8160d7', '58.274', '3rd', '78', '1F54BF', 'EA', 'eda'),
-(3, 'Desola', 'Oladipupo', '16', 'desolaoladipupo@gmail.com', '10ef79bcfec75896db4779c6161919edd8167006', '37.566', '6th', '53', '722386', 'DO', 'Dide4life'),
-(4, 'Wadud', 'Adamu', '14', 'swagpancakeyt@gmail.com', '55d483cea004e568cfdec7db383fceff2e745e86', '36.688', '7th', '51', '212334', 'WA', 'SwagPancakeXL'),
-(5, 'Sefunmi', 'Adewunmi', '11', 'sefunmiadewumi8@gmail.com', '500c61e8fc1874799016e9f31acc6783f4697318', '63.582', '2nd', '85', '730202', 'SA', 'Shepherd'),
-(6, 'Fola', 'Adeniyi', '10', 'folaadeniyi@gmail.com', '42b2edd950b35110362d8fcd8af278fc7f484603', '53', '4th', '71', 'D91A1A', 'FA', ''),
-(7, 'Ayo', 'Adewusi', '14', 'roselene.johnson@gmail.com', 'ef9e7e0a0b43106d89fe400b0d0f5e3e772273f5', '24.077', '11th', '0', '24870B', 'AA', 'Popeyes Chicken'),
-(8, 'Michael', 'Alofe', '17', 'alofealofe@gmail.com', 'c8c254100e613b98e60b5bfc29b8929d70d6d8c4', '44.821', '5th', '63', '242424', 'MA', ''),
-(9, 'Demilade', 'Oladipupo', '15', 'demmy.oladipupo01@gmail.com', '6419b672975226a3017fa423d9f14df000da159b', '31.428', '10th', '0', '010125', 'DO', 'R3436'),
-(10, 'Funto', 'Adeniyi', '13', 'funtoadeniyi2016@yahoo.com', 'd85930a2b3bfa82b5c2d3c7b3023e54e33605f2e', '36.377', '8th', '0', 'CC1E68', 'FA', 'ladybug003'),
-(11, 'Esther', 'Shonde', '15', 'esthershonde@gmail.com', '3f909d3d73f921605090add7f56ce1670995a7d4', '19.323', '14th', '0', '080B46', 'ES', ''),
-(12, 'Elizabeth', 'Shonde', '11', 'elizabethshonde@gmail.com', 'ffccf3a8126cce6efd829913babf3ff9a2cc8d7f', '21.545', '12th', '0', 'A60048', 'ES', ''),
-(13, 'Oyin', 'Alofe', '11', 'oyinalofe@gmail.com', '217ec76423ce9bfc37dbb5b392985f5c18c4f018', '32.908', '9th', '0', '3B0A4F', 'OA', ''),
-(14, 'Elijah', 'Shonde', '13', 'elijahshonde@gmail.com', 'b8e11e2d4cf35d6e1c7df1db642f7a4fea4921d6', '18.386', '15th', '0', '3F0E00', 'ES', ''),
-(15, 'Shola', 'Apetuje', '17', 'adekumbiapetuje@gmail.com', 'c9f8cd9e55eac309f406f540f4e7f91a92bd54b3', '12.707', '18th', '0', '291515', 'SA', ''),
-(16, 'Tolu', 'Apetuje', '15', 'toluapetuje@gmail.com', '114b218c1f97e835a64b6e2f236c96624a011d24', '19.533', '13th', '0', 'D13401', 'TA', ''),
-(17, 'Ebubechukwu', 'Igwegbe', '13', 'ebubechukwuigwegbe@gmail.com', '26d64a4d4b5a2a6eef1d7372e3a565bfed5e3295', '1.385', '19th', '0', '80305D', 'EI', ''),
-(18, 'David', 'Alamu', '15', 'jarvis.alamu@gmail.com', 'f5b470627f796cce9f3df5b1a271768b8f4b7295', '16.066', '16th', '0', '200F0D', 'DA', ''),
-(19, 'Praise', 'Shonde', '10', 'praiseshonde@gmail.com', '3a2df635607564dca00cfed89bb2ec60b6df119b', '15.6', '17th', '0', 'F5100C', 'PS', '');
+(1, 'Timilehin', 'Adeosun', '14', 'fijitimi9900@gmail.com', 'cf6ad41c68eff82a4b248859f66af75cfabfc1ca', '73.329', '1st', '107', '690056', 'TA', 'Chocolate87'),
+(2, 'Eniola', 'Adewunmi', '16', 'iamboothang@gmail.com', 'cfefb695b6c30eb74335258988904b48eb8160d7', '61.399', '3rd', '89', '1F54BF', 'EA', 'candygirl'),
+(3, 'Desola', 'Oladipupo', '16', 'desolaoladipupo@gmail.com', '10ef79bcfec75896db4779c6161919edd8167006', '42.379', '6th', '59', '722386', 'DO', 'Dide4life'),
+(4, 'Wadud', 'Adamu', '14', 'swagpancakeyt@gmail.com', '55d483cea004e568cfdec7db383fceff2e745e86', '40.045', '7th', '56', '212334', 'WA', 'SwagPancakeXL'),
+(5, 'Sefunmi', 'Adewunmi', '11', 'sefunmiadewumi8@gmail.com', '500c61e8fc1874799016e9f31acc6783f4697318', '67.127', '2nd', '98', '730202', 'SA', 'Shepherd'),
+(6, 'Fola', 'Adeniyi', '10', 'folaadeniyi@gmail.com', '42b2edd950b35110362d8fcd8af278fc7f484603', '53', '4th', '77', 'D91A1A', 'FA', ''),
+(7, 'Ayo', 'Adewusi', '14', 'roselene.johnson@gmail.com', 'ef9e7e0a0b43106d89fe400b0d0f5e3e772273f5', '25.077', '11th', '0', '24870B', 'AA', 'My Little Pony'),
+(8, 'Michael', 'Alofe', '17', 'alofealofe@gmail.com', 'c8c254100e613b98e60b5bfc29b8929d70d6d8c4', '47.88', '5th', '67', '242424', 'MA', 'Dcyphr4u'),
+(9, 'Demilade', 'Oladipupo', '15', 'demmy.oladipupo01@gmail.com', '6419b672975226a3017fa423d9f14df000da159b', '35.028', '10th', '0', '010125', 'DO', 'R3436'),
+(10, 'Funto', 'Adeniyi', '13', 'funtoadeniyi2016@yahoo.com', 'd85930a2b3bfa82b5c2d3c7b3023e54e33605f2e', '36.377', '9th', '0', 'CC1E68', 'FA', 'ladybug003'),
+(11, 'Esther', 'Shonde', '15', 'esthershonde@gmail.com', '3f909d3d73f921605090add7f56ce1670995a7d4', '21.256', '13th', '0', '080B46', 'ES', '591738'),
+(12, 'Elizabeth', 'Shonde', '11', 'elizabethshonde@gmail.com', 'ffccf3a8126cce6efd829913babf3ff9a2cc8d7f', '23.545', '12th', '0', 'A60048', 'ES', 'Presel'),
+(13, 'Oyin', 'Alofe', '11', 'oyinalofe@gmail.com', '217ec76423ce9bfc37dbb5b392985f5c18c4f018', '36.544', '8th', '0', '3B0A4F', 'OA', 'Xx_panda_xX'),
+(14, 'Elijah', 'Shonde', '13', 'elijahshonde@gmail.com', 'b8e11e2d4cf35d6e1c7df1db642f7a4fea4921d6', '20.309', '15th', '0', '3F0E00', 'ES', 'GOAL23'),
+(15, 'Shola', 'Apetuje', '17', 'adekumbiapetuje@gmail.com', 'c9f8cd9e55eac309f406f540f4e7f91a92bd54b3', '12.707', '19th', '0', '291515', 'SA', ''),
+(16, 'Tolu', 'Apetuje', '15', 'toluapetuje@gmail.com', '114b218c1f97e835a64b6e2f236c96624a011d24', '21.066', '14th', '0', 'D13401', 'TA', '15'),
+(17, 'Ebubechukwu', 'Igwegbe', '13', 'ebubechukwuigwegbe@gmail.com', '26d64a4d4b5a2a6eef1d7372e3a565bfed5e3295', '1.385', '20th', '0', '80305D', 'EI', ''),
+(18, 'David', 'Alamu', '15', 'jarvis.alamu@gmail.com', 'f5b470627f796cce9f3df5b1a271768b8f4b7295', '17.133', '17th', '0', '200F0D', 'DA', 'motumbo'),
+(19, 'Praise', 'Shonde', '10', 'praiseshonde@gmail.com', '3a2df635607564dca00cfed89bb2ec60b6df119b', '17.3', '16th', '0', 'F5100C', 'PS', '7707T'),
+(20, 'Elizabeth', 'Adeyemi', '10', 'elizabethadeyemi@gmail.com', '94b5d7e3e9d9bb4d62dc383081519343b8e4b82a', '14.6', '18th', '0', '80305D', 'EA', 'elizabeth');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `quizsettings`
+--
+
+CREATE TABLE IF NOT EXISTS `quizsettings` (
+  `id` mediumint(9) NOT NULL AUTO_INCREMENT,
+  `page` varchar(20) NOT NULL,
+  `details` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `quizsettings`
+--
+
+INSERT INTO `quizsettings` (`id`, `page`, `details`) VALUES
+(1, 'quiz', 'materials');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `scripturematerials`
+--
+
+CREATE TABLE IF NOT EXISTS `scripturematerials` (
+  `id` mediumint(9) NOT NULL AUTO_INCREMENT,
+  `book` varchar(50) NOT NULL,
+  `chapter` int(3) NOT NULL,
+  `verse` int(3) NOT NULL,
+  `words` varchar(500) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -813,7 +917,7 @@ CREATE TABLE IF NOT EXISTS `sefunmiadewunmiscores` (
   `currentage` mediumint(9) NOT NULL,
   `aggregate` varchar(200) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=31 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=32 ;
 
 --
 -- Dumping data for table `sefunmiadewunmiscores`
@@ -846,7 +950,8 @@ INSERT INTO `sefunmiadewunmiscores` (`id`, `date`, `exercise`, `type`, `source`,
 (27, '2016-07-24', 'Memory Test', 'Theory Questions', 'Lanre Ibironke', 56, 11, '5.091'),
 (28, '2016-07-31', 'Scripture Expansion', 'Presentation', 'Lanre Ibironke', 18, 11, '1.636'),
 (29, '2016-08-07', 'Multiple Choice', 'General Quiz 4', 'Lanre Ibironke', 0, 11, '0'),
-(30, '2016-08-14', 'Tower of Hanoi & Marriage', 'Puzzle  & Annotation', 'Lanre Ibironke', 0, 11, '0');
+(30, '2016-08-14', 'Tower of Hanoi & Marriage', 'Puzzle  & Annotation', 'Lanre Ibironke', 0, 11, '0'),
+(31, '2016-08-21', 'The Innovative Demands of Leadership', 'Quiz 5', 'Myles Munroe', 39, 11, '3.545');
 
 -- --------------------------------------------------------
 
@@ -864,7 +969,7 @@ CREATE TABLE IF NOT EXISTS `sholaapetujescores` (
   `currentage` mediumint(9) NOT NULL,
   `aggregate` varchar(200) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
 
 --
 -- Dumping data for table `sholaapetujescores`
@@ -897,7 +1002,8 @@ INSERT INTO `sholaapetujescores` (`id`, `date`, `exercise`, `type`, `source`, `s
 (24, '2016-07-24', 'Memory Test', 'Theory Questions', 'Lanre Ibironke', 0, 17, '0'),
 (25, '2016-07-31', 'Scripture Expansion', 'Presentation', 'Lanre Ibironke', 0, 17, '0'),
 (26, '2016-08-07', 'Multiple Choice', 'General Quiz 4', 'Lanre Ibironke', 0, 17, '0'),
-(27, '2016-08-14', 'Tower of Hanoi & Marriage', 'Puzzle  & Annotation', 'Lanre Ibironke', 0, 17, '0');
+(27, '2016-08-14', 'Tower of Hanoi & Marriage', 'Puzzle  & Annotation', 'Lanre Ibironke', 0, 17, '0'),
+(28, '2016-08-21', 'The Innovative Demands of Leadership', 'Quiz 5', 'Myles Munroe', 0, 17, '0');
 
 -- --------------------------------------------------------
 
@@ -915,7 +1021,7 @@ CREATE TABLE IF NOT EXISTS `timilehinadeosunscores` (
   `currentage` mediumint(9) NOT NULL,
   `aggregate` varchar(200) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=46 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=48 ;
 
 --
 -- Dumping data for table `timilehinadeosunscores`
@@ -949,7 +1055,7 @@ INSERT INTO `timilehinadeosunscores` (`id`, `date`, `exercise`, `type`, `source`
 (41, '2016-07-31', 'Scripture Expansion', 'Presentation', 'Lanre Ibironke', 40, 14, '2.857'),
 (42, '2016-08-07', 'Multiple Choice', 'General Quiz 4', 'Lanre Ibironke', 0, 14, '0'),
 (43, '2016-08-14', 'Tower of Hanoi & Marriage', 'Puzzle & Annotation', 'Lanre Ibironke', 98, 14, '7'),
-(45, '2016-08-21', 'The Innovative Demands of Leadership', 'Quiz 5', 'Myles Munroe', 57, 14, '4.071');
+(47, '2016-08-21', 'The Innovative Demands of Leadership', 'Quiz 5', 'Myles Munroe', 26, 14, '1.857');
 
 -- --------------------------------------------------------
 
@@ -967,7 +1073,7 @@ CREATE TABLE IF NOT EXISTS `toluapetujescores` (
   `currentage` mediumint(9) NOT NULL,
   `aggregate` varchar(200) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
 
 --
 -- Dumping data for table `toluapetujescores`
@@ -1000,7 +1106,8 @@ INSERT INTO `toluapetujescores` (`id`, `date`, `exercise`, `type`, `source`, `sc
 (24, '2016-07-24', 'Memory Test', 'Theory Questions', 'Lanre Ibironke', 0, 15, '0'),
 (25, '2016-07-31', 'Scripture Expansion', 'Presentation', 'Lanre Ibironke', 0, 15, '0'),
 (26, '2016-08-07', 'Multiple Choice', 'General Quiz 4', 'Lanre Ibironke', 70, 15, '4.667'),
-(27, '2016-08-14', 'Tower of Hanoi & Marriage', 'Puzzle  & Annotation', 'Lanre Ibironke', 0, 15, '0');
+(27, '2016-08-14', 'Tower of Hanoi & Marriage', 'Puzzle  & Annotation', 'Lanre Ibironke', 0, 15, '0'),
+(28, '2016-08-21', 'The Innovative Demands of Leadership', 'Quiz 5', 'Myles Munroe', 23, 15, '1.533');
 
 -- --------------------------------------------------------
 
@@ -1040,7 +1147,7 @@ CREATE TABLE IF NOT EXISTS `wadudadamuscores` (
   `currentage` mediumint(9) NOT NULL,
   `aggregate` varchar(200) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
 
 --
 -- Dumping data for table `wadudadamuscores`
@@ -1073,7 +1180,38 @@ INSERT INTO `wadudadamuscores` (`id`, `date`, `exercise`, `type`, `source`, `sco
 (24, '2016-07-24', 'Memory Test', 'Theory Questions', 'Lanre Ibironke', 81, 13, '6.231'),
 (25, '2016-07-31', 'Scripture Expansion', 'Presentation', 'Lanre Ibironke', 29, 14, '2.071'),
 (26, '2016-08-07', 'Multiple Choice', 'General Quiz 4', 'Lanre Ibironke', 0, 14, '0'),
-(27, '2016-08-14', 'Tower of Hanoi & Marriage', 'Puzzle  & Annotation', 'Lanre Ibironke', 0, 14, '0');
+(27, '2016-08-14', 'Tower of Hanoi & Marriage', 'Puzzle  & Annotation', 'Lanre Ibironke', 0, 14, '0'),
+(28, '2016-08-21', 'The Innovative Demands of Leadership', 'Quiz 5', 'Myles Munroe', 47, 14, '3.357');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `worshipmaterials`
+--
+
+CREATE TABLE IF NOT EXISTS `worshipmaterials` (
+  `id` mediumint(9) NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) NOT NULL,
+  `author` varchar(50) NOT NULL,
+  `venue` varchar(50) NOT NULL,
+  `link` varchar(200) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `worshipquestions`
+--
+
+CREATE TABLE IF NOT EXISTS `worshipquestions` (
+  `id` mediumint(9) NOT NULL AUTO_INCREMENT,
+  `question` varchar(500) NOT NULL,
+  `type` varchar(50) NOT NULL,
+  `options` varchar(300) NOT NULL,
+  `answers` varchar(200) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
