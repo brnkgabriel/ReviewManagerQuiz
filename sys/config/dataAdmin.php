@@ -1,7 +1,7 @@
 <?php
 // Contains utility functions for updating values in a table
-function queryDbForExistingEntry($dbc, $id, $tableName){
-	$cond = "WHERE date = '$id'";
+function queryDbForExistingEntry($dbc, $columnName, $id, $tableName){
+	$cond = "WHERE $columnName = '$id'";
 	
 	$q = "SELECT * FROM $tableName $cond";
 	$r = mysqli_query($dbc, $q);
@@ -51,6 +51,27 @@ function insertToOrUpdateTable($dbc, $tableScoresName, $queryType, $date, $exerc
 			$q = "INSERT INTO $tableScoresName (date,exercise,type,source,score,currentage,aggregate) VALUES (?, ?, ?, ?, ?, ?, ?)";
 			$stmt = $dbc->prepare($q);
 			$stmt->bind_param('sssssss', $date, $exercise, $type, $source, $score, $currentage, $aggregate);  
+			break;
+	}
+	$stmt->execute();  
+	$stmt->close();
+}
+
+function insertToOrUpdateMaterialOrQuestionTable($dbc, $tableName, $queryType, $title, $type, $author, $link){
+	$q = "";
+	$stmt;
+	switch ($queryType) {
+		case 'update':
+			echo "Entry Exists" . "\n";
+			$q = "UPDATE $tableName SET title = ?, type = ?, author = ?, link = ? WHERE title = ?";
+			$stmt = $dbc->prepare($q);
+			$stmt->bind_param('sssss', $title, $type, $author, $link, $title);  
+			break;
+		case 'insert':
+			echo "Entry doesn't exist" . "\n";
+			$q = "INSERT INTO $tableName (title,type,author,link) VALUES (?, ?, ?, ?)";
+			$stmt = $dbc->prepare($q);
+			$stmt->bind_param('ssss', $title, $type, $author, $link);  
 			break;
 	}
 	$stmt->execute();  

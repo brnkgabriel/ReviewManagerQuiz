@@ -6,12 +6,12 @@
 
 // Aug 22 2016 11:07pm
 // To create the controls to update the quizsettings table
-var worshipMaterialJSON = {title : "", type : "", author : "", link : ""};
-var messageMaterialJSON = {title : "", type : "", author : "", link : ""};
-var scriptureMaterialJSON = {book : "", chapter : "", verse : "", words : ""};
+var worshipMaterialJSON = {title : "", type : "", author : "", link : "", tableName: "worshipmaterials"};
+var messageMaterialJSON = {title : "", type : "", author : "", link : "", tableName: "messagematerials"};
+var scriptureMaterialJSON = {book : "", chapter : "", verse : "", words : "", tableName: "scripturematerials"};
 
-var worshipQuestionJSON = {question : "", type : "", options : [], answers : []}; 
-var messageQuestionJSON = {question : "", type : "", options : [], answers : []};  
+var worshipQuestionJSON = {question : "", type : "", options : [], answers : [], tableName: "worshipquestions"}; 
+var messageQuestionJSON = {question : "", type : "", options : [], answers : [], tableName: "messagequestions"};  
 
 jQuery(document).ready(function(){
 	jQuery('#quizOptions').change(function(){
@@ -319,11 +319,11 @@ jQuery(document).ready(function(){
 
 	function saveJSONToDatabase(elementIdOrSetting){
 		switch(elementIdOrSetting){
-			case 'worshipMaterialBtn': 
-
+			case 'worshipMaterialBtn':  
+				updateDatabase(worshipMaterialJSON,'QuizMaterials');
 				break;
 			case 'messageMaterialBtn':
-
+				updateDatabase(messageMaterialJSON,'QuizMaterials');
 				break;
 			case 'scriptureMaterialBtn':
 
@@ -332,28 +332,27 @@ jQuery(document).ready(function(){
 
 				break;
 			case 'messageQuestionBtn':
-				
+
 				break; 
 			case 'Materials': 
-				jQuery.ajax({
-					type 	: "POST",
-					url	 	: "../../sys/config/storeQuizSettingsInDB.php",
-					data 	: {setting : elementIdOrSetting},
-					success : function(data){
-						console.log(data);
-					}
-				});
+				var settingJSON = {setting : elementIdOrSetting}; 
+				updateDatabase(settingJSON,'QuizSettings');
 				break;
-			case 'Questions':
-				jQuery.ajax({
-					type 	: "POST",
-					url	 	: "../../sys/config/storeQuizSettingsInDB.php",
-					data 	: {setting : elementIdOrSetting},
-					success : function(data){
-						console.log(data);
-					}
-				});
+			case 'Questions': 
+				var settingJSON = {setting : elementIdOrSetting}; 
+				updateDatabase(settingJSON,'QuizSettings');
 				break;
 		}
 	} 
+
+	function updateDatabase(JSONData,material){
+		jQuery.ajax({
+			type 	: "POST",
+			url	 	: "../../sys/config/store"+material+"InDB.php",
+			data 	: JSONData,
+			success : function(data){
+				console.log(data);
+			}
+		});
+	}
 });
