@@ -56,4 +56,19 @@ function insertToOrUpdateTable($dbc, $tableScoresName, $queryType, $date, $exerc
 	$stmt->execute();  
 	$stmt->close();
 }
+
+function updateQuizSettingsTable($dbc, $setting, $page){
+	$q = "";
+	$stmt; 
+	$q = "UPDATE quizsettings SET details = ? WHERE page = ?";
+	$stmt = $dbc->prepare($q);
+	$stmt->bind_param('ss', $setting, $page);
+	
+	if($stmt->execute() > 0)
+		echo "Settings Table Updated";
+	else
+		echo "Settings Table Not Updated";
+	
+	$stmt->close(); 
+}
 ?>

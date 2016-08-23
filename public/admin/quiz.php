@@ -67,7 +67,7 @@
 					<div id="myTabContent" class="tab-content"> 
 						<div class="tab-pane fade in active" id="worship">
 							<div class="row">
-								<div class="col-md-4 col-md-offset-4">
+								<div class="col-md-6 col-md-offset-3">
 									<form id="worshipForm">
 										 
 									</form> 
@@ -76,22 +76,18 @@
 						</div>
 						<div class="tab-pane fade" id="message">
 							<div class="row">
-								<div class="col-md-4 col-md-offset-4">
-									<form>
-										<div class="form-group"> 
-											
-										</div><!-- end form-group div -->
+								<div class="col-md-6 col-md-offset-3">
+									<form id="messageForm"> 
+										
 									</form>
 								</div>
 							</div>
 						</div>
 						<div class="tab-pane fade" id="scripture">
 							<div class="row">
-								<div class="col-md-4 col-md-offset-4">
-									<form>
-										<div class="form-group"> 
-											
-										</div><!-- end form-group div -->
+								<div class="col-md-6 col-md-offset-3">
+									<form id="scriptureForm">
+										
 									</form>
 								</div>
 							</div>

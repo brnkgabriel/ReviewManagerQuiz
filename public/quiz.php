@@ -61,17 +61,17 @@
 					</ul>
 					<div id="myTabContent" class="tab-content"> 
 						<div class="tab-pane fade in active" id="worship">
-							<?php 	if($quizSettings['details'] === 'materials'){ ?>
+							<?php 	if($quizSettings['details'] === 'Materials'){ ?>
 							<p>Title: <strong>Sing to The Lord</strong></p>
 							<p>By: <strong>Marty Sampson</strong></p>
 							<p>Location: <strong>Hillsong Church Australia</strong></p>
 							<p><iframe width="420" height="315" src="https://www.youtube.com/embed/ICwUyLK54vE" frameborder="0" allowfullscreen></iframe></p>										
-							<?php	}else{  // questions?>
+							<?php	}else if($quizSettings['details'] === 'Questions'){  // questions?>
 										
 							<?php	} ?> 
 						</div>
 						<div class="tab-pane fade" id="message">
-							<?php 	if($quizSettings['details'] === 'materials'){ ?>
+							<?php 	if($quizSettings['details'] === 'Materials'){ ?>
 								<div class="panel-group" id="accordion"> 
 									<div class="panel panel-default">
 										<div class="panel-heading">
@@ -116,12 +116,12 @@
 										</div> <!-- end panel-collapse -->
 									</div><!-- end panel -->
 								</div>										
-							<?php	}else{  // questions?>
+							<?php	}else if($quizSettings['details'] === 'Questions'){  // questions?>
 										
 							<?php	} ?> 
 						</div>
 						<div class="tab-pane fade" id="scripture">
-							<?php 	if($quizSettings['details'] === 'materials'){ ?>
+							<?php 	if($quizSettings['details'] === 'Materials'){ ?>
 							<p>This portion is for typing the bible</p>
 							<p>
 								It will consist a paragraph tag and a text area. The paragraph will show the next verse to be typed.
@@ -129,7 +129,7 @@
 								typed completely. The text area clears and the paragraph tag shows the next verse to be typed
 							</p>
 							<textarea class="form-control"></textarea>
-							<?php	}else{ ?>
+							<?php	}else if($quizSettings['details'] === 'Questions'){ ?>
 										
 							<?php	} ?> 
 						</div>
