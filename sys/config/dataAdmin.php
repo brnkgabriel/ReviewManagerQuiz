@@ -57,7 +57,7 @@ function insertToOrUpdateTable($dbc, $tableScoresName, $queryType, $date, $exerc
 	$stmt->close();
 }
 
-function insertToOrUpdateMaterialOrQuestionTable($dbc, $tableName, $queryType, $title, $type, $author, $link){
+function insertToOrUpdateMaterialTable($dbc, $tableName, $queryType, $title, $type, $author, $link){
 	$q = "";
 	$stmt;
 	switch ($queryType) {
@@ -72,6 +72,48 @@ function insertToOrUpdateMaterialOrQuestionTable($dbc, $tableName, $queryType, $
 			$q = "INSERT INTO $tableName (title,type,author,link) VALUES (?, ?, ?, ?)";
 			$stmt = $dbc->prepare($q);
 			$stmt->bind_param('ssss', $title, $type, $author, $link);  
+			break;
+	}
+	$stmt->execute();  
+	$stmt->close();
+}
+
+function insertToOrUpdateQuestionTable($dbc, $tableName, $queryType, $question, $type, $options, $answers){
+	$q = "";
+	$stmt;
+	switch ($queryType) {
+		case 'update':
+			echo "Entry Exists" . "\n";
+			$q = "UPDATE $tableName SET question = ?, type = ?, options = ?, answers = ? WHERE question = ?";
+			$stmt = $dbc->prepare($q);
+			$stmt->bind_param('sssss', $question, $type, $options, $answers, $question);  
+			break;
+		case 'insert':
+			echo "Entry doesn't exist" . "\n";
+			$q = "INSERT INTO $tableName (question,type,options,answers) VALUES (?, ?, ?, ?)";
+			$stmt = $dbc->prepare($q);
+			$stmt->bind_param('ssss', $question, $type, $options, $answers);  
+			break;
+	}
+	$stmt->execute();  
+	$stmt->close();
+}
+
+function insertToOrUpdateScriptureTable($dbc, $tableName, $queryType, $book, $chapter, $verse, $words, $reference){
+	$q = "";
+	$stmt;
+	switch ($queryType) {
+		case 'update':
+			echo "Entry Exists" . "\n";
+			$q = "UPDATE $tableName SET book = ?, chapter = ?, verse = ?, words = ? WHERE reference = ?";
+			$stmt = $dbc->prepare($q);
+			$stmt->bind_param('sssss', $book, $chapter, $verse, $words, $reference);  
+			break;
+		case 'insert':
+			echo "Entry doesn't exist" . "\n";
+			$q = "INSERT INTO $tableName (book,chapter,verse,words,reference) VALUES (?, ?, ?, ?, ?)";
+			$stmt = $dbc->prepare($q);
+			$stmt->bind_param('sssss', $book, $chapter, $verse, $words, $reference);  
 			break;
 	}
 	$stmt->execute();  

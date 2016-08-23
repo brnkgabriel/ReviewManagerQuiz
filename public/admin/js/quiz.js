@@ -8,7 +8,8 @@
 // To create the controls to update the quizsettings table
 var worshipMaterialJSON = {title : "", type : "", author : "", link : "", tableName: "worshipmaterials"};
 var messageMaterialJSON = {title : "", type : "", author : "", link : "", tableName: "messagematerials"};
-var scriptureMaterialJSON = {book : "", chapter : "", verse : "", words : "", tableName: "scripturematerials"};
+var scriptureMaterialJSON = {book : "", chapter : "", verse : "", words : "", reference: "", tableName: "scripturematerials"};
+var scriptureReference = "";
 
 var worshipQuestionJSON = {question : "", type : "", options : [], answers : [], tableName: "worshipquestions"}; 
 var messageQuestionJSON = {question : "", type : "", options : [], answers : [], tableName: "messagequestions"};  
@@ -304,15 +305,20 @@ jQuery(document).ready(function(){
 				break;
 			case 'book':
 				scriptureMaterialJSON.book = jQuery.trim(value);
+				scriptureReference = "";
+				scriptureReference = jQuery.trim(value);
 				break;
 			case 'chapter':
 				scriptureMaterialJSON.chapter = jQuery.trim(value);
+				scriptureReference += " " + jQuery.trim(value);
 				break;
 			case 'verse':
 				scriptureMaterialJSON.verse = jQuery.trim(value);
+				scriptureReference += ":" + jQuery.trim(value);
 				break;
 			case 'words':
 				scriptureMaterialJSON.words = jQuery.trim(value);
+				scriptureMaterialJSON.reference = scriptureReference;
 				break;
 		}
 	} 
@@ -326,13 +332,13 @@ jQuery(document).ready(function(){
 				updateDatabase(messageMaterialJSON,'QuizMaterials');
 				break;
 			case 'scriptureMaterialBtn':
-
+				updateDatabase(scriptureMaterialJSON,'ScriptureMaterials');
 				break; 
 			case 'worshipQuestionBtn':
-
+				updateDatabase(worshipQuestionJSON,'QuizQuestions');
 				break;
 			case 'messageQuestionBtn':
-
+				updateDatabase(messageQuestionJSON,'QuizQuestions');
 				break; 
 			case 'Materials': 
 				var settingJSON = {setting : elementIdOrSetting}; 
