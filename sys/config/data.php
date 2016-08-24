@@ -1,5 +1,4 @@
-<?php  
-						 
+<?php   					 
 	function getFromTable($dbc, $columnName, $id, $tableName){
 		switch ($id) {
 			case "": 

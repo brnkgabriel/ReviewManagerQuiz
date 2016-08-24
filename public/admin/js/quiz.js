@@ -336,9 +336,13 @@ jQuery(document).ready(function(){
 				break; 
 			case 'worshipQuestionBtn':
 				updateDatabase(worshipQuestionJSON,'QuizQuestions');
+				worshipQuestionJSON.options = [];
+				worshipQuestionJSON.answers = [];
 				break;
 			case 'messageQuestionBtn':
 				updateDatabase(messageQuestionJSON,'QuizQuestions');
+				messageQuestionJSON.options = [];
+				messageQuestionJSON.answers = [];
 				break; 
 			case 'Materials': 
 				var settingJSON = {setting : elementIdOrSetting}; 

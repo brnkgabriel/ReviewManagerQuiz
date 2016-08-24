@@ -67,26 +67,23 @@
 							<p>Location: <strong>Hillsong Church Australia</strong></p>
 							<p><iframe width="420" height="315" src="https://www.youtube.com/embed/ICwUyLK54vE" frameborder="0" allowfullscreen></iframe></p>										
 							<?php	}else if($quizSettings['details'] === 'Questions'){  // questions?>
-										
+							<div class="row">
+								<div class="col-md-6 col-md-offset-3">
+									<form id="worshipForm">
+										 
+									</form>
+									<br /> 
+									<p>
+										<button class="btn btn-default" id="prevBtn"><span class="glyphicon glyphicon-chevron-left"></span></button>
+										<button class="btn btn-default" id="nextBtn"><span class="glyphicon glyphicon-chevron-right"></span></button>
+									</p>
+								</div>
+							</div>
 							<?php	} ?> 
 						</div>
 						<div class="tab-pane fade" id="message">
 							<?php 	if($quizSettings['details'] === 'Materials'){ ?>
-								<div class="panel-group" id="accordion"> 
-									<div class="panel panel-default">
-										<div class="panel-heading">
-											<h4 class="panel-title"> 
-												<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-													<strong>[Attitude]</strong> Actions by Paula White
-												</a>
-											</h4><!-- end panel title -->
-										</div><!-- end panel heading -->
-										<div id="collapseOne" class="panel-collapse collapse">
-											<div class="panel-body">
-												<p><iframe width="560" height="315" src="https://www.youtube.com/embed/0hIcT1GQZns" frameborder="0" allowfullscreen></iframe></p>
-											</div><!-- end panel body -->
-										</div><!-- end panel-collapse -->
-									</div><!-- end panel -->
+								<div class="panel-group" id="accordion">  
 									<div class="panel panel-default">
 										<div class="panel-heading">
 											<h4 class="panel-title">
@@ -100,24 +97,17 @@
 												<p><iframe width="560" height="315" src="https://www.youtube.com/embed/V6i395WNbAA?list=PLFzgN2iKn8bT6SP4MGQ7FHDkT4s_Fj3Qp" frameborder="0" allowfullscreen></iframe></p>
 											</div><!-- end panel body -->
 										</div><!-- end panel-collapse -->
-									</div> <!-- end panel -->
-									<div class="panel panel-default">
-										<div class="panel-heading">
-											<h4 class="panel-title">
-												<a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-													<strong>[Relationship]</strong> Single Again by Myles Munroe
-												</a>
-											</h4><!-- end panel title -->
-										</div> <!-- end panel heading-->
-										<div id="collapseThree" class="panel-collapse collapse">
-											<div class="panel-body">
-												<p><iframe width="560" height="315" src="https://www.youtube.com/embed/6Frru5jFo6A?list=PLFzgN2iKn8bT6SP4MGQ7FHDkT4s_Fj3Qp" frameborder="0" allowfullscreen></iframe></p>
-											</div><!-- end panel body -->
-										</div> <!-- end panel-collapse -->
-									</div><!-- end panel -->
-								</div>										
+									</div> <!-- end panel -->									
 							<?php	}else if($quizSettings['details'] === 'Questions'){  // questions?>
-										
+							<div class="tab-pane fade" id="message">
+								<div class="row">
+									<div class="col-md-6 col-md-offset-3">
+										<form id="messageForm"> 
+											
+										</form>
+									</div>
+								</div>
+							</div>		
 							<?php	} ?> 
 						</div>
 						<div class="tab-pane fade" id="scripture">
@@ -130,7 +120,15 @@
 							</p>
 							<textarea class="form-control"></textarea>
 							<?php	}else if($quizSettings['details'] === 'Questions'){ ?>
-										
+							<div class="tab-pane fade" id="scripture">
+								<div class="row">
+									<div class="col-md-6 col-md-offset-3">
+										<form id="scriptureForm">
+											
+										</form>
+									</div>
+								</div>
+							</div>			
 							<?php	} ?> 
 						</div>
 					</div><!-- end quiz tab-pane -->
