@@ -55,12 +55,12 @@
 				</div><!-- end quiz panel heading -->
 				<div class="panel-body"> 
 					<ul class="nav nav-tabs">
-						<li class="active"><a href="#worship" data-toggle="tab">Worship</a></li>
-						<li><a href="#message" data-toggle="tab">Message</a></li>
-						<li><a href="#scripture" data-toggle="tab">Scripture</a></li>
+						<li id="worshipListItem"><a href="#worship" data-toggle="tab">Worship</a></li>
+						<li id="messageListItem"><a href="#message" data-toggle="tab">Message</a></li>
+						<li id="scriptureListItem"><a href="#scripture" data-toggle="tab">Scripture</a></li>
 					</ul>
 					<div id="myTabContent" class="tab-content"> 
-						<div class="tab-pane fade in active" id="worship">
+						<div class="tab-pane fade" id="worship">
 							<?php 	if($quizSettings['details'] === 'Materials'){ ?>
 							<p>Title: <strong>Sing to The Lord</strong></p>
 							<p>By: <strong>Marty Sampson</strong></p>
@@ -69,13 +69,16 @@
 							<?php	}else if($quizSettings['details'] === 'Questions'){  // questions?>
 							<div class="row">
 								<div class="col-md-6 col-md-offset-3">
-									<form id="worshipForm">
-										 
+									<form id="worshipForm"> 
+										<p>
+											You CANNOT RETAKE A QUESTION. Give this question your best attempt.
+										</p>
+										<label id="worshipQuestionLabel"></label>
+										<select id="worshipOptionsSelectList" class="form-control"></select>
 									</form>
 									<br /> 
 									<p>
-										<button class="btn btn-default" id="prevBtn"><span class="glyphicon glyphicon-chevron-left"></span></button>
-										<button class="btn btn-default" id="nextBtn"><span class="glyphicon glyphicon-chevron-right"></span></button>
+										<button disabled="true" class="btn btn-primary" id="worshipNextBtn"><span class="glyphicon glyphicon-chevron-right"></span></button>
 									</p>
 								</div>
 							</div>
@@ -99,13 +102,19 @@
 										</div><!-- end panel-collapse -->
 									</div> <!-- end panel -->									
 							<?php	}else if($quizSettings['details'] === 'Questions'){  // questions?>
-							<div class="tab-pane fade" id="message">
-								<div class="row">
-									<div class="col-md-6 col-md-offset-3">
-										<form id="messageForm"> 
-											
-										</form>
-									</div>
+							<div class="row">
+								<div class="col-md-6 col-md-offset-3">
+									<form id="messageForm"> 
+										<p>
+											You CANNOT RETAKE A QUESTION. Give this question your best attempt.
+										</p>
+										<label id="messageQuestionLabel"></label>
+										<select id="messageOptionsSelectList" class="form-control"></select>
+									</form>
+									<br /> 
+									<p>
+										<button disabled="true" class="btn btn-primary" id="messageNextBtn"><span class="glyphicon glyphicon-chevron-right"></span></button>
+									</p>
 								</div>
 							</div>		
 							<?php	} ?> 
@@ -119,20 +128,21 @@
 								typed completely. The text area clears and the paragraph tag shows the next verse to be typed
 							</p>
 							<textarea class="form-control"></textarea>
-							<?php	}else if($quizSettings['details'] === 'Questions'){ ?>
-							<div class="tab-pane fade" id="scripture">
-								<div class="row">
-									<div class="col-md-6 col-md-offset-3">
-										<form id="scriptureForm">
-											
-										</form>
-									</div>
+							<?php	}else if($quizSettings['details'] === 'Questions'){ ?> 
+							<div class="row"> 
+								<div class="col-md-6 col-md-offset-3">
+									<form id="scriptureForm">  
+										Scripture 2
+									</form>
 								</div>
 							</div>			
 							<?php	} ?> 
 						</div>
 					</div><!-- end quiz tab-pane -->
 				</div><!-- end quiz panel body -->
+				<div class="panel-footer" id="quizPanelFooter"> 
+					
+				</div>
 			</div><!-- end quiz panel -->
 		</div>
 	</body>
