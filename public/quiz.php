@@ -70,9 +70,7 @@
 							<div class="row">
 								<div class="col-md-6 col-md-offset-3">
 									<form id="worshipForm"> 
-										<p>
-											You CANNOT RETAKE A QUESTION. Give this question your best attempt.
-										</p>
+										<p id="worshipInfo"></p>
 										<label id="worshipQuestionLabel"></label>
 										<select id="worshipOptionsSelectList" class="form-control"></select>
 									</form>
@@ -105,9 +103,7 @@
 							<div class="row">
 								<div class="col-md-6 col-md-offset-3">
 									<form id="messageForm"> 
-										<p>
-											You CANNOT RETAKE A QUESTION. Give this question your best attempt.
-										</p>
+										<p id="messageInfo"></p>
 										<label id="messageQuestionLabel"></label>
 										<select id="messageOptionsSelectList" class="form-control"></select>
 									</form>
@@ -130,10 +126,30 @@
 							<textarea class="form-control"></textarea>
 							<?php	}else if($quizSettings['details'] === 'Questions'){ ?> 
 							<div class="row"> 
-								<div class="col-md-6 col-md-offset-3">
+								<div class="col-md-6 col-md-offset-3 table-responsive">
 									<form id="scriptureForm">  
-										Scripture 2
+										<p id="scriptureInfo">
+											Type the Scripture below in the text area. Click the next button when you're done
+										</p>
+										<table class="table table-bordered table-condensed"> 
+											<thead>
+												<tr>
+													<th><label id="scriptureReferenceLabel"></label></th>
+													<th><label id="scriptureLabel"></label></th> 
+												</tr>
+											</thead>
+											<tbody> 
+												<tr>
+													<td><input type="text" id="scriptureReferenceInput" class="form-control"></textarea></td>
+													<td><textarea id="scriptureTextArea" class="form-control"></textarea></td> 
+												</tr> 
+											</tbody><!-- end score history tbody -->
+										</table><!-- end score history table --> 
 									</form>
+									<br /> 
+									<p>
+										<button class="btn btn-primary" id="scriptureNextBtn"><span class="glyphicon glyphicon-chevron-right"></span></button>
+									</p>
 								</div>
 							</div>			
 							<?php	} ?> 
