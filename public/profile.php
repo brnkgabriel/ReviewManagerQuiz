@@ -73,15 +73,17 @@
 				<div class="col-md-8"> 
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<h3 class="panel-title">Score Trend</h3>
+							<h3 class="panel-title">Rank Trend</h3>
 						</div>
-						<div class="panel-body">
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+						<div class="panel-body table-responsive">
+							<canvas id="scoreTrendCanvas" width="800" height="83">
+								Sorry, canvas not supported
+							</canvas>
+							<p></p>
+							<p>
+								<button class="btn btn-default" id="prevTrendBtn"><span class="glyphicon glyphicon-chevron-left"></span></button>
+								<button class="btn btn-default" id="nextTrendBtn"><span class="glyphicon glyphicon-chevron-right"></span></button>
+							</p>
 						</div><!-- end attributes panel body -->
 					</div><!-- end attributes panel -->
 				</div><!-- end attributes column -->

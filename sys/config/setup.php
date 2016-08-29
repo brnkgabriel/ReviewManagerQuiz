@@ -17,5 +17,5 @@
 	$total_prize = getTotalPrize($prizes);
 	$studentProfilesForPositionAndPrize = numericallyOrderedStudentProfiles($dbc, 'profiles'); 
 	updatePositionAndPrize($dbc, $studentProfilesForPositionAndPrize, $total_prize); 
-	
+
 ?> 
