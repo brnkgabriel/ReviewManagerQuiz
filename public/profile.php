@@ -73,7 +73,7 @@
 				<div class="col-md-8"> 
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<h3 class="panel-title">Rank Trend</h3>
+							<h3 class="panel-title" id="rankTrendPanelTitle">Rank Trend: Position as at [2016-01-03]</h3>
 						</div>
 						<div class="panel-body table-responsive">
 							<canvas id="scoreTrendCanvas" width="800" height="83">
@@ -81,10 +81,10 @@
 							</canvas>
 							<p></p>
 							<p>
-								<button class="btn btn-default" id="prevTrendBtn"><span class="glyphicon glyphicon-chevron-left"></span></button>
-								<button class="btn btn-default" id="nextTrendBtn"><span class="glyphicon glyphicon-chevron-right"></span></button>
+								<button disabled="true" class="btn btn-default" id="prevTrendBtn"><span class="glyphicon glyphicon-chevron-left"></span></button>
+								<button disabled="true" class="btn btn-default" id="nextTrendBtn"><span class="glyphicon glyphicon-chevron-right"></span></button>
 							</p>
-						</div><!-- end attributes panel body -->
+						</div><!-- end attributes panel body --> 
 					</div><!-- end attributes panel -->
 				</div><!-- end attributes column -->
 			</div><!-- end attributes row -->
