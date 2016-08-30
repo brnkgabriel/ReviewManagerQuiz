@@ -13,11 +13,12 @@
 
 var allStudents = [];
 var particularStudentScoresTableName;
-var threeLoadJSON = {particularStudent: false, allStudentsProfile: false, studentScores: false};
+var finishedAllDataLoadingOperation = false;
 var studentIndexInAllStudentsArray;
 var rankTrendScoreIndex = 4;
 var aggregateAsAtSelectedDate = []; 
 var runGetParticularStudentOnce = false;
+var selectedDateIndex = 0;
 
 jQuery(document).ready(function(){
 
@@ -26,30 +27,93 @@ jQuery(document).ready(function(){
 	getAllStudentsProfile();
 
 	function resourcesAlreadyLoaded(){
-		console.log(threeLoadJSON);
-		if(threeLoadJSON.studentScores == true && runGetParticularStudentOnce == false){
-			 getParticularStudent(); 
-			 runGetParticularStudentOnce = true;
-		}
-
-		if(threeLoadJSON.particularStudent == true && threeLoadJSON.allStudentsProfile == true && threeLoadJSON.studentScores == true){
+		console.log(finishedAllDataLoadingOperation); 
+		if(finishedAllDataLoadingOperation === true){
 			clearInterval(interval); 
-			jQuery('#prevTrendBtn, #nextTrendBtn').removeAttr('disabled');
-			updateCanvas();
-		}
-		else
-			jQuery('#prevTrendBtn, #nextTrendBtn').attr('disabled', 'true');
+			sortScoresAndDrawOnCanvas();
+			jQuery('#prevTrendBtn, #nextTrendBtn').removeAttr('disabled'); 
+			jQuery('#prevTrendBtn, #nextTrendBtn').click(function(){
+				var elementId = jQuery(this).attr('id');
+				console.log(elementId);
+				switch(elementId){
+					case 'prevTrendBtn':
+						selectedDateIndex--;
+						if(selectedDateIndex === 0)
+							jQuery('#prevTrendBtn').attr('disabled', 'true');
+						else if(selectedDateIndex === allStudents[0].scores.length - 2)
+							jQuery('#nextTrendBtn').removeAttr('disabled'); 
+						sortScoresAndDrawOnCanvas();
+						break;
+					case 'nextTrendBtn':
+						selectedDateIndex++;
+						if(selectedDateIndex === allStudents[0].scores.length - 1)
+							jQuery('#nextTrendBtn').attr('disabled', 'true'); 
+						else if(selectedDateIndex === 1)
+							jQuery('#prevTrendBtn').removeAttr('disabled'); 
+						sortScoresAndDrawOnCanvas();
+						break;
+				}
+				jQuery('#rankTrendPanelTitle').html("Rank Trend: Position as at " + allStudents[0].scores[selectedDateIndex].date);
+				console.log(jQuery('#rankTrendPanelTitle').text());
+			});
+		} 
 	}
 
-	draw(document.getElementById('scoreTrendCanvas'));
+	function sortScoresAndDrawOnCanvas(){ 
+		allStudents.sort(sortFunction);
+		assignStudentPosition(); 
+		console.log(allStudents);
+		draw(document.getElementById('scoreTrendCanvas'));
+	} 
+
+	function sortFunction(a,b){
+		// The reason the line below is not a[0].scores[28] is because a is not representing the whole array but each element of the array
+		// since each element of the array is an object we make use of a.scores[28]
+		if(parseFloat(a.scores[selectedDateIndex].currentTotalAggregate) === parseFloat(b.scores[selectedDateIndex].currentTotalAggregate))
+			return 0;
+		else{
+			return (parseFloat(a.scores[selectedDateIndex].currentTotalAggregate) > parseFloat(b.scores[selectedDateIndex].currentTotalAggregate)) ? -1 : 1;
+		}
+	}
+
+	function assignStudentPosition(){
+		for(var i = 0; i < allStudents.length; i++){
+			switch(i){
+				case 0:
+					allStudents[i].position = (i+1) + "st";
+					break;
+				case 1:
+					allStudents[i].position = (i+1) + "nd";
+					break;
+				case 2:
+					allStudents[i].position = (i+1) + "rd";
+					break;
+				default:
+					allStudents[i].position = (i+1) + "th";
+					break;
+			}
+		}
+	}
+
+	// var a = [[12, 'AAA'], [58, 'BBB'], [28, 'CCC'],[18, 'DDD']];
+
+	// a.sort(sortFunction);
+
+	// function sortFunction(a, b) {
+	//     if (a[0] === b[0]) {
+	//         return 0;
+	//     }
+	//     else {
+	//         return (a[0] < b[0]) ? -1 : 1;
+	//     }
+	// }
 
 	function getAllStudentsProfile(){
 		jQuery.ajax({
 			type 		: "POST",
 			url	 		: "../sys/config/getAllStudentProfiles.php", 
 			success 	: function(data){ 
-							getSlicedCodeNameAndScoresTableName(data);
-							threeLoadJSON.allStudentsProfile = true; 
+							getSlicedCodeNameAndScoresTableName(data); 
 						},
 			error 		:function(xhr,err,e) { 
 							alert ("Error: " + err);
@@ -65,11 +129,11 @@ jQuery(document).ready(function(){
 			var firstLastNameScores = data[i].first + data[i].last + "scores";
 			var sTableName = firstLastNameScores.toLowerCase();
 			var cCode = data[i].color;
-			var isLastIndex = false; 
+			var isLastIndex = false; // needed so we get the current student when the last student's scores have been database retrieved
 			if(i == data.length - 1)
 				isLastIndex = true;
 			getStudentScores({tableName : sTableName}, isLastIndex); 
-			var studentJSON = {slicedCodeName: sCodeName, scoresTableName: sTableName, scores: [], colorCode: cCode};
+			var studentJSON = {slicedCodeName: sCodeName, scoresTableName: sTableName, scores: [], colorCode: cCode, position: ""};
 			allStudents.push(studentJSON);
 		} 
 	}
@@ -80,11 +144,9 @@ jQuery(document).ready(function(){
 			url	 		: "../sys/config/getStudentsScores.php",
 			data 		: tableNameJSON, 
 			success 	: function(data){ 
-							storeAllScoresinAllStudentsArray(data);
-							if(isLastIndex == true)// so that I know that it's retrieved the last student's score
-								threeLoadJSON.studentScores = true;
-							else
-								threeLoadJSON.studentScores = false;
+							storeAllScoresinAllStudentsArray(data); 
+							if(isLastIndex == true)
+								 getParticularStudent();
 						},
 			error 		:function(xhr,err,e) { 
 							alert ("Error: " + err);
@@ -106,8 +168,8 @@ jQuery(document).ready(function(){
 			type 		: "POST",
 			url	 		: "../sys/config/particularStudent.php", 
 			success 	: function(data){ 
-							updateParticularStudentScoresTableName(data);
-							threeLoadJSON.particularStudent = true; 
+							finishedAllDataLoadingOperation = true;
+							updateParticularStudentScoresTableName(data); 
 						},
 			error 		:function(xhr,err,e) { 
 							alert ("Error: " + err);
@@ -118,52 +180,37 @@ jQuery(document).ready(function(){
  
 	function updateParticularStudentScoresTableName(data){
 		var firstLastNameScores = data.first + data.last + "scores";
-		particularStudentScoresTableName = firstLastNameScores.toLowerCase(); 
-		console.log(particularStudentScoresTableName);
+		particularStudentScoresTableName = firstLastNameScores.toLowerCase();  
 		for(var i = 0; i < allStudents.length; i++){
 			if(particularStudentScoresTableName === allStudents[i].scoresTableName){
 				allStudents[i].slicedCodeName = "You";
 				studentIndexInAllStudentsArray = i;
 				break;
 			}
-		} 
-		console.log(allStudents);
-		console.log("student index is: " + studentIndexInAllStudentsArray);
+		}  
 	}
-
-	function updateCanvas(){
-		for(var i = 0; i < allStudents.length; i++){
-			var scores = allStudents[i].scores;
-			var tAggregate = 0; 
-			for(var j = 0; j < rankTrendScoreIndex; j++){
-				tAggregate += parseFloat(scores[j].aggregate);
-			}
-			var currentDayStatus = {tableName: allStudents[i].scoresTableName, totalAggregate: tAggregate};
-			aggregateAsAtSelectedDate.push(currentDayStatus);
-		}
-		console.log(aggregateAsAtSelectedDate);
-	}
-
+ 
 	function draw(canvas){
 		var width = canvas.width;
 		var height = canvas.height; 
 		var center = {x: width / 2, y: height / 2};
 		var context = canvas.getContext('2d');
-		context.beginPath();
-		context.rect(0,0,width, height);
-		context.fillStyle = 'yellow';
-		context.fill(); 
+		context.clearRect(0, 0, canvas.width, canvas.height);
+		// context.beginPath();
+		// context.rect(0,0,width, height);
+		// context.fillStyle = 'yellow';
+		// context.fill(); 
 		var numberOfStudents = 20;
 		var yBottomTipOffset = 25;  
-		for(var i = 0; i < numberOfStudents; i++){ 
+		for(var i = 0; i < allStudents.length; i++){ 
 			var offsetX = 700 / (numberOfStudents - 1); // See comment above on how to obtain offsetX
 			var xBottomTipOffset = 350 - (offsetX * i);
-			drawPrism(context, 'red', center.x, center.y, xBottomTipOffset, yBottomTipOffset, "You"); 
+			drawPrism(context, '#'+ allStudents[i].colorCode, center.x, center.y, xBottomTipOffset, yBottomTipOffset, allStudents[i].slicedCodeName, allStudents[i].position); 
 		}
 	}
 
 	// Draw Each Prism
-	function drawPrism(context, color, centerX, centerY, xStartPoint, yStartPoint, student){ 
+	function drawPrism(context, color, centerX, centerY, xStartPoint, yStartPoint, student, position){ 
 		context.beginPath(); 
 		context.moveTo(centerX - xStartPoint, centerY + yStartPoint);
 		context.lineTo(centerX - (xStartPoint - 5), centerY + (yStartPoint - 5));
@@ -174,8 +221,12 @@ jQuery(document).ready(function(){
 		context.lineTo(centerX - xStartPoint, centerY + yStartPoint);
 		context.fillStyle = color; 
 		context.textAlign = 'center';
-		context.font = 'bold 10pt Ubuntu';
-		context.fillText(student, centerX - xStartPoint, centerY + yStartPoint + 15);  
+		if(student === "You")
+			context.font = 'bold 10pt Ubuntu';
+		else
+			context.font = '8pt Ubuntu';
+		context.fillText(student, centerX - xStartPoint, centerY + yStartPoint + 15); 
+		context.fillText(position, centerX - xStartPoint, centerY - yStartPoint - 5); 
 		context.fill(); 
 	}
 });

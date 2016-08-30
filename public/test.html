@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+
+		<!-- Include Modernizr in the head, before any other Javascript -->
+		<script src="js/modernizr-2.6.2.min.js"></script>
+		 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+		<script type="text/javascript">
+			window.jQuery || document.write("<script src='js/jquery-3.1.0.min.js'><\/script>");
+		</script>
+
+		<!-- Include all compiled plugins (below), or include individual files as needed -->
+		<script src="js/bootstrap.min.js"></script>
+		<script>
+			
+		</script>
+		<script src="js/quiz.js"></script>
+
+		<!-- CSS -->
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/jquery-ui.css">
+		<link rel="stylesheet" href="css/bootstrap-glyphicons.css">
+		<link rel="stylesheet" href="css/myCSSFile.css">
+		<style>
+			.navbar{
+				background-color: <?php echo "#" . $student_profile['color']; ?>
+			}
+			.panel .panel-heading{
+				background-color: <?php echo "#" . $student_profile['color']; ?>
+			}
+			.panel .panel-body .nav li a{
+				color: <?php echo "#" . $student_profile['color']; ?>;
+			}
+		</style>
+		<title>Quiz-HPM Youths</title>
+	</head>
+	<body>
+		<div class="btn-group" data-toggle="buttons">
+			<label>
+				<input type="radio" name="options" id="option1" autocomplete="off" checked>Choose not to say
+			</label>
+			<label>
+				<input type="radio" name="options" id="option2" autocomplete="off">Less than 18
+			</label>
+			<label>
+				<input type="radio" name="options" id="option3" autocomplete="off">18-40
+			</label>
+			<label>
+				<input type="radio" name="options" id="option4" autocomplete="off">40-120
+			</label>
+		</div>
+	</body>
+</html>

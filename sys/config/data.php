@@ -1,4 +1,11 @@
 <?php   					 
+	function getCurrentTotalAggregateFromTable($dbc, $columnName1, $id1, $columnName2, $id2, $tableName){ 
+		$q = "SELECT totalAggregate FROM $tableName WHERE $columnName1 = '$id1' AND $columnName2 = '$id2'";
+		$r = mysqli_query($dbc, $q);
+		$data = mysqli_fetch_assoc($r); 
+		return $data;
+	}
+	
 	function getFromTable($dbc, $columnName, $id, $tableName){
 		switch ($id) {
 			case "": 

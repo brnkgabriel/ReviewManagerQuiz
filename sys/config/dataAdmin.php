@@ -36,7 +36,7 @@ function addAllAggregateScores($dbc, $tableScoresName){
 	return $totalAggregate;
 }
 
-function insertToOrUpdateTable($dbc, $tableScoresName, $queryType, $date, $exercise, $type, $source, $score, $currentage, $aggregate){
+function insertToOrUpdateTable($dbc, $tableScoresName, $queryType, $date, $exercise, $type, $source, $score, $currentage, $aggregate, $currentTotalAggregate){
 	$q = "";
 	$stmt;
 	switch ($queryType) {
@@ -48,9 +48,9 @@ function insertToOrUpdateTable($dbc, $tableScoresName, $queryType, $date, $exerc
 			break;
 		case 'insert':
 			echo "Entry doesn't exist" . "\n";
-			$q = "INSERT INTO $tableScoresName (date,exercise,type,source,score,currentage,aggregate) VALUES (?, ?, ?, ?, ?, ?, ?)";
+			$q = "INSERT INTO $tableScoresName (date,exercise,type,source,score,currentage,aggregate,currentTotalAggregate) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 			$stmt = $dbc->prepare($q);
-			$stmt->bind_param('sssssss', $date, $exercise, $type, $source, $score, $currentage, $aggregate);  
+			$stmt->bind_param('ssssssss', $date, $exercise, $type, $source, $score, $currentage, $aggregate, $currentTotalAggregate);  
 			break;
 	}
 	$stmt->execute();  

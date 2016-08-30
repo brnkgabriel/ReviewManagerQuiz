@@ -7,7 +7,8 @@ var studentJSONScore = {date: "",
 						currentage: "",
 						aggregate: "",
 						first: "",
-						last: ""};
+						last: "",
+						currentTotalAggregate: ""};
 var MINIMUM_AGE = 10;
 var amIPermittedToStoreInDatabase = false;
 
@@ -32,7 +33,8 @@ jQuery(document).ready(function(){
 				alert("Select a Student...");
 			else{
 				splitStudentNames();
-				sendToDatabase();
+				getCurrentTotalAggregate({first: studentJSONScore.first, last: studentJSONScore.last});
+				// sendToDatabase();
 			}
 		} 
 	});
@@ -42,6 +44,21 @@ jQuery(document).ready(function(){
 		var firstAndLastName = joinedStudentNames.split(" ");
 		assembleStudentJSONScore('first', firstAndLastName[0]);
 		assembleStudentJSONScore('last', firstAndLastName[1]); 
+	}
+
+	function getCurrentTotalAggregate(nameJSON){ 
+		jQuery.ajax({
+			type 		: "POST",
+			url	 		: "../../sys/config/getCurrentTotalAggregate.php",
+			data 		: nameJSON,
+			success 	: function(data){  
+							assembleStudentJSONScore('currentTotalAggregate', data);
+							sendToDatabase(); 
+			},
+			error 		:function(xhr,err,e) { 
+							alert ("Error: " + err);
+						} 
+		});
 	}
 
 	function sendToDatabase(){ 
@@ -115,6 +132,9 @@ jQuery(document).ready(function(){
 				break;
 			case 'last':
 				studentJSONScore.last = value;
+				break;
+			case 'currentTotalAggregate': 
+				studentJSONScore.currentTotalAggregate = parseFloat(studentJSONScore.aggregate) + parseFloat(value);
 				break;
 		}
 	}
