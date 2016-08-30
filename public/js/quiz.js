@@ -79,7 +79,9 @@ jQuery(document).ready(function(){
 		
 		updateQuestionFormElements(currentTab, questionOrScripturesActedOn);  
 		quizState('store', currentQuizState);
-		currentBtn.attr('disabled', 'true'); 
+
+		if(currentBtn.attr('id') !== "scriptureNextBtn")
+			currentBtn.attr('disabled', 'true'); 
 		console.log(currentQuizState);
 	});
 
@@ -151,6 +153,8 @@ jQuery(document).ready(function(){
 			if(currentTab === "scripture"){
 				jQuery('#scriptureInfo').html("");
 				jQuery('#scriptureReferenceLabel').html("");
+				jQuery('#scriptureReferenceInput').val("");
+				jQuery('#scriptureTextArea').val("");
 				jQuery('#scriptureLabel').text("You have completed the scriptures for the week!!!");
 			}else{ 
 
@@ -168,6 +172,8 @@ jQuery(document).ready(function(){
 			if(currentTab === "scripture"){
 				jQuery('#scriptureLabel').text(allProcessedQuestions[i].words);
 				jQuery('#scriptureReferenceLabel').text(allProcessedQuestions[i].reference);
+				jQuery('#scriptureReferenceInput').val("");
+				jQuery('#scriptureTextArea').val("");
 			}else{
 				if(currentTab === "worship")
 					jQuery('#worshipInfo').html("You CANNOT RETAKE A QUESTION. Give this question your best attempt.");

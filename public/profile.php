@@ -17,6 +17,7 @@
 		<script type="text/javascript">
 			window.jQuery || document.write("<script src='js/jquery-3.1.0.min.js'><\/script>");
 		</script>
+		<script src="js/Chart.min.js"></script>
 
 		<!-- Include all compiled plugins (below), or include individual files as needed -->
 		<script src="js/bootstrap.min.js"></script>
@@ -50,33 +51,77 @@
 		<!-- Body -->
 		<div id="centerStage" class="container-fluid" style="color:<?php echo "#" . $student_profile['color']; ?>;">
 			<div class="row">
-				<div class="col-md-4">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h3 class="panel-title">Biodata</h3>
-						</div><!-- end biodata panel heading -->
-						<div class="panel-body">
-							<div class="row">
-								<div class="col-md-6" align="center">
-									<p><div id="circle" style="background: <?php echo "#" . $student_profile['color']; ?>"><span id="verticalAlignmentWithinCircle"><strong style="color:white;"><?php echo $student_profile['initials']; ?></strong></span></div></p>
-									<p id="student_profileName"><?php echo $student_profile['first'].' '.$student_profile['last']; ?></p> 
-									<p><?php echo $student_profile['age'].'yrs'; ?></p>
-								</div>
-								<div class="col-md-6" align="center">
-									<p>Position(<strong><?php echo $student_profile['position']; ?></strong>)</p>
-									<p>Total Aggregate(<strong><?php echo $student_profile['totalAggregate']; ?></strong>)</p> 
-								</div><!-- end position and aggregate panel -->
-							</div><!-- end biodata row -->
-						</div><!-- end biodata panel body -->
-					</div><!-- end biodata panel -->
+				<div class="col-md-6">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h3 class="panel-title">Biodata</h3>
+								</div><!-- end biodata panel heading -->
+								<div class="panel-body">
+									<div class="row">
+										<div class="col-md-6" align="center">
+											<p><div id="circle" style="background: <?php echo "#" . $student_profile['color']; ?>"><span id="verticalAlignmentWithinCircle"><strong style="color:white;"><?php echo $student_profile['initials']; ?></strong></span></div></p>
+											<p id="student_profileName"><?php echo $student_profile['first'].' '.$student_profile['last']; ?></p> 
+											<p><?php echo $student_profile['age'].'yrs'; ?></p>
+										</div>
+										<div class="col-md-6" align="center">
+											<p>Position(<strong><?php echo $student_profile['position']; ?></strong>)</p>
+											<p>Total Aggregate(<strong><?php echo $student_profile['totalAggregate']; ?></strong>)</p> 
+										</div><!-- end position and aggregate panel -->
+									</div><!-- end biodata row -->
+								</div><!-- end biodata panel body -->
+							</div><!-- end biodata panel -->
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12"> 
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h3 class="panel-title">Score History</h3>
+								</div><!-- end score history panel heading -->
+								<div class="panel-body table-responsive" id="scoreHistoryPanelBody">
+									<table class="table table-bordered table-condensed"> 
+										<thead id="scoreHistoryTableHead">
+											<tr>
+												<th>Day</th>
+												<th>Exercise</th>
+												<th>Type</th>
+												<th>Source</th>
+												<th>Score</th>
+												<th>Age</th>
+												<th>Aggregate</th>
+											</tr>
+										</thead>
+										<tbody id="scoreHistoryTableBody">
+											<?php 
+												$tableSize = count($student_scores);   
+												for($i = $tableSize - 1; $i > -1; $i--){ 
+											?>
+													<tr>
+														<td><?php echo $student_scores[$i]['date'] ?></td>
+														<td><?php echo $student_scores[$i]['exercise'] ?></td>
+														<td><?php echo $student_scores[$i]['type'] ?></td>
+														<td><?php echo $student_scores[$i]['source'] ?></td>
+														<td><?php echo $student_scores[$i]['score'] ?></td>
+														<td><?php echo $student_scores[$i]['currentage'] ?></td>
+														<td><?php echo $student_scores[$i]['aggregate'] ?></td>
+													</tr>
+											<?php }?> 
+										</tbody><!-- end score history tbody -->
+									</table><!-- end score history table -->
+								</div><!-- end score history panel body -->
+							</div><!-- end score history panel -->
+						</div><!-- end score history column -->
+					</div> 
 				</div><!-- end biodata column -->
-				<div class="col-md-8"> 
+				<div class="col-md-6"> 
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<h3 class="panel-title" id="rankTrendPanelTitle">Rank Trend: Position as at [2016-01-03]</h3>
 						</div>
 						<div class="panel-body table-responsive">
-							<canvas id="scoreTrendCanvas" width="800" height="83">
+							<canvas id="scoreTrendCanvas" width="800" height="330">
 								Sorry, canvas not supported
 							</canvas>
 							<p></p>
@@ -87,47 +132,7 @@
 						</div><!-- end attributes panel body --> 
 					</div><!-- end attributes panel -->
 				</div><!-- end attributes column -->
-			</div><!-- end attributes row -->
-			<div class="row">
-				<div class="col-md-12"> 
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h3 class="panel-title">Score History</h3>
-						</div><!-- end score history panel heading -->
-						<div class="panel-body table-responsive" id="scoreHistoryPanelBody">
-							<table class="table table-bordered table-condensed"> 
-								<thead id="scoreHistoryTableHead">
-									<tr>
-										<th>Day</th>
-										<th>Exercise</th>
-										<th>Type</th>
-										<th>Source</th>
-										<th>Score</th>
-										<th>Age</th>
-										<th>Aggregate</th>
-									</tr>
-								</thead>
-								<tbody id="scoreHistoryTableBody">
-									<?php 
-										$tableSize = count($student_scores);   
-										for($i = $tableSize - 1; $i > -1; $i--){ 
-									?>
-											<tr>
-												<td><?php echo $student_scores[$i]['date'] ?></td>
-												<td><?php echo $student_scores[$i]['exercise'] ?></td>
-												<td><?php echo $student_scores[$i]['type'] ?></td>
-												<td><?php echo $student_scores[$i]['source'] ?></td>
-												<td><?php echo $student_scores[$i]['score'] ?></td>
-												<td><?php echo $student_scores[$i]['currentage'] ?></td>
-												<td><?php echo $student_scores[$i]['aggregate'] ?></td>
-											</tr>
-									<?php }?> 
-								</tbody><!-- end score history tbody -->
-							</table><!-- end score history table -->
-						</div><!-- end score history panel body -->
-					</div><!-- end score history panel -->
-				</div><!-- end score history column -->
-			</div><!-- end score history row -->  
+			</div><!-- end attributes row --> 
 		</div>
 	</body>
 </html>

@@ -1,0 +1,40 @@
+
+for(int i = list.length - 1; i >= 1; i--){
+	
+	// find the maximum in the list [0..i]
+	double currentMax = list[0];
+	int currentMaxIndex = 0;
+
+	for(int j = 1; j <= i; j++){
+		if(currentMax < list[j]){
+			currentMax = list[j];
+			currentMaxIndex = j;
+		}
+	}
+
+	if(currentMaxIndex != i){
+		list[currentMaxIndex] = list[i];
+		list[i] = currentMax;
+	}
+}
+
+for(var i = allStudents.length - 1; i >= 1; i--){
+	// find the maximum currentAggregate in the list [0..i]
+	var currentMaxComparisonValue = parseFloat(allStudents[0].scores[selectedDateIndex]);
+	var currentMaxStudent = allStudent[0];
+	int currentMaxIndex = 0;
+
+	for(var j = 1; j <= i; j++){
+		var currentComparisonValue = parseFloat(allStudents[j].scores[selectedDateIndex]);
+		var currentStudent = allStudents[j];
+		if(currentMaxComparisonValue < currentComparisonValue){
+			currentMaxStudent = currentStudent;
+			currentMaxIndex = j;
+		}
+	}
+
+	if(currentMaxIndex != i){
+		allStudents[currentMaxIndex] = allStudents[i];
+		allStudents[i] = currentMaxStudent;
+	}
+}

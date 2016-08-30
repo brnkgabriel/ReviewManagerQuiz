@@ -129,7 +129,10 @@ jQuery(document).ready(function(){
 			});
 		});
 
-		jQuery('#scriptureMaterialBtn').click(function(){saveJSONToDatabase('scriptureMaterialBtn')});
+		jQuery('#scriptureMaterialBtn').click(function(){
+			scriptureMaterialJSON.reference = scriptureMaterialJSON.book + " " + scriptureMaterialJSON.chapter + ":" + scriptureMaterialJSON.verse;
+			saveJSONToDatabase('scriptureMaterialBtn');
+		});
 	}
 
 	function createQuizQuestions(type){
@@ -304,21 +307,16 @@ jQuery(document).ready(function(){
 				messageQuestionJSON.answers.push(jQuery.trim(value));
 				break;
 			case 'book':
-				scriptureMaterialJSON.book = jQuery.trim(value);
-				scriptureReference = "";
-				scriptureReference = jQuery.trim(value);
+				scriptureMaterialJSON.book = jQuery.trim(value); 
 				break;
 			case 'chapter':
-				scriptureMaterialJSON.chapter = jQuery.trim(value);
-				scriptureReference += " " + jQuery.trim(value);
+				scriptureMaterialJSON.chapter = jQuery.trim(value); 
 				break;
 			case 'verse':
-				scriptureMaterialJSON.verse = jQuery.trim(value);
-				scriptureReference += ":" + jQuery.trim(value);
+				scriptureMaterialJSON.verse = jQuery.trim(value); 
 				break;
 			case 'words':
-				scriptureMaterialJSON.words = jQuery.trim(value);
-				scriptureMaterialJSON.reference = scriptureReference;
+				scriptureMaterialJSON.words = jQuery.trim(value); 
 				break;
 		}
 	} 

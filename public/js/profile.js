@@ -18,7 +18,10 @@ var studentIndexInAllStudentsArray;
 var rankTrendScoreIndex = 4;
 var aggregateAsAtSelectedDate = []; 
 var runGetParticularStudentOnce = false;
-var selectedDateIndex = 0;
+var selectedDateIndex = 28;
+var graphLabel = [];
+var graphData = [];
+var graphBackgroundColor = [];
 
 jQuery(document).ready(function(){
 
@@ -26,8 +29,7 @@ jQuery(document).ready(function(){
  
 	getAllStudentsProfile();
 
-	function resourcesAlreadyLoaded(){
-		console.log(finishedAllDataLoadingOperation); 
+	function resourcesAlreadyLoaded(){ 
 		if(finishedAllDataLoadingOperation === true){
 			clearInterval(interval); 
 			jQuery('#rankTrendPanelTitle').html("Rank Trend: Position as at " + allStudents[0].scores[selectedDateIndex].date + ". Selected date index is: " + selectedDateIndex);
@@ -49,6 +51,7 @@ jQuery(document).ready(function(){
 
 				jQuery('#rankTrendPanelTitle').html("Rank Trend: Position as at " + allStudents[0].scores[selectedDateIndex].date + ". Selected date index is: " + selectedDateIndex);
 				sortScoresAndDrawOnCanvas(); 
+				console.log(allStudents);
 			});
 		} 
 	}
@@ -57,7 +60,8 @@ jQuery(document).ready(function(){
 		sortStudentsAccordingToCurrentAggregate();
 		assignStudentPosition(); 
 		console.log(allStudents);
-		draw(document.getElementById('scoreTrendCanvas'));
+		// draw(document.getElementById('scoreTrendCanvas'));
+		drawFromChartJS(document.getElementById('scoreTrendCanvas'));
 	} 
 
 	function sortStudentsAccordingToCurrentAggregate(){  
@@ -85,6 +89,9 @@ jQuery(document).ready(function(){
 	}
 
 	function assignStudentPosition(){
+		graphLabel = [];
+		graphData = [];
+		graphBackgroundColor = [];
 		for(var i = 0; i < allStudents.length; i++){
 			switch(i){
 				case 0:
@@ -100,6 +107,12 @@ jQuery(document).ready(function(){
 					allStudents[i].position = (i+1) + "th";
 					break;
 			}
+			var label = allStudents[i].slicedCodeName +": " + allStudents[i].position;
+			var data = parseFloat(allStudents[i].scores[selectedDateIndex].currentTotalAggregate);
+			var borderColor = "#" + allStudents[i].colorCode;
+			graphLabel.push(label);
+			graphData.push(data);
+			graphBackgroundColor.push(borderColor);
 		}
 	}
  
@@ -185,6 +198,108 @@ jQuery(document).ready(function(){
 		}  
 	}
  
+ 	function drawFromChartJS(chart){ 
+ 	// 	var ctx = chart.getContext("2d");
+		// Chart.defaults.global.tooltips.enabled = false;
+ 	// 	Chart.defaults.global.animation.onComplete = function(){
+		// 	console.log("finished");
+		// 	console.log();
+		// 	var ctx = this.chart.ctx;
+	 //        // ctx.font = this.scale.font;
+	 //        ctx.fillStyle = this.scale.textColor
+	 //        ctx.textAlign = "center";
+	 //        ctx.textBaseline = "bottom";
+
+	 //        this.datasets.forEach(function (dataset) {
+	 //            dataset.bars.forEach(function (bar) {
+	 //                ctx.fillText(bar.value, bar.x, bar.y - 5);
+	 //            });
+	 //        })
+		// } 
+		// var myBar = new Chart(ctx).Bar(chartData, {
+		//     showTooltips: false,
+		//     onAnimationComplete: function () {
+
+		//         
+		//     }
+		// });
+
+ 	// 	var chartData = {
+		//     labels: graphLabel,
+		//     datasets: [
+		//         {
+		//             label: "Student Ranking",
+		//             fill: false,
+		//             lineTension: 0.1,
+		//             backgroundColor: "rgba(75,192,192,0.4)",
+		//             borderColor: "rgba(75,192,192,1)",
+		//             borderCapStyle: 'butt',
+		//             borderDash: [],
+		//             borderDashOffset: 0.0,
+		//             borderJoinStyle: 'miter',
+		//             pointBorderColor: "rgba(75,192,192,1)",
+		//             pointBackgroundColor: "#fff",
+		//             pointBorderWidth: 1,
+		//             pointHoverRadius: 5,
+		//             pointHoverBackgroundColor: "rgba(75,192,192,1)",
+		//             pointHoverBorderColor: "rgba(220,220,220,1)",
+		//             pointHoverBorderWidth: 2,
+		//             pointRadius: 1,
+		//             pointHitRadius: 10,
+		//             data: graphData,
+		//             spanGaps: false,
+		//         }
+		//     ]
+		// }; 
+ 		let barChart = new Chart(chart,{
+ 			type: "bar",
+ 			data: {
+				    labels: graphLabel,
+				    datasets: [
+				        {
+				            label: "Student Ranking",
+				            fill: false,
+				            lineTension: 0.1,
+				            backgroundColor: graphBackgroundColor,
+				            borderColor: "rgba(75,192,192,1)",
+				            borderCapStyle: 'butt',
+				            borderDash: [],
+				            borderDashOffset: 0.0,
+				            borderJoinStyle: 'miter',
+				            pointBorderColor: "rgba(75,192,192,1)",
+				            pointBackgroundColor: "#fff",
+				            pointBorderWidth: 1,
+				            pointHoverRadius: 5,
+				            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+				            pointHoverBorderColor: "rgba(220,220,220,1)",
+				            pointHoverBorderWidth: 2,
+				            pointRadius: 1,
+				            pointHitRadius: 10,
+				            data: graphData,
+				            spanGaps: false,
+				        }
+				    ]
+				},
+			options: { 
+				scales : {
+					yAxes: [{
+						ticks: {
+							beginAtZero: true,
+							fontFamily: "Ubuntu"
+						}
+					}],
+					xAxes: [{
+						ticks: {
+							fontFamily: "Ubuntu"
+						}
+					}]
+				}
+			} 
+ 		});
+
+ 		
+ 	}
+
 	function draw(canvas){
 		var width = canvas.width;
 		var height = canvas.height; 
@@ -194,18 +309,17 @@ jQuery(document).ready(function(){
 		// context.beginPath();
 		// context.rect(0,0,width, height);
 		// context.fillStyle = 'yellow';
-		// context.fill(); 
-		var numberOfStudents = 20;
-		var yBottomTipOffset = 25;  
+		// context.fill();  
+		var yBottomTipOffset = 10;  
 		for(var i = 0; i < allStudents.length; i++){ 
-			var offsetX = 700 / (numberOfStudents - 1); // See comment above on how to obtain offsetX
+			var offsetX = 700 / (allStudents.length - 1); // See comment above on how to obtain offsetX
 			var xBottomTipOffset = 350 - (offsetX * i);
-			drawPrism(context, '#'+ allStudents[i].colorCode, center.x, center.y, xBottomTipOffset, yBottomTipOffset, allStudents[i].slicedCodeName, allStudents[i].position); 
+			drawPrism(context, '#'+ allStudents[i].colorCode, center.x, center.y, xBottomTipOffset, yBottomTipOffset, allStudents[i].slicedCodeName, allStudents[i].position, allStudents[i].scores[selectedDateIndex].currentTotalAggregate); 
 		}
 	}
 
 	// Draw Each Prism
-	function drawPrism(context, color, centerX, centerY, xStartPoint, yStartPoint, student, position){ 
+	function drawPrism(context, color, centerX, centerY, xStartPoint, yStartPoint, student, position, currentTotalAggregate){ 
 		context.beginPath(); 
 		context.moveTo(centerX - xStartPoint, centerY + yStartPoint);
 		context.lineTo(centerX - (xStartPoint - 5), centerY + (yStartPoint - 5));
@@ -217,11 +331,12 @@ jQuery(document).ready(function(){
 		context.fillStyle = color; 
 		context.textAlign = 'center';
 		if(student === "You")
-			context.font = 'bold 10pt Ubuntu';
+			context.font = 'bold 9pt Ubuntu';
 		else
-			context.font = '8pt Ubuntu';
+			context.font = '6pt Ubuntu';
 		context.fillText(student, centerX - xStartPoint, centerY + yStartPoint + 15); 
 		context.fillText(position, centerX - xStartPoint, centerY - yStartPoint - 5); 
+		context.fillText(currentTotalAggregate, centerX - xStartPoint, centerY - yStartPoint - 15); 
 		context.fill(); 
 	}
 });

@@ -116,28 +116,28 @@
 		for($i = $numOfStudents - 1, $j = 0; $i > -1; $i--){
 			if($group === "firstToFourth"){
 				switch ($i) {
-					case 18:
+					case ($numOfStudents - 1):
 						$totalAggregate += $profiles[$i]['totalAggregate'];  
 						break;
-					case 17:
+					case ($numOfStudents - 2):
 						$totalAggregate += $profiles[$i]['totalAggregate']; 
 						break;
-					case 16:
+					case ($numOfStudents - 3):
 						$totalAggregate += $profiles[$i]['totalAggregate']; 
 						break; 
-					case 15:
+					case ($numOfStudents - 4):
 						$totalAggregate += $profiles[$i]['totalAggregate']; 
 						break; 
 				}
 			}else{
 				switch ($i) { 
-					case 14:
+					case ($numOfStudents - 5):
 						$totalAggregate += $profiles[$i]['totalAggregate'];  
 						break;
-					case 13:
+					case ($numOfStudents - 6):
 						$totalAggregate += $profiles[$i]['totalAggregate'];  
 						break;
-					case 12:
+					case ($numOfStudents - 7):
 						$totalAggregate += $profiles[$i]['totalAggregate'];  
 						break; 
 				}
