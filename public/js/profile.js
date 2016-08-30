@@ -30,50 +30,58 @@ jQuery(document).ready(function(){
 		console.log(finishedAllDataLoadingOperation); 
 		if(finishedAllDataLoadingOperation === true){
 			clearInterval(interval); 
+			jQuery('#rankTrendPanelTitle').html("Rank Trend: Position as at " + allStudents[0].scores[selectedDateIndex].date + ". Selected date index is: " + selectedDateIndex);
 			sortScoresAndDrawOnCanvas();
 			jQuery('#prevTrendBtn, #nextTrendBtn').removeAttr('disabled'); 
 			jQuery('#prevTrendBtn, #nextTrendBtn').click(function(){
 				var elementId = jQuery(this).attr('id');
 				console.log(elementId);
-				switch(elementId){
-					case 'prevTrendBtn':
-						selectedDateIndex--;
-						if(selectedDateIndex === 0)
-							jQuery('#prevTrendBtn').attr('disabled', 'true');
-						else if(selectedDateIndex === allStudents[0].scores.length - 2)
-							jQuery('#nextTrendBtn').removeAttr('disabled'); 
-						sortScoresAndDrawOnCanvas();
-						break;
-					case 'nextTrendBtn':
-						selectedDateIndex++;
-						if(selectedDateIndex === allStudents[0].scores.length - 1)
-							jQuery('#nextTrendBtn').attr('disabled', 'true'); 
-						else if(selectedDateIndex === 1)
-							jQuery('#prevTrendBtn').removeAttr('disabled'); 
-						sortScoresAndDrawOnCanvas();
-						break;
-				}
-				jQuery('#rankTrendPanelTitle').html("Rank Trend: Position as at " + allStudents[0].scores[selectedDateIndex].date);
-				console.log(jQuery('#rankTrendPanelTitle').text());
+
+				if(elementId === "prevTrendBtn")
+					selectedDateIndex--;
+				else
+					selectedDateIndex++;
+ 
+				if(selectedDateIndex < 0)
+					selectedDateIndex = allStudents[0].scores.length - 1;
+				else if(selectedDateIndex > allStudents[0].scores.length - 1)
+					selectedDateIndex = 0; 
+
+				jQuery('#rankTrendPanelTitle').html("Rank Trend: Position as at " + allStudents[0].scores[selectedDateIndex].date + ". Selected date index is: " + selectedDateIndex);
+				sortScoresAndDrawOnCanvas(); 
 			});
 		} 
 	}
 
 	function sortScoresAndDrawOnCanvas(){ 
-		allStudents.sort(sortFunction);
+		sortStudentsAccordingToCurrentAggregate();
 		assignStudentPosition(); 
 		console.log(allStudents);
 		draw(document.getElementById('scoreTrendCanvas'));
 	} 
 
-	function sortFunction(a,b){
-		// The reason the line below is not a[0].scores[28] is because a is not representing the whole array but each element of the array
-		// since each element of the array is an object we make use of a.scores[28]
-		if(parseFloat(a.scores[selectedDateIndex].currentTotalAggregate) === parseFloat(b.scores[selectedDateIndex].currentTotalAggregate))
-			return 0;
-		else{
-			return (parseFloat(a.scores[selectedDateIndex].currentTotalAggregate) > parseFloat(b.scores[selectedDateIndex].currentTotalAggregate)) ? -1 : 1;
-		}
+	function sortStudentsAccordingToCurrentAggregate(){  
+
+		for(var i = allStudents.length - 1; i >= 1; i--){
+			// find the maximum currentTotalAggregate in the list allStudents[0..i]
+			var currentMaxComparisonValue = parseFloat(allStudents[0].scores[selectedDateIndex].currentTotalAggregate);
+			var currentMaxStudent = allStudents[0];
+			var currentMaxIndex = 0;
+ 
+			for(var j = 1; j <= i; j++){
+				var currentComparisonValue = parseFloat(allStudents[j].scores[selectedDateIndex].currentTotalAggregate);  
+				if(currentMaxComparisonValue > currentComparisonValue){
+					currentMaxStudent = allStudents[j];
+					currentMaxComparisonValue = currentComparisonValue;
+					currentMaxIndex = j;
+				}
+			}
+ 
+			if(currentMaxIndex != i){
+				allStudents[currentMaxIndex] = allStudents[i];
+				allStudents[i] = currentMaxStudent;
+			}
+		} 
 	}
 
 	function assignStudentPosition(){
@@ -94,20 +102,7 @@ jQuery(document).ready(function(){
 			}
 		}
 	}
-
-	// var a = [[12, 'AAA'], [58, 'BBB'], [28, 'CCC'],[18, 'DDD']];
-
-	// a.sort(sortFunction);
-
-	// function sortFunction(a, b) {
-	//     if (a[0] === b[0]) {
-	//         return 0;
-	//     }
-	//     else {
-	//         return (a[0] < b[0]) ? -1 : 1;
-	//     }
-	// }
-
+ 
 	function getAllStudentsProfile(){
 		jQuery.ajax({
 			type 		: "POST",
