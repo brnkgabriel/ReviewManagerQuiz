@@ -12,7 +12,7 @@ var view;
 var options;
 
 jQuery(document).ready(function(){
-	google.charts.load('current', {packages: ['corechart', 'bar']});
+	google.charts.load('43', {packages: ['corechart', 'bar']});
 
 	var interval = setInterval(resourcesAlreadyLoaded);
  
@@ -56,7 +56,12 @@ jQuery(document).ready(function(){
 
 	function drawBasic() { 
 
-      	var data = google.visualization.arrayToDataTable(googleChartVisualizationData)
+      	var data = google.visualization.arrayToDataTable(googleChartVisualizationData);
+
+      	// var data = google.visualization.arrayToDataTable([
+	      //    ['Element', 'Density', { role: 'style' }],
+	      //    ['Copper', selectedDateIndex, '#b87333']
+	      // ]);
 
       	view = new google.visualization.DataView(data);
       	view.setColumns([0, 1,
@@ -74,7 +79,12 @@ jQuery(document).ready(function(){
       		},
       		width: scoreTrendContainerJQuery[0].clientWidth,
       		height: scoreTrendContainerJQuery[0].clientHeight,
-      		bar: {groupWidth: "30%"},
+      		animation:{
+      			startup: true,
+		        duration: 1000,
+		        easing: 'out',
+		      },
+      		bar: {groupWidth: "50%"},
       		legend: {position: "none"},
       		chartArea: { 
 	            height: "60%",
@@ -95,17 +105,19 @@ jQuery(document).ready(function(){
   				},
 				slantedText: true,
 				slantedTextAngle: 45
-  			},
-  			vAxis: {
+  			}, 
+  			vAxis: { 
   				textStyle: {
   					fontSize: 12,
   					fontName: 'Ubuntu' 
-  				}
+  				},
+  				minValue: 0,
+  				maxValue: 100
   			}
       	};
-
-      	resize();
-		window.onresize = resize();
+		// var chart = new google.visualization.ColumnChart(document.getElementById('scoreTrendContainer'));
+  //     	chart.draw(data,options);
+      	resize(); 
     }
 
     function resize(){

@@ -130,7 +130,7 @@
 							</div>
 							<div class="row-fluid"> 
 								<div class="col-md-12" id="scoreTrendContainer" style="height: 345px;">
-									Sorry, canvas not supported
+									Loading...
 								</div> 
 							</div> 
 						</div><!-- end attributes panel body --> 
