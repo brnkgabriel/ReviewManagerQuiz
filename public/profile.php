@@ -119,17 +119,20 @@
 				<div class="col-md-6"> 
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<h3 class="panel-title" id="rankTrendPanelTitle">Rank Trend: Position as at [2016-01-03]</h3>
+							<h3 class="panel-title" id="rankTrendPanelTitle">Rank Trend</h3>
 						</div>
 						<div class="panel-body table-responsive">
-							<div id="scoreTrendCanvas" style="height: 345px;">
-								Sorry, canvas not supported
+							<div class="row">
+								<p>
+									<button disabled="true" class="btn btn-default" id="prevTrendBtn"><span class="glyphicon glyphicon-chevron-left"></span></button>
+									<button disabled="true" class="btn btn-default" id="nextTrendBtn"><span class="glyphicon glyphicon-chevron-right"></span></button>
+								</p>
 							</div>
-							<p></p>
-							<p>
-								<button disabled="true" class="btn btn-default" id="prevTrendBtn"><span class="glyphicon glyphicon-chevron-left"></span></button>
-								<button disabled="true" class="btn btn-default" id="nextTrendBtn"><span class="glyphicon glyphicon-chevron-right"></span></button>
-							</p>
+							<div class="row-fluid"> 
+								<div class="col-md-12" id="scoreTrendContainer" style="height: 345px;">
+									Sorry, canvas not supported
+								</div> 
+							</div> 
 						</div><!-- end attributes panel body --> 
 					</div><!-- end attributes panel -->
 				</div><!-- end attributes column -->

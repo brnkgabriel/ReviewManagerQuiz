@@ -19,13 +19,12 @@ var rankTrendScoreIndex = 4;
 var aggregateAsAtSelectedDate = []; 
 var runGetParticularStudentOnce = false;
 var selectedDateIndex = 28;
-var graphLabel = [];
-var graphData = [];
-var graphBackgroundColor = [];
+var googleChartVisualizationData = [['CodeName:Position', 'Current Total Aggregate', {role: 'style'}]]; 
 var barChart;
+var view;
+var options;
 
 jQuery(document).ready(function(){
-
 	google.charts.load('current', {packages: ['corechart', 'bar']});
 
 	var interval = setInterval(resourcesAlreadyLoaded);
@@ -34,8 +33,7 @@ jQuery(document).ready(function(){
 
 	function resourcesAlreadyLoaded(){ 
 		if(finishedAllDataLoadingOperation === true){
-			clearInterval(interval); 
-			jQuery('#rankTrendPanelTitle').html("Rank Trend: Position as at " + allStudents[0].scores[selectedDateIndex].date + ". Selected date index is: " + selectedDateIndex);
+			clearInterval(interval);  
 			sortScoresAndDrawOnCanvas();
 			jQuery('#prevTrendBtn, #nextTrendBtn').removeAttr('disabled'); 
 			jQuery('#prevTrendBtn, #nextTrendBtn').click(function(){
@@ -50,9 +48,8 @@ jQuery(document).ready(function(){
 				if(selectedDateIndex < 0)
 					selectedDateIndex = allStudents[0].scores.length - 1;
 				else if(selectedDateIndex > allStudents[0].scores.length - 1)
-					selectedDateIndex = 0; 
+					selectedDateIndex = 0;  
 
-				jQuery('#rankTrendPanelTitle').html("Rank Trend: Position as at " + allStudents[0].scores[selectedDateIndex].date + ". Selected date index is: " + selectedDateIndex);
 				sortScoresAndDrawOnCanvas(); 
 				console.log(allStudents);
 			});
@@ -63,8 +60,8 @@ jQuery(document).ready(function(){
 		sortStudentsAccordingToCurrentAggregate();
 		assignStudentPosition(); 
 		console.log(allStudents);
-		// draw(document.getElementById('scoreTrendCanvas'));
-		// drawFromChartJS(document.getElementById('scoreTrendCanvas'));
+		// draw(document.getElementById('scoreTrendContainer'));
+		// drawFromChartJS(document.getElementById('scoreTrendContainer'));
 		drawFromGoogleChart();
 	} 
 
@@ -86,31 +83,61 @@ jQuery(document).ready(function(){
        //  	["Tobi", 4]
       	// ]);
 
-      	var data = google.visualization.arrayToDataTable([
-      			['Element', 'Density', {role: 'style'}],
-      			['Copper', 8.94, '#b87333'],            
-         		['Silver', 10.49, 'silver'],            
-         		['Gold', 19.30, 'gold'],
-				['Platinum', 21.45, 'color: #e5e4e2' ],
-      		])
-      // 	var options = {
-      //   	title: 'Motivation Level Throughout the Day',
-      //   	hAxis: {
-      //     		title: 'Time of Day',
-      //     		format: 'h:mm a',
-      //     		viewWindow: {
-      //       	min: [7, 30, 0],
-      //       	max: [17, 30, 0]
-      //     	}
-      //   },
-      //   vAxis: {
-      //     	title: 'Rating (scale of 1-10)'
-      //   }
-      // };
+      	var data = google.visualization.arrayToDataTable(googleChartVisualizationData)
 
-      var chart = new google.visualization.ColumnChart(document.getElementById('scoreTrendCanvas'));
+      	view = new google.visualization.DataView(data);
+      	view.setColumns([0, 1,
+      					{calc: "stringify", 
+      					 sourceColumn: 1, 
+      					 type: "string", 
+      					 role: "annotation"},
+      					 2]);
+      	 
+      	var scoreTrendContainerJQuery = jQuery('#scoreTrendContainer'); 
+      	options = {
+      		title: "Position as at " + allStudents[0].scores[selectedDateIndex].date + ". Week " + (selectedDateIndex + 1),
+      		titleTextStyle: {
+      			fontName: 'Ubuntu'
+      		},
+      		width: scoreTrendContainerJQuery[0].clientWidth,
+      		height: scoreTrendContainerJQuery[0].clientHeight,
+      		bar: {groupWidth: "30%"},
+      		legend: {position: "none"},
+      		chartArea: { 
+	            height: "60%",
+	            width: "90%"
+	        },
+	        annotations: {
+			    textStyle: {
+			      fontName: 'Ubuntu',
+			      fontSize: 8,  
+			      // The color of the text.
+			      color: '#871b47' 
+		 		}
+  			},
+  			hAxis: {
+  				textStyle: {
+  					fontSize: 12,
+  					fontName: 'Ubuntu'
+  				},
+				slantedText: true,
+				slantedTextAngle: 45
+  			},
+  			vAxis: {
+  				textStyle: {
+  					fontSize: 12,
+  					fontName: 'Ubuntu' 
+  				}
+  			}
+      	};
 
-      chart.draw(data);
+      	resize();
+		window.onresize = resize();
+    }
+
+    function resize(){
+      var chart = new google.visualization.ColumnChart(document.getElementById('scoreTrendContainer'));
+      chart.draw(view,options);
     }
 
 	function sortStudentsAccordingToCurrentAggregate(){  
@@ -137,10 +164,8 @@ jQuery(document).ready(function(){
 		} 
 	}
 
-	function assignStudentPosition(){
-		graphLabel = [];
-		graphData = [];
-		graphBackgroundColor = [];
+	function assignStudentPosition(){ 
+		googleChartVisualizationData = [['CodeName:Position', 'Current Total Aggregate', {role: 'style'}]];
 		for(var i = 0; i < allStudents.length; i++){
 			switch(i){
 				case 0:
@@ -156,13 +181,15 @@ jQuery(document).ready(function(){
 					allStudents[i].position = (i+1) + "th";
 					break;
 			}
-			var label = allStudents[i].slicedCodeName +": " + allStudents[i].position;
+			var label = allStudents[i].slicedCodeName +":" + allStudents[i].position;
 			var data = parseFloat(allStudents[i].scores[selectedDateIndex].currentTotalAggregate);
-			var borderColor = "#" + allStudents[i].colorCode;
-			graphLabel.push(label);
-			graphData.push(data);
-			graphBackgroundColor.push(borderColor);
+			if(allStudents[i].slicedCodeName === "You")
+				var color = "stroke-color: " + allStudents[i].colorCode + "; fill-color: #ffffff; stroke-width: 2;";
+			else
+				var color = "#" + allStudents[i].colorCode;
+			googleChartVisualizationData.push([label, data, color]);
 		}
+		console.log(googleChartVisualizationData);
 	}
  
 	function getAllStudentsProfile(){
