@@ -1,16 +1,3 @@
-// Aug 28 2016 8:02pm
-// For the spacing between each prism bars
-// Since the width of the canvas is 800px
-// I created a 100px padding between the edge of the canvas and 
-// the bottom most point of the prism
-// To obtain the perfect offset, I had to say
-// 350 - (x * 19) = -350 or in english
-// what must I multiply by the highest index (19) that will give me -350
-// so that when I slot this value (-350) which is my xBottomTipOffset inside the line
-// context.moveTo(center.x - xBottomTipOffset, center.y + yBottomTipOffset);
-// I will obtain center.x + 350 because center.x -(-350) => center.x + 350
-// the answer to x is 36.8px
-
 var allStudents = [];
 var particularStudentScoresTableName;
 var finishedAllDataLoadingOperation = false;
@@ -81,7 +68,7 @@ jQuery(document).ready(function(){
       	 
       	var scoreTrendContainerJQuery = jQuery('#scoreTrendContainer'); 
       	options = {
-      		title: "Position as at " + allStudents[0].scores[selectedDateIndex].date + " [Week " + (selectedDateIndex + 1) + "]",
+      		title: "Position as at " + allStudents[0].scores[selectedDateIndex].date + " (Week " + (selectedDateIndex + 1) + ")",
       		titleTextStyle: {
       			fontName: 'Ubuntu'
       		},
