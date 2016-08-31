@@ -59,9 +59,7 @@ jQuery(document).ready(function(){
 	function sortScoresAndDrawOnCanvas(){ 
 		sortStudentsAccordingToCurrentAggregate();
 		assignStudentPosition(); 
-		console.log(allStudents);
-		// draw(document.getElementById('scoreTrendContainer'));
-		// drawFromChartJS(document.getElementById('scoreTrendContainer'));
+		console.log(allStudents); 
 		drawFromGoogleChart();
 	} 
 
@@ -69,19 +67,7 @@ jQuery(document).ready(function(){
 		google.charts.setOnLoadCallback(drawBasic);
 	}
 
-	function drawBasic() {
-
-      	// var data = new google.visualization.DataTable();
-      	// data.addColumn('string', 'Time of Day');
-      	// data.addColumn('number', 'Motivation Level');
-
-
-      	// data.addRows([
-       // 		["Kayode", 1],
-       //  	["Lanre", 2],
-       //  	["Dipo", 3],
-       //  	["Tobi", 4]
-      	// ]);
+	function drawBasic() { 
 
       	var data = google.visualization.arrayToDataTable(googleChartVisualizationData)
 
@@ -95,7 +81,7 @@ jQuery(document).ready(function(){
       	 
       	var scoreTrendContainerJQuery = jQuery('#scoreTrendContainer'); 
       	options = {
-      		title: "Position as at " + allStudents[0].scores[selectedDateIndex].date + ". Week " + (selectedDateIndex + 1),
+      		title: "Position as at " + allStudents[0].scores[selectedDateIndex].date + " [Week " + (selectedDateIndex + 1) + "]",
       		titleTextStyle: {
       			fontName: 'Ubuntu'
       		},
@@ -272,82 +258,5 @@ jQuery(document).ready(function(){
 				break;
 			}
 		}  
-	}
- 
- 	// function drawFromChartJS(chart){  
-		// Chart.defaults.global.animation.onComplete = function(){console.log("Global Animation Complete");return;};
- 	// 	var ctx = chart.getContext('2d');
- 	// 	var chartData = {
-		// 		    labels: graphLabel,
-		// 		    datasets: [
-		// 		        {
-		// 		            label: "Student Ranking",
-		// 		            fill: false,
-		// 		            lineTension: 0.1,
-		// 		            backgroundColor: graphBackgroundColor,
-		// 		            borderColor: "rgba(75,192,192,1)",
-		// 		            borderCapStyle: 'butt',
-		// 		            borderDash: [],
-		// 		            borderDashOffset: 0.0,
-		// 		            borderJoinStyle: 'miter',
-		// 		            pointBorderColor: "rgba(75,192,192,1)",
-		// 		            pointBackgroundColor: "#88FFCC",
-		// 		            pointBorderWidth: 1,
-		// 		            pointHoverRadius: 5,
-		// 		            pointHoverBackgroundColor: "#88FFCC",
-		// 		            pointHoverBorderColor: "rgba(220,220,220,1)",
-		// 		            pointHoverBorderWidth: 2,
-		// 		            pointRadius: 1,
-		// 		            pointHitRadius: 10,
-		// 		            data: graphData,
-		// 		            spanGaps: false,
-		// 		        }
-		// 		    ]
-		// 		};
-		// if(barChart !== undefined)
- 	// 		barChart.destroy(); 
- 	// 	barChart = Chart.Bar(ctx,{data: chartData});   
-		// // barChart.chart.config.options.animation.onComplete = function(){console.log("Animation is Done")}; 
-		// console.log(Chart.defaults.global.animation);
- 	// }
-
-	function draw(canvas){
-		var width = canvas.width;
-		var height = canvas.height; 
-		var center = {x: width / 2, y: height / 2};
-		var context = canvas.getContext('2d');
-		context.clearRect(0, 0, canvas.width, canvas.height);
-		// context.beginPath();
-		// context.rect(0,0,width, height);
-		// context.fillStyle = 'yellow';
-		// context.fill();  
-		var yBottomTipOffset = 10;  
-		for(var i = 0; i < allStudents.length; i++){ 
-			var offsetX = 700 / (allStudents.length - 1); // See comment above on how to obtain offsetX
-			var xBottomTipOffset = 350 - (offsetX * i);
-			drawPrism(context, '#'+ allStudents[i].colorCode, center.x, center.y, xBottomTipOffset, yBottomTipOffset, allStudents[i].slicedCodeName, allStudents[i].position, allStudents[i].scores[selectedDateIndex].currentTotalAggregate); 
-		}
-	}
-
-	// Draw Each Prism
-	function drawPrism(context, color, centerX, centerY, xStartPoint, yStartPoint, student, position, currentTotalAggregate){ 
-		context.beginPath(); 
-		context.moveTo(centerX - xStartPoint, centerY + yStartPoint);
-		context.lineTo(centerX - (xStartPoint - 5), centerY + (yStartPoint - 5));
-		context.lineTo(centerX - (xStartPoint - 5), centerY - (yStartPoint - 5));
-		context.lineTo(centerX - xStartPoint, centerY - yStartPoint);
-		context.lineTo(centerX - (xStartPoint + 5), centerY - (yStartPoint - 5));
-		context.lineTo(centerX - (xStartPoint + 5), centerY + (yStartPoint - 5));
-		context.lineTo(centerX - xStartPoint, centerY + yStartPoint);
-		context.fillStyle = color; 
-		context.textAlign = 'center';
-		if(student === "You")
-			context.font = 'bold 9pt Ubuntu';
-		else
-			context.font = '6pt Ubuntu';
-		context.fillText(student, centerX - xStartPoint, centerY + yStartPoint + 15); 
-		context.fillText(position, centerX - xStartPoint, centerY - yStartPoint - 5); 
-		context.fillText(currentTotalAggregate, centerX - xStartPoint, centerY - yStartPoint - 15); 
-		context.fill(); 
-	}
+	} 
 });
