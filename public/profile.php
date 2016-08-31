@@ -17,8 +17,9 @@
 		<script type="text/javascript">
 			window.jQuery || document.write("<script src='js/jquery-3.1.0.min.js'><\/script>");
 		</script>
-		<script src="js/Chart.min.js"></script>
-
+		<script src="js/Chart.min.js"></script> 
+		<script src="js/loader.js"></script> 
+		
 		<!-- Include all compiled plugins (below), or include individual files as needed -->
 		<script src="js/bootstrap.min.js"></script>
 		<script>
@@ -121,9 +122,9 @@
 							<h3 class="panel-title" id="rankTrendPanelTitle">Rank Trend: Position as at [2016-01-03]</h3>
 						</div>
 						<div class="panel-body table-responsive">
-							<canvas id="scoreTrendCanvas" width="800" height="330">
+							<div id="scoreTrendCanvas" style="height: 345px;">
 								Sorry, canvas not supported
-							</canvas>
+							</div>
 							<p></p>
 							<p>
 								<button disabled="true" class="btn btn-default" id="prevTrendBtn"><span class="glyphicon glyphicon-chevron-left"></span></button>

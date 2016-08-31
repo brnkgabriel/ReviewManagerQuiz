@@ -22,8 +22,11 @@ var selectedDateIndex = 28;
 var graphLabel = [];
 var graphData = [];
 var graphBackgroundColor = [];
+var barChart;
 
 jQuery(document).ready(function(){
+
+	google.charts.load('current', {packages: ['corechart', 'bar']});
 
 	var interval = setInterval(resourcesAlreadyLoaded);
  
@@ -61,8 +64,54 @@ jQuery(document).ready(function(){
 		assignStudentPosition(); 
 		console.log(allStudents);
 		// draw(document.getElementById('scoreTrendCanvas'));
-		drawFromChartJS(document.getElementById('scoreTrendCanvas'));
+		// drawFromChartJS(document.getElementById('scoreTrendCanvas'));
+		drawFromGoogleChart();
 	} 
+
+	function drawFromGoogleChart(){
+		google.charts.setOnLoadCallback(drawBasic);
+	}
+
+	function drawBasic() {
+
+      	// var data = new google.visualization.DataTable();
+      	// data.addColumn('string', 'Time of Day');
+      	// data.addColumn('number', 'Motivation Level');
+
+
+      	// data.addRows([
+       // 		["Kayode", 1],
+       //  	["Lanre", 2],
+       //  	["Dipo", 3],
+       //  	["Tobi", 4]
+      	// ]);
+
+      	var data = google.visualization.arrayToDataTable([
+      			['Element', 'Density', {role: 'style'}],
+      			['Copper', 8.94, '#b87333'],            
+         		['Silver', 10.49, 'silver'],            
+         		['Gold', 19.30, 'gold'],
+				['Platinum', 21.45, 'color: #e5e4e2' ],
+      		])
+      // 	var options = {
+      //   	title: 'Motivation Level Throughout the Day',
+      //   	hAxis: {
+      //     		title: 'Time of Day',
+      //     		format: 'h:mm a',
+      //     		viewWindow: {
+      //       	min: [7, 30, 0],
+      //       	max: [17, 30, 0]
+      //     	}
+      //   },
+      //   vAxis: {
+      //     	title: 'Rating (scale of 1-10)'
+      //   }
+      // };
+
+      var chart = new google.visualization.ColumnChart(document.getElementById('scoreTrendCanvas'));
+
+      chart.draw(data);
+    }
 
 	function sortStudentsAccordingToCurrentAggregate(){  
 
@@ -133,7 +182,7 @@ jQuery(document).ready(function(){
 	function getSlicedCodeNameAndScoresTableName(data){ 
 		for(var i = 0; i < data.length; i++){
 			var codeName = data[i].codename;
-			var sCodeName = codeName.substring(0,2);
+			var sCodeName = codeName.substring(0,4);
 			var firstLastNameScores = data[i].first + data[i].last + "scores";
 			var sTableName = firstLastNameScores.toLowerCase();
 			var cCode = data[i].color;
@@ -141,7 +190,7 @@ jQuery(document).ready(function(){
 			if(i == data.length - 1)
 				isLastIndex = true;
 			getStudentScores({tableName : sTableName}, isLastIndex); 
-			var studentJSON = {slicedCodeName: sCodeName, scoresTableName: sTableName, scores: [], colorCode: cCode, position: ""};
+			var studentJSON = {slicedCodeName: sCodeName + "...", scoresTableName: sTableName, scores: [], colorCode: cCode, position: ""};
 			allStudents.push(studentJSON);
 		} 
 	}
@@ -198,107 +247,42 @@ jQuery(document).ready(function(){
 		}  
 	}
  
- 	function drawFromChartJS(chart){ 
- 	// 	var ctx = chart.getContext("2d");
-		// Chart.defaults.global.tooltips.enabled = false;
- 	// 	Chart.defaults.global.animation.onComplete = function(){
-		// 	console.log("finished");
-		// 	console.log();
-		// 	var ctx = this.chart.ctx;
-	 //        // ctx.font = this.scale.font;
-	 //        ctx.fillStyle = this.scale.textColor
-	 //        ctx.textAlign = "center";
-	 //        ctx.textBaseline = "bottom";
-
-	 //        this.datasets.forEach(function (dataset) {
-	 //            dataset.bars.forEach(function (bar) {
-	 //                ctx.fillText(bar.value, bar.x, bar.y - 5);
-	 //            });
-	 //        })
-		// } 
-		// var myBar = new Chart(ctx).Bar(chartData, {
-		//     showTooltips: false,
-		//     onAnimationComplete: function () {
-
-		//         
-		//     }
-		// });
-
+ 	// function drawFromChartJS(chart){  
+		// Chart.defaults.global.animation.onComplete = function(){console.log("Global Animation Complete");return;};
+ 	// 	var ctx = chart.getContext('2d');
  	// 	var chartData = {
-		//     labels: graphLabel,
-		//     datasets: [
-		//         {
-		//             label: "Student Ranking",
-		//             fill: false,
-		//             lineTension: 0.1,
-		//             backgroundColor: "rgba(75,192,192,0.4)",
-		//             borderColor: "rgba(75,192,192,1)",
-		//             borderCapStyle: 'butt',
-		//             borderDash: [],
-		//             borderDashOffset: 0.0,
-		//             borderJoinStyle: 'miter',
-		//             pointBorderColor: "rgba(75,192,192,1)",
-		//             pointBackgroundColor: "#fff",
-		//             pointBorderWidth: 1,
-		//             pointHoverRadius: 5,
-		//             pointHoverBackgroundColor: "rgba(75,192,192,1)",
-		//             pointHoverBorderColor: "rgba(220,220,220,1)",
-		//             pointHoverBorderWidth: 2,
-		//             pointRadius: 1,
-		//             pointHitRadius: 10,
-		//             data: graphData,
-		//             spanGaps: false,
-		//         }
-		//     ]
-		// }; 
- 		let barChart = new Chart(chart,{
- 			type: "bar",
- 			data: {
-				    labels: graphLabel,
-				    datasets: [
-				        {
-				            label: "Student Ranking",
-				            fill: false,
-				            lineTension: 0.1,
-				            backgroundColor: graphBackgroundColor,
-				            borderColor: "rgba(75,192,192,1)",
-				            borderCapStyle: 'butt',
-				            borderDash: [],
-				            borderDashOffset: 0.0,
-				            borderJoinStyle: 'miter',
-				            pointBorderColor: "rgba(75,192,192,1)",
-				            pointBackgroundColor: "#fff",
-				            pointBorderWidth: 1,
-				            pointHoverRadius: 5,
-				            pointHoverBackgroundColor: "rgba(75,192,192,1)",
-				            pointHoverBorderColor: "rgba(220,220,220,1)",
-				            pointHoverBorderWidth: 2,
-				            pointRadius: 1,
-				            pointHitRadius: 10,
-				            data: graphData,
-				            spanGaps: false,
-				        }
-				    ]
-				},
-			options: { 
-				scales : {
-					yAxes: [{
-						ticks: {
-							beginAtZero: true,
-							fontFamily: "Ubuntu"
-						}
-					}],
-					xAxes: [{
-						ticks: {
-							fontFamily: "Ubuntu"
-						}
-					}]
-				}
-			} 
- 		});
-
- 		
- 	}
+		// 		    labels: graphLabel,
+		// 		    datasets: [
+		// 		        {
+		// 		            label: "Student Ranking",
+		// 		            fill: false,
+		// 		            lineTension: 0.1,
+		// 		            backgroundColor: graphBackgroundColor,
+		// 		            borderColor: "rgba(75,192,192,1)",
+		// 		            borderCapStyle: 'butt',
+		// 		            borderDash: [],
+		// 		            borderDashOffset: 0.0,
+		// 		            borderJoinStyle: 'miter',
+		// 		            pointBorderColor: "rgba(75,192,192,1)",
+		// 		            pointBackgroundColor: "#88FFCC",
+		// 		            pointBorderWidth: 1,
+		// 		            pointHoverRadius: 5,
+		// 		            pointHoverBackgroundColor: "#88FFCC",
+		// 		            pointHoverBorderColor: "rgba(220,220,220,1)",
+		// 		            pointHoverBorderWidth: 2,
+		// 		            pointRadius: 1,
+		// 		            pointHitRadius: 10,
+		// 		            data: graphData,
+		// 		            spanGaps: false,
+		// 		        }
+		// 		    ]
+		// 		};
+		// if(barChart !== undefined)
+ 	// 		barChart.destroy(); 
+ 	// 	barChart = Chart.Bar(ctx,{data: chartData});   
+		// // barChart.chart.config.options.animation.onComplete = function(){console.log("Animation is Done")}; 
+		// console.log(Chart.defaults.global.animation);
+ 	// }
 
 	function draw(canvas){
 		var width = canvas.width;
