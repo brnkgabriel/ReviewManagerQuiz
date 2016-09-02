@@ -1,5 +1,5 @@
 <?php 
-	include_once '../../sys/config/setupAdmin.php';
+	include_once '../../config/setupAdmin.php';
 ?>
 
 <!-- Navbar --> 

@@ -49,7 +49,7 @@ jQuery(document).ready(function(){
 	function getCurrentTotalAggregate(nameJSON){ 
 		jQuery.ajax({
 			type 		: "POST",
-			url	 		: "../../sys/config/getCurrentTotalAggregate.php",
+			url	 		: "../../config/getCurrentTotalAggregate.php",
 			data 		: nameJSON,
 			success 	: function(data){  
 							assembleStudentJSONScore('currentTotalAggregate', data);
@@ -64,7 +64,7 @@ jQuery(document).ready(function(){
 	function sendToDatabase(){ 
 		jQuery.ajax({
 			type 	: "POST",
-			url	 	: "../../sys/config/storeInDB.php",
+			url	 	: "../../config/storeInDB.php",
 			data 	: studentJSONScore,
 			success : function(data){
 				console.log(data);

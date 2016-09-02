@@ -2,7 +2,7 @@
 	session_start();
 	if(!isset($_SESSION['username']))
 		header('Location: index.php');
-	include_once '../../sys/config/setupAdmin.php';  
+	include_once '../../config/setupAdmin.php';  
 ?>
 <!DOCTYPE html>
 <html>

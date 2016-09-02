@@ -356,7 +356,7 @@ jQuery(document).ready(function(){
 	function updateDatabase(JSONData,material){
 		jQuery.ajax({
 			type 	: "POST",
-			url	 	: "../../sys/config/store"+material+"InDB.php",
+			url	 	: "../../config/store"+material+"InDB.php",
 			data 	: JSONData,
 			success : function(data){
 				console.log(data);

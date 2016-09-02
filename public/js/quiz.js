@@ -22,14 +22,19 @@ var questionOrScripturesActedOn = 0;
 var questionSet = "";
 var CORRECT_ANSWER = 5;
 var INCORRECT_ANSWER = 2;
+var NO_ANSWER = 0;
 var totalPoints = 0;
 var worshipQuestionsAnswered = 0;
 var messageQuestionsAnswered = 0; 
 var scripturesTyped = 0;
 var currentQuizState = {cTab: "", wQAnswered: "", mQAnswered: "", sTyped: "", tPoints: "", email: ""};
 
-jQuery(document).ready(function(){   
+jQuery(document).ready(function(){    
 	
+	jQuery('#scriptureTextArea, #scriptureReferenceInput').on("cut copy paste",function(e) {
+      	e.preventDefault();
+  	});
+
 	jQuery('#quizPanelFooter').html(questionSet + " {Tasks: " + questionOrScripturesActedOn + "/" + allProcessedQuestions.length +", Total Points (worship + message + scripture): " + totalPoints + "}");
 
 	quizState('get', {});
@@ -117,7 +122,7 @@ jQuery(document).ready(function(){
 	function loadQuestionsFromDb(currentTab, questionType){
 		jQuery.ajax({
 			type 		: "POST",
-			url	 		: "../sys/config/getQuizQuestionsFromDB.php",
+			url	 		: "../config/getQuizQuestionsFromDB.php",
 			data 		: questionType,
 			success 	: function(data){ 
 							getQuestionsOrScripturesFromAjaxCall(data, currentTab); 
@@ -218,11 +223,15 @@ jQuery(document).ready(function(){
 				var givenScriptureReference = allProcessedQuestions[i].reference;
 				if(scriptureVerse.toLowerCase() === givenScriptureVerse.toLowerCase())
 					totalPoints += CORRECT_ANSWER;
+				else if(jQuery.trim(scriptureVerse.toLowerCase()) === "")
+					totalPoints += NO_ANSWER;
 				else
 					totalPoints += INCORRECT_ANSWER;
 
 				if(scriptureReference.toLowerCase() === givenScriptureReference.toLowerCase())
 					totalPoints += CORRECT_ANSWER;
+				else if(jQuery.trim(scriptureReference.toLowerCase()) === "")
+					totalPoints += NO_ANSWER;
 				else
 					totalPoints += INCORRECT_ANSWER; 
 				break;
@@ -271,7 +280,7 @@ jQuery(document).ready(function(){
 			case 'get':
 				jQuery.ajax({
 					type 		: "POST",
-					url	 		: "../sys/config/"+action+"QuizState.php", 
+					url	 		: "../config/"+action+"QuizState.php", 
 					data 		: jsonData,
 					success 	: function(data){
 									updateCurrentQuizState(data);
@@ -285,7 +294,7 @@ jQuery(document).ready(function(){
 			case 'store':
 				jQuery.ajax({
 					type 		: "POST",
-					url	 		: "../sys/config/"+action+"QuizState.php", 
+					url	 		: "../config/"+action+"QuizState.php", 
 					data 		: jsonData,
 					success 	: function(data){ 
 									console.log(data);

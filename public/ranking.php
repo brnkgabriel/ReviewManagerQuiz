@@ -2,7 +2,7 @@
 	session_start();
 	if(!isset($_SESSION['email']))
 		header('Location: index.php');
-	include_once '../sys/config/setup.php';
+	include_once '../config/setup.php';
 ?>
 <!DOCTYPE html>
 <html>
