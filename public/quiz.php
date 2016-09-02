@@ -60,7 +60,7 @@
 						<li id="scriptureListItem"><a href="#scripture" data-toggle="tab">Scripture</a></li>
 					</ul>
 					<div id="myTabContent" class="tab-content"> 
-						<div class="tab-pane fade" id="worship">
+						<div class="tab-pane fade table-responsive" id="worship">
 							<?php 	if($quizSettings['details'] === 'Materials'){ ?>
 							<p>Title: <strong>Sing to The Lord</strong></p>
 							<p>By: <strong>Marty Sampson</strong></p>
@@ -94,7 +94,7 @@
 											</h4><!-- end panel title -->
 										</div><!-- end panel heading -->
 										<div id="collapseTwo" class="panel-collapse collapse">
-											<div class="panel-body">
+											<div class="panel-body table-responsive">
 												<p><iframe width="560" height="315" src="https://www.youtube.com/embed/V6i395WNbAA?list=PLFzgN2iKn8bT6SP4MGQ7FHDkT4s_Fj3Qp" frameborder="0" allowfullscreen></iframe></p>
 											</div><!-- end panel body -->
 										</div><!-- end panel-collapse -->

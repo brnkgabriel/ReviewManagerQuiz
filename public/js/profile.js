@@ -1,7 +1,6 @@
 var allStudents = [];
 var allStudentsUnsorted = [];
-var particularStudentScoresTableName;
-var finishedAllDataLoadingOperation = false;
+var particularStudentScoresTableName; 
 var studentIndexInAllStudentsArray;
 var rankTrendScoreIndex = 4;
 var aggregateAsAtSelectedDate = []; 
@@ -13,6 +12,8 @@ var options;
 var myCanvas;
 var myContext;
 var canvasDetails;
+var xAxis = {x1: 0, y1: 0, x2: 0, y2: 0};
+var yAxis = {x1: 0, y1: 0, x2: 0, y2: 0};
 var myGraph = {graphWidth: 0, graphHeight: 0, paddingX: 0, paddingY: 0, columnWidth: 0}; 
 
 jQuery(document).ready(function(){
@@ -27,32 +28,27 @@ jQuery(document).ready(function(){
 	    	jQuery('body').removeAttr("style");
 	    }    
 	});
-
-	var interval = setInterval(resourcesAlreadyLoaded);
  
 	getAllStudentsProfile();
 
-	function resourcesAlreadyLoaded(){ 
-		if(finishedAllDataLoadingOperation === true){
-			clearInterval(interval);  
-			sortScoresAndDrawOnCanvas();
-			jQuery('#prevTrendBtn, #nextTrendBtn').removeAttr('disabled'); 
-			jQuery('#prevTrendBtn, #nextTrendBtn').click(function(){
-				var elementId = jQuery(this).attr('id'); 
+	function addTrendListeners(){ 
+		setTimeout(sortScoresAndDrawOnCanvas, 5);
+		jQuery('#prevTrendBtn, #nextTrendBtn').removeAttr('disabled'); 
+		jQuery('#prevTrendBtn, #nextTrendBtn').click(function(){
+			var elementId = jQuery(this).attr('id'); 
 
-				if(elementId === "prevTrendBtn")
-					selectedDateIndex--;
-				else
-					selectedDateIndex++;
- 
-				if(selectedDateIndex < 0)
-					selectedDateIndex = allStudents[0].scores.length - 1;
-				else if(selectedDateIndex > allStudents[0].scores.length - 1)
-					selectedDateIndex = 0;  
+			if(elementId === "prevTrendBtn")
+				selectedDateIndex--;
+			else
+				selectedDateIndex++;
 
-				sortScoresAndDrawOnCanvas();  
-			});
-		} 
+			if(selectedDateIndex < 0)
+				selectedDateIndex = allStudents[0].scores.length - 1;
+			else if(selectedDateIndex > allStudents[0].scores.length - 1)
+				selectedDateIndex = 0;  
+
+			sortScoresAndDrawOnCanvas();  
+		}); 
 	}
 
 	function sortScoresAndDrawOnCanvas(){ 
@@ -217,9 +213,9 @@ jQuery(document).ready(function(){
 		jQuery.ajax({
 			type 		: "POST",
 			url	 		: "../config/particularStudent.php", 
-			success 	: function(data){ 
-							finishedAllDataLoadingOperation = true;
+			success 	: function(data){  
 							updateParticularStudentScoresTableName(data); 
+							addTrendListeners();
 						},
 			error 		:function(xhr,err,e) { 
 							alert ("Error: " + err + " from getParticularStudent");
@@ -242,14 +238,18 @@ jQuery(document).ready(function(){
 		console.log("Finished");
 	} 
 
-	function drawWithoutPlugin(){ 
+	function drawWithoutPlugin(){  
+		console.log(jQuery("#canvasPanelBody"));
 		initializeCanvas();
 		drawGraphArea();
 		obtainColumnWidth();
+		drawAxis('x');
+		drawAxis('y');
+		drawTitle(); 
 		console.log(myGraph);
 	} 
 
-	function initializeCanvas(){
+	function initializeCanvas(){ 
 		myCanvas = document.getElementById('scoreTrendCanvas');
 		// 40 and 90 below were picked arbitrarily so the canvas centers to the middle of the panel 
 		myCanvas.width = jQuery("#canvasPanelBody")[0].clientWidth - 40; 
@@ -261,6 +261,9 @@ jQuery(document).ready(function(){
 		};
 		myGraph.paddingX = 0.05 * canvasDetails.width; // .05 was selected by observation
 		myGraph.paddingY = 0.25 * canvasDetails.height; // .25 was selected by observation
+
+		myGraph.paddingX = Math.round((myGraph.paddingX * 1000) / 1000);
+		myGraph.paddingY = Math.round((myGraph.paddingY * 1000) / 1000);
 
 		myContext.fillStyle = "#ff0";
 		myContext.rect(0,0, myCanvas.width,myCanvas.height);
@@ -276,6 +279,20 @@ jQuery(document).ready(function(){
 		myGraph.graphHeight = Math.round((myGraph.graphHeight * 100) / 100);
 		myContext.beginPath();
 		myContext.fillStyle = "#f00";
+
+		// xAxis is drawn from down to up
+		// yAxis is drawn from left to right
+		yAxis.x1 = myGraph.paddingX;
+		yAxis.y1 = .4 * myGraph.paddingY + myGraph.graphHeight;
+
+		yAxis.x2 = myGraph.paddingX;
+		yAxis.y2 = .4 * myGraph.paddingY;
+
+		xAxis.x1 = yAxis.x1;
+		xAxis.y1 = yAxis.y1;
+		xAxis.x2 = yAxis.x1 + myGraph.graphWidth;
+		xAxis.y2 = yAxis.y1;
+
 		myContext.rect(myGraph.paddingX, .4 * myGraph.paddingY, myGraph.graphWidth, myGraph.graphHeight);
 		myContext.fill();  
 	}
@@ -284,7 +301,31 @@ jQuery(document).ready(function(){
 		// The reason the number of students is multiplied by 2 is because the spacing between each column is same as the column width 
 		// otherwise we'll have just divided the graph width by the number of students
 		myGraph.columnWidth = myGraph.graphWidth / (allStudentsUnsorted.length * 2);
-		myGraph.columnWidth = Math.round((myGraph.columnWidth * 100) / 100) 
+		myGraph.columnWidth = Math.round((myGraph.columnWidth * 100) / 100); 
+	}
+
+	function drawAxis(axisType){ 
+		myContext.beginPath();
+		myContext.lineWidth = 2;
+		switch(axisType){
+			case 'x':
+				myContext.moveTo(xAxis.x1, xAxis.y1);
+				myContext.lineTo(xAxis.x2, xAxis.y2);
+				break;
+			case 'y':
+				myContext.moveTo(yAxis.x1, yAxis.y1);
+				myContext.lineTo(yAxis.x2, yAxis.y2);
+				break;
+		}
+		myContext.stroke(); 
+	} 
+
+	function drawTitle(){
+		var title = "Position as at " + allStudents[0].scores[selectedDateIndex].date + " (Week " + (selectedDateIndex + 1) + ")";
+		myContext.fillStyle = "#000";
+		myContext.textAlign = 'center';
+		myContext.font = "12px Ubuntu"; 
+		myContext.fillText(title, (myCanvas.width / 2), yAxis.y2 - 5);
 	}
 
 	jQuery(window).on('resize', function(){

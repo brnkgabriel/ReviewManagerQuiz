@@ -15,7 +15,7 @@
 // The other was echo json_encode($studentProfile); and of course it gave a parseerror so it didn't work status: FIXED
 
 var worshipQuestions = {tableName: "worshipquestions"}; 
-var messageQuestions = {tableName: "messageQuestions"};
+var messageQuestions = {tableName: "messagequestions"};
 var scriptures = {tableName: "scripturematerials"};
 var allProcessedQuestions = [];
 var questionOrScripturesActedOn = 0;

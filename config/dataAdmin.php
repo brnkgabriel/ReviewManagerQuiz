@@ -64,7 +64,7 @@ function insertToOrUpdateTable($dbc, $tableScoresName, $queryType, $date, $exerc
 			echo "Entry doesn't exist" . "\n";
 			$q = "INSERT INTO $tableScoresName (date,exercise,type,source,score,currentage,aggregate,tableName,currentTotalAggregate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			$stmt = $dbc->prepare($q);
-			$stmt->bind_param('ssssssss', $date, $exercise, $type, $source, $score, $currentage, $aggregate, $currentTotalAggregate);  
+			$stmt->bind_param('sssssssss', $date, $exercise, $type, $source, $score, $currentage, $aggregate, $tableScoresName, $currentTotalAggregate);  
 			break;
 	}
 	$stmt->execute();  
