@@ -15,6 +15,7 @@ var canvasDetails;
 var xAxis = {x1: 0, y1: 0, x2: 0, y2: 0};
 var yAxis = {x1: 0, y1: 0, x2: 0, y2: 0};
 var myGraph = {graphWidth: 0, graphHeight: 0, paddingX: 0, paddingY: 0, columnWidth: 0}; 
+var maximumCurrentTotalAggregate = 0;
 
 jQuery(document).ready(function(){
 	google.charts.load('43', {packages: ['corechart', 'bar']});
@@ -234,19 +235,21 @@ jQuery(document).ready(function(){
 				studentIndexInAllStudentsArray = i;
 				break;
 			}
-		}  
-		console.log("Finished");
+		}   
 	} 
 
-	function drawWithoutPlugin(){  
-		console.log(jQuery("#canvasPanelBody"));
+	function drawWithoutPlugin(){   
 		initializeCanvas();
 		drawGraphArea();
 		obtainColumnWidth();
 		drawAxis('x');
 		drawAxis('y');
 		drawTitle(); 
-		console.log(myGraph);
+		drawYAxisGridLine(.25);
+		drawYAxisGridLine(.50);
+		drawYAxisGridLine(.75);
+		drawYAxisGridLine(1);
+		drawColumns(); 
 	} 
 
 	function initializeCanvas(){ 
@@ -265,10 +268,10 @@ jQuery(document).ready(function(){
 		myGraph.paddingX = Math.round((myGraph.paddingX * 1000) / 1000);
 		myGraph.paddingY = Math.round((myGraph.paddingY * 1000) / 1000);
 
-		myContext.fillStyle = "#ff0";
-		myContext.rect(0,0, myCanvas.width,myCanvas.height);
-		myContext.stroke(); 
-		myContext.fill(); 
+		// myContext.fillStyle = "#ff0";
+		// myContext.rect(0,0, myCanvas.width,myCanvas.height);
+		// myContext.stroke(); 
+		// myContext.fill(); 
 	}
 
 	function drawGraphArea(){ 
@@ -278,7 +281,7 @@ jQuery(document).ready(function(){
 		myGraph.graphWidth = Math.round((myGraph.graphWidth * 100) / 100);
 		myGraph.graphHeight = Math.round((myGraph.graphHeight * 100) / 100);
 		myContext.beginPath();
-		myContext.fillStyle = "#f00";
+		// myContext.fillStyle = "#f00";
 
 		// xAxis is drawn from down to up
 		// yAxis is drawn from left to right
@@ -293,15 +296,15 @@ jQuery(document).ready(function(){
 		xAxis.x2 = yAxis.x1 + myGraph.graphWidth;
 		xAxis.y2 = yAxis.y1;
 
-		myContext.rect(myGraph.paddingX, .4 * myGraph.paddingY, myGraph.graphWidth, myGraph.graphHeight);
-		myContext.fill();  
+		// myContext.rect(myGraph.paddingX, .4 * myGraph.paddingY, myGraph.graphWidth, myGraph.graphHeight);
+		// myContext.fill();  
 	}
 
 	function obtainColumnWidth(){
 		// The reason the number of students is multiplied by 2 is because the spacing between each column is same as the column width 
 		// otherwise we'll have just divided the graph width by the number of students
-		myGraph.columnWidth = myGraph.graphWidth / (allStudentsUnsorted.length * 2);
-		myGraph.columnWidth = Math.round((myGraph.columnWidth * 100) / 100); 
+		myGraph.columnWidth = myGraph.graphWidth / ((allStudentsUnsorted.length + .8) * 2); // added the .8 so the last column doesn't fly out of the x-axis range
+		myGraph.columnWidth = Math.round((myGraph.columnWidth * 100) / 100);  
 	}
 
 	function drawAxis(axisType){ 
@@ -325,7 +328,59 @@ jQuery(document).ready(function(){
 		myContext.fillStyle = "#000";
 		myContext.textAlign = 'center';
 		myContext.font = "12px Ubuntu"; 
-		myContext.fillText(title, (myCanvas.width / 2), yAxis.y2 - 5);
+		myContext.fillText(title, (myCanvas.width / 2), yAxis.y2 - 10);
+	}
+
+	function drawYAxisGridLine(percentile){ 
+		var yPosition = yAxis.y1 - (percentile * myGraph.graphHeight);
+		myContext.beginPath();
+		myContext.setLineDash([5,3]);
+		myContext.lineWidth = 1;
+		myContext.strokeStyle = "gray";
+		myContext.moveTo(yAxis.x1 - 2, yPosition); // 2 was selected arbitrarily for tick marks on y-axis
+		myContext.lineTo(xAxis.x2, yPosition);
+		myContext.stroke();
+		myContext.fillStyle = "#000"; 
+		myContext.font = "12px Ubuntu"; 
+		myContext.fillText((percentile * 100) + "%", yAxis.x1 - 18, yPosition + 5); // 5 was selected arbitrarily to ensure text is center aligned with gridline
+	}
+
+	function drawColumns(){
+		obtainMaximumCurrentTotalAggregate(); 
+		console.log(allStudentsUnsorted);
+		myContext.setLineDash([0]);
+		for(var i = 0; i < allStudentsUnsorted.length; i++){
+			myContext.beginPath();
+			var cTAggregate = parseFloat(allStudentsUnsorted[i].scores[selectedDateIndex].currentTotalAggregate);
+			var percentile = cTAggregate / maximumCurrentTotalAggregate;
+			var yPosition = (percentile * myGraph.graphHeight);
+			// we make use of arithmetic progression to obtain x pos of rect
+			// v = a + (n-1)d we're looking for the column spacing 1,3,5,7..
+			// d = 2, n = i, a = yAxis.x1 + myGraph.columnWidth, therefore
+			var a = 1;
+			var n = i + 1;
+			var d = 2;
+			var v = a + (n-1) * d; 
+			myContext.rect(yAxis.x1 + (v * myGraph.columnWidth), yAxis.y1, myGraph.columnWidth, -yPosition); 
+			if(allStudentsUnsorted[i].slicedCodeName === "You"){
+				myContext.strokeStyle = "#" + allStudentsUnsorted[i].colorCode;
+				myContext.lineWidth = 2;
+				myContext.stroke();
+			}else{
+				myContext.fillStyle = "#" + allStudentsUnsorted[i].colorCode;
+				myContext.fill();
+			}
+		}
+	}
+
+	function obtainMaximumCurrentTotalAggregate(){
+		maximumCurrentTotalAggregate = 0;
+		for(var i = 0; i < allStudentsUnsorted.length; i++){
+			var cTAggregate = parseFloat(allStudentsUnsorted[i].scores[selectedDateIndex].currentTotalAggregate);
+			if(maximumCurrentTotalAggregate < cTAggregate){
+				maximumCurrentTotalAggregate = cTAggregate;
+			}
+		}
 	}
 
 	jQuery(window).on('resize', function(){
