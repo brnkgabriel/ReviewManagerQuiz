@@ -1,4 +1,5 @@
 var allStudents = [];
+var allStudentsUnsorted = [];
 var particularStudentScoresTableName;
 var finishedAllDataLoadingOperation = false;
 var studentIndexInAllStudentsArray;
@@ -6,13 +7,26 @@ var rankTrendScoreIndex = 4;
 var aggregateAsAtSelectedDate = []; 
 var runGetParticularStudentOnce = false;
 var selectedDateIndex = 28;
-var googleChartVisualizationData = [['CodeName:Position', 'Current Total Aggregate', {role: 'style'}]]; 
-var barChart;
+var googleChartVisualizationData = [['CodeName:Position', 'Current Total Aggregate', {role: 'style'}]];  
 var view;
 var options;
+var myCanvas;
+var myContext;
+var canvasDetails;
+var myGraph = {graphWidth: 0, graphHeight: 0, paddingX: 0, paddingY: 0, columnWidth: 0}; 
 
 jQuery(document).ready(function(){
 	google.charts.load('43', {packages: ['corechart', 'bar']});
+ 
+	jQuery(document).on({
+	    ajaxStart: function() { 
+	    	console.log("ajaxStarted"); 
+	    },
+	    ajaxStop: function() { 
+	    	console.log("ajaxStopped"); 
+	    	jQuery('body').removeAttr("style");
+	    }    
+	});
 
 	var interval = setInterval(resourcesAlreadyLoaded);
  
@@ -24,8 +38,7 @@ jQuery(document).ready(function(){
 			sortScoresAndDrawOnCanvas();
 			jQuery('#prevTrendBtn, #nextTrendBtn').removeAttr('disabled'); 
 			jQuery('#prevTrendBtn, #nextTrendBtn').click(function(){
-				var elementId = jQuery(this).attr('id');
-				console.log(elementId);
+				var elementId = jQuery(this).attr('id'); 
 
 				if(elementId === "prevTrendBtn")
 					selectedDateIndex--;
@@ -37,17 +50,16 @@ jQuery(document).ready(function(){
 				else if(selectedDateIndex > allStudents[0].scores.length - 1)
 					selectedDateIndex = 0;  
 
-				sortScoresAndDrawOnCanvas(); 
-				console.log(allStudents);
+				sortScoresAndDrawOnCanvas();  
 			});
 		} 
 	}
 
 	function sortScoresAndDrawOnCanvas(){ 
 		sortStudentsAccordingToCurrentAggregate();
-		assignStudentPosition(); 
-		console.log(allStudents); 
+		assignStudentPosition();  
 		drawFromGoogleChart();
+		// drawWithoutPlugin();
 	} 
 
 	function drawFromGoogleChart(){
@@ -57,12 +69,7 @@ jQuery(document).ready(function(){
 	function drawBasic() { 
 
       	var data = google.visualization.arrayToDataTable(googleChartVisualizationData);
-
-      	// var data = google.visualization.arrayToDataTable([
-	      //    ['Element', 'Density', { role: 'style' }],
-	      //    ['Copper', selectedDateIndex, '#b87333']
-	      // ]);
-
+  
       	view = new google.visualization.DataView(data);
       	view.setColumns([0, 1,
       					{calc: "stringify", 
@@ -110,18 +117,12 @@ jQuery(document).ready(function(){
   				textStyle: {
   					fontSize: 12,
   					fontName: 'Ubuntu' 
-  				}
+  				} 
   			}
-      	};
-		// var chart = new google.visualization.ColumnChart(document.getElementById('scoreTrendContainer'));
-  //     	chart.draw(data,options);
-      	resize(); 
-    }
-
-    function resize(){
-      var chart = new google.visualization.ColumnChart(document.getElementById('scoreTrendContainer'));
-      chart.draw(view,options);
-    }
+      	}; 
+      	var chart = new google.visualization.ColumnChart(document.getElementById('scoreTrendContainer'));
+      	chart.draw(view,options); 
+    } 
 
 	function sortStudentsAccordingToCurrentAggregate(){  
 
@@ -171,19 +172,18 @@ jQuery(document).ready(function(){
 			else
 				var color = "#" + allStudents[i].colorCode;
 			googleChartVisualizationData.push([label, data, color]);
-		}
-		console.log(googleChartVisualizationData);
+		} 
 	}
  
 	function getAllStudentsProfile(){
 		jQuery.ajax({
 			type 		: "POST",
 			url	 		: "../config/getAllStudentProfiles.php", 
-			success 	: function(data){ 
+			success 	: function(data){  
 							getSlicedCodeNameAndScoresTableName(data); 
 						},
 			error 		:function(xhr,err,e) { 
-							alert ("Error: " + err);
+							alert ("Error: " + err + " from getAllStudentsProfile");
 						},
 			dataType 	: "json"
 		});
@@ -195,40 +195,21 @@ jQuery(document).ready(function(){
 			var sCodeName = codeName.substring(0,4);
 			var firstLastNameScores = data[i].first + data[i].last + "scores";
 			var sTableName = firstLastNameScores.toLowerCase();
-			var cCode = data[i].color;
-			var isLastIndex = false; // needed so we get the current student when the last student's scores have been database retrieved
-			if(i == data.length - 1)
-				isLastIndex = true;
-			getStudentScores({tableName : sTableName}, isLastIndex); 
+			var cCode = data[i].color; 
 			var studentJSON = {slicedCodeName: sCodeName + "...", scoresTableName: sTableName, scores: [], colorCode: cCode, position: ""};
+			var studentJSONUnsorted = {slicedCodeName: sCodeName + "...", scoresTableName: sTableName, scores: [], colorCode: cCode, position: "", oldColumnHeight: "0", newColumnHeight: "", columnWidth: ""};
+			studentJSON.scores = getStudentScores(data[i].scores);
+			studentJSONUnsorted.scores = getStudentScores(data[i].scores);
 			allStudents.push(studentJSON);
-		} 
+			allStudentsUnsorted.push(studentJSONUnsorted);
+		}  
+		getParticularStudent();
 	}
  
-	function getStudentScores(tableNameJSON, isLastIndex){ 
-		jQuery.ajax({
-			type 		: "POST",
-			url	 		: "../config/getStudentsScores.php",
-			data 		: tableNameJSON, 
-			success 	: function(data){ 
-							storeAllScoresinAllStudentsArray(data); 
-							if(isLastIndex == true)
-								 getParticularStudent();
-						},
-			error 		:function(xhr,err,e) { 
-							alert ("Error: " + err);
-						},
-			dataType 	: "json"
-		}); 
-	}
-
-	function storeAllScoresinAllStudentsArray(data){ 
-		for(var i = 0; i < allStudents.length; i++){
-			if(allStudents[i].scoresTableName === data[0].tableName){
-				allStudents[i].scores = data;
-			}
-		} 
-	}
+	function getStudentScores(scores){ 
+		var jsonScore = jQuery.parseJSON(scores);
+		return jsonScore; 
+	} 
 
 	function getParticularStudent(){
 		jQuery.ajax({
@@ -239,7 +220,7 @@ jQuery(document).ready(function(){
 							updateParticularStudentScoresTableName(data); 
 						},
 			error 		:function(xhr,err,e) { 
-							alert ("Error: " + err);
+							alert ("Error: " + err + " from getParticularStudent");
 						},
 			dataType 	: "json"
 		});
@@ -251,9 +232,92 @@ jQuery(document).ready(function(){
 		for(var i = 0; i < allStudents.length; i++){
 			if(particularStudentScoresTableName === allStudents[i].scoresTableName){
 				allStudents[i].slicedCodeName = "You";
+				allStudentsUnsorted[i].slicedCodeName = "You";
 				studentIndexInAllStudentsArray = i;
 				break;
 			}
 		}  
+		console.log("Finished");
 	} 
+
+	function drawWithoutPlugin(){ 
+		initializeCanvas();
+		drawGraphArea();
+		obtainColumnWidth();
+		console.log(myGraph);
+	} 
+
+	function initializeCanvas(){
+		myCanvas = document.getElementById('scoreTrendCanvas');
+		// 40 and 90 below were picked arbitrarily so the canvas centers to the middle of the panel 
+		myCanvas.width = jQuery("#canvasPanelBody")[0].clientWidth - 40; 
+		myCanvas.height = jQuery("#canvasPanelBody")[0].clientHeight - 90;
+		myContext = myCanvas.getContext('2d'); 
+		canvasDetails = {
+			width: myCanvas.width,
+			height: myCanvas.height
+		};
+		myGraph.paddingX = 0.05 * canvasDetails.width; // .05 was selected by observation
+		myGraph.paddingY = 0.25 * canvasDetails.height; // .25 was selected by observation
+
+		myContext.fillStyle = "#ff0";
+		myContext.rect(0,0, myCanvas.width,myCanvas.height);
+		myContext.stroke(); 
+		myContext.fill(); 
+	}
+
+	function drawGraphArea(){ 
+		myGraph.graphWidth = canvasDetails.width - (2 * myGraph.paddingX); // 2 was selected to cover the left and right padding
+		myGraph.graphHeight = canvasDetails.height - (1.2 * myGraph.paddingY); // 1.2 was selected so the graph's height increases by .2 on both ends
+
+		myGraph.graphWidth = Math.round((myGraph.graphWidth * 100) / 100);
+		myGraph.graphHeight = Math.round((myGraph.graphHeight * 100) / 100);
+		myContext.beginPath();
+		myContext.fillStyle = "#f00";
+		myContext.rect(myGraph.paddingX, .4 * myGraph.paddingY, myGraph.graphWidth, myGraph.graphHeight);
+		myContext.fill();  
+	}
+
+	function obtainColumnWidth(){
+		// The reason the number of students is multiplied by 2 is because the spacing between each column is same as the column width 
+		// otherwise we'll have just divided the graph width by the number of students
+		myGraph.columnWidth = myGraph.graphWidth / (allStudentsUnsorted.length * 2);
+		myGraph.columnWidth = Math.round((myGraph.columnWidth * 100) / 100) 
+	}
+
+	jQuery(window).on('resize', function(){
+		drawWithoutPlugin();
+	});
 });
+
+// jQuery(document).ready(function(){
+// 	var theThing = document.querySelector('#thing');
+// 	var currentPos = 0;
+// 	var angle = 0;
+// 	var incrementer = .1;
+
+// 	var requestAnimationFrame = window.requestAnimationFrame ||
+// 								window.mozRequestAnimationFrame ||
+// 								window.webkitRequestAnimationFrame ||
+// 								window.msRequestAnimationFrame;
+
+// 	function moveThing(){
+// 		currentPos += 5;
+// 		angle += incrementer;
+
+// 		theThing.style.left = currentPos + "px";
+// 		theThing.style.top = 25 + 50 * Math.sin(angle) + "px";
+
+// 		if(Math.abs(currentPos) >= 900){
+// 			currentPos = -500; 
+// 			incrementer = .05 + Math.random() / 2;
+// 		}
+
+// 		if(angle > 2 * Math.PI)
+// 			angle = 0;
+
+// 		requestAnimationFrame(moveThing);
+// 	}
+
+// 	moveThing();
+// });
