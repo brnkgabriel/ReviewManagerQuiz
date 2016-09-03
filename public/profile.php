@@ -45,7 +45,7 @@
 		</style>
 		<title>Profile-HPM Youths</title>
 	</head>
-	<body style="display:none;"> 
+	<body> 
 		<?php include_once 'template/navigation.php'; ?>
 		<br><br>
 		<!-- Body -->

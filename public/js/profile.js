@@ -16,20 +16,17 @@ var xAxis = {x1: 0, y1: 0, x2: 0, y2: 0};
 var yAxis = {x1: 0, y1: 0, x2: 0, y2: 0};
 var myGraph = {graphWidth: 0, graphHeight: 0, paddingX: 0, paddingY: 0, columnWidth: 0}; 
 var maximumCurrentTotalAggregate = 0;
+var incrementer = 3;
+var requestAnimationFrame = window.requestAnimationFrame ||
+					window.mozRequestAnimationFrame ||
+					window.webkitRequestAnimationFrame ||
+					window.msRequestAnimationFrame;
+var requestID;
+var currentRect = {x: 0, y: 0, width: 0, height: 0};
+var prevRect = {x: 0, y: 0, width: 0, height: 0};
 
-jQuery(document).ready(function(){
-	google.charts.load('43', {packages: ['corechart', 'bar']});
- 
-	jQuery(document).on({
-	    ajaxStart: function() { 
-	    	console.log("ajaxStarted"); 
-	    },
-	    ajaxStop: function() { 
-	    	console.log("ajaxStopped"); 
-	    	jQuery('body').removeAttr("style");
-	    }    
-	});
- 
+jQuery(document).ready(function(){ 
+
 	getAllStudentsProfile();
 
 	function addTrendListeners(){ 
@@ -54,75 +51,10 @@ jQuery(document).ready(function(){
 
 	function sortScoresAndDrawOnCanvas(){ 
 		sortStudentsAccordingToCurrentAggregate();
-		assignStudentPosition();  
-		// drawFromGoogleChart();
+		assignStudentPosition();   
 		drawWithoutPlugin();
-	} 
-
-	function drawFromGoogleChart(){
-		google.charts.setOnLoadCallback(drawBasic);
-	}
-
-	function drawBasic() { 
-
-      	var data = google.visualization.arrayToDataTable(googleChartVisualizationData);
-  
-      	view = new google.visualization.DataView(data);
-      	view.setColumns([0, 1,
-      					{calc: "stringify", 
-      					 sourceColumn: 1, 
-      					 type: "string", 
-      					 role: "annotation"},
-      					 2]);
-      	 
-      	var scoreTrendContainerJQuery = jQuery('#scoreTrendContainer'); 
-      	options = {
-      		title: "Position as at " + allStudents[0].scores[selectedDateIndex].date + " (Week " + (selectedDateIndex + 1) + ")",
-      		titleTextStyle: {
-      			fontName: 'Ubuntu'
-      		},
-      		width: scoreTrendContainerJQuery[0].clientWidth,
-      		height: scoreTrendContainerJQuery[0].clientHeight,
-      		animation:{
-      			startup: true,
-		        duration: 1000,
-		        easing: 'out',
-		      },
-      		bar: {groupWidth: "50%"},
-      		legend: {position: "none"},
-      		chartArea: { 
-	            height: "60%",
-	            width: "90%"
-	        },
-	        annotations: {
-			    textStyle: {
-			      fontName: 'Ubuntu',
-			      fontSize: 8,  
-			      // The color of the text.
-			      color: '#871b47' 
-		 		}
-  			},
-  			hAxis: {
-  				textStyle: {
-  					fontSize: 12,
-  					fontName: 'Ubuntu'
-  				},
-				slantedText: true,
-				slantedTextAngle: 45
-  			}, 
-  			vAxis: { 
-  				textStyle: {
-  					fontSize: 12,
-  					fontName: 'Ubuntu' 
-  				},
-  				minValue: 0,
-  				maxValue: 100
-  			}
-      	}; 
-      	var chart = new google.visualization.ColumnChart(document.getElementById('scoreTrendContainer'));
-      	chart.draw(view,options); 
-    } 
-
+	}  
+ 
 	function sortStudentsAccordingToCurrentAggregate(){  
 
 		for(var i = allStudents.length - 1; i >= 1; i--){
@@ -148,7 +80,7 @@ jQuery(document).ready(function(){
 	}
 
 	function assignStudentPosition(){ 
-		googleChartVisualizationData = [['CodeName:Position', 'Current Total Aggregate', {role: 'style'}]];
+		// googleChartVisualizationData = [['CodeName:Position', 'Current Total Aggregate', {role: 'style'}]];
 		for(var i = 0; i < allStudents.length; i++){
 			switch(i){
 				case 0:
@@ -170,7 +102,7 @@ jQuery(document).ready(function(){
 				var color = "stroke-color: " + allStudents[i].colorCode + "; fill-color: #ffffff; stroke-width: 2;";
 			else
 				var color = "#" + allStudents[i].colorCode;
-			googleChartVisualizationData.push([label, data, color]);
+			// googleChartVisualizationData.push([label, data, color]);
 		} 
 	}
  
@@ -249,7 +181,7 @@ jQuery(document).ready(function(){
 		drawYAxisGridLine(.50);
 		drawYAxisGridLine(.75);
 		drawYAxisGridLine(1);
-		drawColumns(); 
+		drawColumns();   
 	} 
 
 	function initializeCanvas(){ 
@@ -341,14 +273,18 @@ jQuery(document).ready(function(){
 		myContext.lineTo(xAxis.x2, yPosition);
 		myContext.stroke();
 		myContext.fillStyle = "#000"; 
-		myContext.font = "12px Ubuntu"; 
-		myContext.fillText((percentile * 100) + "%", yAxis.x1 - 18, yPosition + 5); // 5 was selected arbitrarily to ensure text is center aligned with gridline
+		myContext.font = "10px Ubuntu"; // 12 is the reference font size  
+		myContext.fillText((percentile * 100) + "%", yAxis.x1 - 15, yPosition + 5); // 5 was selected arbitrarily to ensure text is center aligned with gridline
 	}
 
 	function drawColumns(){
-		obtainMaximumCurrentTotalAggregate(); 
-		console.log(allStudentsUnsorted);
+		obtainMaximumCurrentTotalAggregate();  
 		myContext.setLineDash([0]);
+		// console.log(currentRect);
+		prevRect.x = currentRect.x;
+		prevRect.y = currentRect.y;
+		prevRect.width = currentRect.width;
+		prevRect.height = currentRect.height;
 		for(var i = 0; i < allStudentsUnsorted.length; i++){
 			myContext.beginPath();
 			var cTAggregate = parseFloat(allStudentsUnsorted[i].scores[selectedDateIndex].currentTotalAggregate);
@@ -361,11 +297,15 @@ jQuery(document).ready(function(){
 			var n = i + 1;
 			var d = 2;
 			var v = a + (n-1) * d; 
-			myContext.rect(yAxis.x1 + (v * myGraph.columnWidth), yAxis.y1, myGraph.columnWidth, -yPosition); 
+			// myContext.rect(yAxis.x1 + (v * myGraph.columnWidth), yAxis.y1, myGraph.columnWidth, -yPosition); 
 			if(allStudentsUnsorted[i].slicedCodeName === "You"){
-				myContext.strokeStyle = "#" + allStudentsUnsorted[i].colorCode;
-				myContext.lineWidth = 2;
-				myContext.stroke();
+				// prevRect = currentRect;
+				currentRect.x = yAxis.x1 + (v * myGraph.columnWidth);
+				currentRect.y = yAxis.y1;
+				currentRect.width = myGraph.columnWidth;
+				currentRect.height = -yPosition;
+				animateColumnBar("#" + allStudentsUnsorted[i].colorCode); 
+				break; 
 			}else{
 				myContext.fillStyle = "#" + allStudentsUnsorted[i].colorCode;
 				myContext.fill();
@@ -382,6 +322,52 @@ jQuery(document).ready(function(){
 			}
 		}
 	}
+
+	function animateColumnBar(colorCode){
+		var previousHeight = prevRect.height;
+		var count = 0;
+		var isCurrentHeightLessThanPrevious = false;
+
+		if(currentRect.height < previousHeight) 
+			isCurrentHeightLessThanPrevious = true;
+		 
+		function drawRect(){  
+			myContext.clearRect(yAxis.x2, yAxis.y2, myGraph.graphWidth, myGraph.graphHeight); 
+
+			if(currentRect.height < previousHeight){
+				previousHeight -= incrementer;
+			}else{
+				previousHeight += incrementer;
+			} 
+
+ 			console.log("previous height is: " + Math.round(previousHeight));
+ 			console.log("current height is: " + Math.round(currentRect.height));
+ 			console.log(isCurrentHeightLessThanPrevious);
+
+ 			
+
+			myContext.beginPath();
+			myContext.strokeStyle = colorCode;
+			myContext.lineWidth = 2;
+			myContext.rect(currentRect.x, currentRect.y, currentRect.width, previousHeight); 
+			myContext.stroke();
+			count++;
+
+			if(isCurrentHeightLessThanPrevious){
+				if(Math.round(previousHeight) > Math.round(currentRect.height))
+ 					requestID = requestAnimationFrame(drawRect);
+			}else{
+				if(Math.round(previousHeight) < Math.round(currentRect.height)) 
+					requestID = requestAnimationFrame(drawRect);
+			}
+			// if(Math.round(previousHeight) !== Math.round(currentRect.height)) 
+			// if(count == 5)
+			// 	cancelAnimationFrame(requestID);
+
+			
+		} 
+		drawRect();
+	} 
 
 	jQuery(window).on('resize', function(){
 		drawWithoutPlugin();
