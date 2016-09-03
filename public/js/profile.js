@@ -16,14 +16,13 @@ var xAxis = {x1: 0, y1: 0, x2: 0, y2: 0};
 var yAxis = {x1: 0, y1: 0, x2: 0, y2: 0};
 var myGraph = {graphWidth: 0, graphHeight: 0, paddingX: 0, paddingY: 0, columnWidth: 0}; 
 var maximumCurrentTotalAggregate = 0;
-var incrementer = 3;
+var incrementer = 1;
 var requestAnimationFrame = window.requestAnimationFrame ||
 					window.mozRequestAnimationFrame ||
 					window.webkitRequestAnimationFrame ||
 					window.msRequestAnimationFrame;
 var requestID;
-var currentRect = {x: 0, y: 0, width: 0, height: 0};
-var prevRect = {x: 0, y: 0, width: 0, height: 0};
+var allCurrentAndPreviousRect = []; 
 
 jQuery(document).ready(function(){ 
 
@@ -177,10 +176,10 @@ jQuery(document).ready(function(){
 		drawAxis('x');
 		drawAxis('y');
 		drawTitle(); 
-		drawYAxisGridLine(.25);
-		drawYAxisGridLine(.50);
-		drawYAxisGridLine(.75);
-		drawYAxisGridLine(1);
+		drawYAxisGridLine(.25, "buttonClick");
+		drawYAxisGridLine(.50, "buttonClick");
+		drawYAxisGridLine(.75, "buttonClick");
+		drawYAxisGridLine(1, "buttonClick");
 		drawColumns();   
 	} 
 
@@ -263,7 +262,7 @@ jQuery(document).ready(function(){
 		myContext.fillText(title, (myCanvas.width / 2), yAxis.y2 - 10);
 	}
 
-	function drawYAxisGridLine(percentile){ 
+	function drawYAxisGridLine(percentile, action){ 
 		var yPosition = yAxis.y1 - (percentile * myGraph.graphHeight);
 		myContext.beginPath();
 		myContext.setLineDash([5,3]);
@@ -272,45 +271,27 @@ jQuery(document).ready(function(){
 		myContext.moveTo(yAxis.x1 - 2, yPosition); // 2 was selected arbitrarily for tick marks on y-axis
 		myContext.lineTo(xAxis.x2, yPosition);
 		myContext.stroke();
-		myContext.fillStyle = "#000"; 
-		myContext.font = "10px Ubuntu"; // 12 is the reference font size  
-		myContext.fillText((percentile * 100) + "%", yAxis.x1 - 15, yPosition + 5); // 5 was selected arbitrarily to ensure text is center aligned with gridline
+		if(action !== 'animating'){
+			myContext.fillStyle = "#000"; 
+			myContext.font = "10px Ubuntu"; // 12 is the reference font size  
+			myContext.fillText((percentile * 100) + "%", yAxis.x1 - 15, yPosition + 5); // 5 was selected arbitrarily to ensure text is center aligned with gridline
+		}
 	}
 
 	function drawColumns(){
 		obtainMaximumCurrentTotalAggregate();  
 		myContext.setLineDash([0]);
-		// console.log(currentRect);
-		prevRect.x = currentRect.x;
-		prevRect.y = currentRect.y;
-		prevRect.width = currentRect.width;
-		prevRect.height = currentRect.height;
-		for(var i = 0; i < allStudentsUnsorted.length; i++){
-			myContext.beginPath();
-			var cTAggregate = parseFloat(allStudentsUnsorted[i].scores[selectedDateIndex].currentTotalAggregate);
-			var percentile = cTAggregate / maximumCurrentTotalAggregate;
-			var yPosition = (percentile * myGraph.graphHeight);
-			// we make use of arithmetic progression to obtain x pos of rect
-			// v = a + (n-1)d we're looking for the column spacing 1,3,5,7..
-			// d = 2, n = i, a = yAxis.x1 + myGraph.columnWidth, therefore
-			var a = 1;
-			var n = i + 1;
-			var d = 2;
-			var v = a + (n-1) * d; 
-			// myContext.rect(yAxis.x1 + (v * myGraph.columnWidth), yAxis.y1, myGraph.columnWidth, -yPosition); 
-			if(allStudentsUnsorted[i].slicedCodeName === "You"){
-				// prevRect = currentRect;
-				currentRect.x = yAxis.x1 + (v * myGraph.columnWidth);
-				currentRect.y = yAxis.y1;
-				currentRect.width = myGraph.columnWidth;
-				currentRect.height = -yPosition;
-				animateColumnBar("#" + allStudentsUnsorted[i].colorCode); 
-				break; 
-			}else{
-				myContext.fillStyle = "#" + allStudentsUnsorted[i].colorCode;
-				myContext.fill();
-			}
+		for(var a = 0; a < allStudentsUnsorted.length; a++){ 
+			var cRect = {x: 0, y: 0, width: 0, height: 0};
+			var pRect = {x: 0, y: 0, width: 0, height: 0};
+			var rect = {currentRect: cRect, previousRect: pRect};
+			allCurrentAndPreviousRect.push(rect);
 		}
+
+		for(var b = 0; b < allStudentsUnsorted.length; b++){
+			deepCopy(allCurrentAndPreviousRect[b].currentRect, allCurrentAndPreviousRect[b].previousRect);
+		}
+ 		animateColumnBar(); 
 	}
 
 	function obtainMaximumCurrentTotalAggregate(){
@@ -323,85 +304,84 @@ jQuery(document).ready(function(){
 		}
 	}
 
-	function animateColumnBar(colorCode){
-		var previousHeight = prevRect.height;
-		var count = 0;
+	function animateColumnBar(){
+		for(var i = 0; i < allStudentsUnsorted.length; i++){
+			myContext.beginPath();
+			var cTAggregate = parseFloat(allStudentsUnsorted[i].scores[selectedDateIndex].currentTotalAggregate);
+			var percentile = cTAggregate / maximumCurrentTotalAggregate;
+			var yPosition = (percentile * myGraph.graphHeight);
+			// we make use of arithmetic progression to obtain x pos of rect {v = a + (n-1)d} we're looking for the column spacing 1,3,5,7.. d = 2, n = i, a = yAxis.x1 + myGraph.columnWidth, therefore
+			var a = 1; n = i + 1; d = 2; v = a + (n-1) * d; 
+
+			if(allStudentsUnsorted[i].slicedCodeName === "You"){ 
+				animateScore(yAxis,myGraph,yPosition,i,'stroke');
+			}else{
+				animateScore(yAxis,myGraph,yPosition,i,'fill');
+			} 
+		} 
+	} 
+
+	function animateScore(yAxis,myGraph,yPosition,i,strokeOrFill){
+		var currentObj = {x: yAxis.x1 + (v * myGraph.columnWidth), y: yAxis.y1, width: myGraph.columnWidth, height: -yPosition};
+		deepCopy(currentObj, allCurrentAndPreviousRect[i].currentRect); 
+		var previousHeight = allCurrentAndPreviousRect[i].previousRect.height; 
 		var isCurrentHeightLessThanPrevious = false;
 
+		var currentRect = allCurrentAndPreviousRect[i].currentRect;
+		var colorCode = "#" + allStudentsUnsorted[i].colorCode;
 		if(currentRect.height < previousHeight) 
 			isCurrentHeightLessThanPrevious = true;
 		 
-		function drawRect(){  
-			myContext.clearRect(yAxis.x2, yAxis.y2, myGraph.graphWidth, myGraph.graphHeight); 
-
-			if(currentRect.height < previousHeight){
+		function animateRectDrawing(){  
+			myContext.clearRect(currentRect.x, yAxis.y2, currentRect.width, myGraph.graphHeight);  
+			drawYAxisGridLine(.25, "animating");
+			drawYAxisGridLine(.50, "animating");
+			drawYAxisGridLine(.75, "animating");
+			drawYAxisGridLine(1, "animating");
+			myContext.setLineDash([0]);
+			if(currentRect.height < previousHeight)
 				previousHeight -= incrementer;
-			}else{
-				previousHeight += incrementer;
-			} 
+			else
+				previousHeight += incrementer; 
 
- 			console.log("previous height is: " + Math.round(previousHeight));
- 			console.log("current height is: " + Math.round(currentRect.height));
- 			console.log(isCurrentHeightLessThanPrevious);
-
- 			
-
-			myContext.beginPath();
-			myContext.strokeStyle = colorCode;
-			myContext.lineWidth = 2;
-			myContext.rect(currentRect.x, currentRect.y, currentRect.width, previousHeight); 
-			myContext.stroke();
-			count++;
+			drawRect(colorCode, currentRect, 2, previousHeight, strokeOrFill);
 
 			if(isCurrentHeightLessThanPrevious){
 				if(Math.round(previousHeight) > Math.round(currentRect.height))
- 					requestID = requestAnimationFrame(drawRect);
+ 					requestID = requestAnimationFrame(animateRectDrawing);
 			}else{
 				if(Math.round(previousHeight) < Math.round(currentRect.height)) 
-					requestID = requestAnimationFrame(drawRect);
-			}
-			// if(Math.round(previousHeight) !== Math.round(currentRect.height)) 
-			// if(count == 5)
-			// 	cancelAnimationFrame(requestID);
-
-			
+					requestID = requestAnimationFrame(animateRectDrawing);
+			} 
 		} 
-		drawRect();
-	} 
+		animateRectDrawing(); 
+	}
+
+	function drawRect(colorCode, rectangle, lineWidth, previousHeight, strokeOrFill){
+		myContext.beginPath();
+		switch(strokeOrFill){
+			case 'stroke':
+				myContext.strokeStyle = colorCode;
+				myContext.lineWidth = lineWidth;
+				myContext.rect(rectangle.x, rectangle.y, rectangle.width, previousHeight); 
+				myContext.stroke();
+				break;
+			case 'fill':
+				myContext.fillStyle = colorCode; 
+				myContext.rect(rectangle.x, rectangle.y, rectangle.width, previousHeight); 
+				myContext.fill();
+				break;
+		}
+	}
+
+	function deepCopy(from, to){
+		to.x = from.x;
+		to.y = from.y;
+		to.width = from.width;
+		to.height = from.height;
+	}
 
 	jQuery(window).on('resize', function(){
 		drawWithoutPlugin();
 	});
-});
-
-// jQuery(document).ready(function(){
-// 	var theThing = document.querySelector('#thing');
-// 	var currentPos = 0;
-// 	var angle = 0;
-// 	var incrementer = .1;
-
-// 	var requestAnimationFrame = window.requestAnimationFrame ||
-// 								window.mozRequestAnimationFrame ||
-// 								window.webkitRequestAnimationFrame ||
-// 								window.msRequestAnimationFrame;
-
-// 	function moveThing(){
-// 		currentPos += 5;
-// 		angle += incrementer;
-
-// 		theThing.style.left = currentPos + "px";
-// 		theThing.style.top = 25 + 50 * Math.sin(angle) + "px";
-
-// 		if(Math.abs(currentPos) >= 900){
-// 			currentPos = -500; 
-// 			incrementer = .05 + Math.random() / 2;
-// 		}
-
-// 		if(angle > 2 * Math.PI)
-// 			angle = 0;
-
-// 		requestAnimationFrame(moveThing);
-// 	}
-
-// 	moveThing();
-// });
+}); 
