@@ -45,11 +45,12 @@
 		</style>
 		<title>Profile-HPM Youths</title>
 	</head>
-	<body> 
+	<body>
+		
 		<?php include_once 'template/navigation.php'; ?>
 		<br><br>
 		<!-- Body -->
-		<div id="centerStage" class="container-fluid" style="color:<?php echo "#" . $student_profile['color']; ?>;"> 
+		<div id="centerStage" class="container-fluid" style="color:<?php echo "#" . $student_profile['color']; ?>;">
 			<div class="row">
 				<div class="col-md-6">
 					<div class="row">
@@ -120,7 +121,7 @@
 						<div class="panel-heading">
 							<h3 class="panel-title" id="rankTrendPanelTitle">Rank Trend</h3>
 						</div>
-						<div class="panel-body table-responsive" id="canvasPanelBody">
+						<div class="panel-body table-responsive">
 							<div class="row">
 								<p>
 									<button disabled="true" class="btn btn-default" id="prevTrendBtn"><span class="glyphicon glyphicon-chevron-left"></span></button>
@@ -128,11 +129,9 @@
 								</p>
 							</div>
 							<div class="row-fluid"> 
-								<p align="center">
-									<canvas id="scoreTrendCanvas">
-										Loading...
-									</canvas>
-								</p>
+								<div class="col-md-12" id="scoreTrendContainer" style="height: 345px;">
+									Loading...
+								</div> 
 							</div> 
 						</div><!-- end attributes panel body --> 
 					</div><!-- end attributes panel -->
