@@ -27,7 +27,7 @@ var totalPoints = 0;
 var worshipQuestionsAnswered = 0;
 var messageQuestionsAnswered = 0; 
 var scripturesTyped = 0;
-var currentQuizState = {cTab: "", wQAnswered: "", mQAnswered: "", sTyped: "", tPoints: "", email: ""};
+var currentQuizStatus = {cTab: "", wQAnswered: "", mQAnswered: "", sTyped: "", tPoints: "", totalAggregate: "", email: "", age: ""};
 
 jQuery(document).ready(function(){    
 	
@@ -35,7 +35,7 @@ jQuery(document).ready(function(){
       	e.preventDefault();
   	});
 
-	jQuery('#quizPanelFooter').html(questionSet + " {Tasks: " + questionOrScripturesActedOn + "/" + allProcessedQuestions.length +", Total Points (worship + message + scripture): " + totalPoints + "}");
+	// jQuery('#quizPanelFooter').html(questionSet + " {Tasks: " + questionOrScripturesActedOn + "/" + allProcessedQuestions.length +", Total Points (worship + message + scripture): " + totalPoints + "}");
 
 	quizState('get', {});
 
@@ -71,38 +71,37 @@ jQuery(document).ready(function(){
 		questionOrScripturesActedOn++; 
 		switch(currentBtn.attr('id')){
 			case 'worshipNextBtn':
-				currentQuizState.wQAnswered = questionOrScripturesActedOn.toString();
+				currentQuizStatus.wQAnswered = questionOrScripturesActedOn.toString();
 				break;
 			case 'messageNextBtn':
-				currentQuizState.mQAnswered = questionOrScripturesActedOn.toString();
+				currentQuizStatus.mQAnswered = questionOrScripturesActedOn.toString();
 				break;
 			case 'scriptureNextBtn':
-				currentQuizState.sTyped = questionOrScripturesActedOn.toString();
+				currentQuizStatus.sTyped = questionOrScripturesActedOn.toString();
 				break;
 		}
 		jQuery('#quizPanelFooter').html(questionSet + " {Tasks: " + questionOrScripturesActedOn + "/" + allProcessedQuestions.length +", Total Points (worship + message + scripture): " + totalPoints + "}");
 		
 		updateQuestionFormElements(currentTab, questionOrScripturesActedOn);  
-		quizState('store', currentQuizState);
+		quizState('store', currentQuizStatus);
 
 		if(currentBtn.attr('id') !== "scriptureNextBtn")
 			currentBtn.attr('disabled', 'true'); 
-		console.log(currentQuizState);
+		console.log(currentQuizStatus);
 	});
 
 	// I need the current selection from below to update the panel footer
 	// This is also the reset of the whole quiz page
-	jQuery('a[data-toggle="tab"]').on('shown.bs.tab', function (evt) {
+	jQuery('a[data-toggle="tab"]').on('shown.bs.tab', function (evt) { 
 	 	var target = jQuery(evt.target).text(); // activated tab
 	  	questionSet = target;
 	  	questionOrScripturesActedOn = 0;
-	  	currentQuizState.cTab = questionSet; // so when the next button of the question is clicked the cTab is already updated
-		getQuestionsToLoadAndLoadFromDb(currentQuizState.cTab);
-		jQuery('#quizPanelFooter').html(questionSet + " {Tasks: " + questionOrScripturesActedOn + "/" + allProcessedQuestions.length +", Total Points (worship + message + scripture): " + totalPoints + "}");
+	  	currentQuizStatus.cTab = questionSet; // so when the next button of the question is clicked the cTab is already updated
+		getQuestionsToLoadAndLoadFromDb(currentQuizStatus.cTab);
 	});
  
  	jQuery('#logout').click(function(){
- 		quizState('store', currentQuizState);
+ 		quizState('store', currentQuizStatus);
  	});
 
 	function getQuestionsToLoadAndLoadFromDb(currentTab){
@@ -150,7 +149,9 @@ jQuery(document).ready(function(){
 				questionJSON.answers = data[i].answers;
 				allProcessedQuestions.push(questionJSON);
 			}
-		}  
+		} 
+		
+		jQuery('#quizPanelFooter').html(questionSet + " {Tasks: " + questionOrScripturesActedOn + "/" + allProcessedQuestions.length +", Total Points (worship + message + scripture): " + totalPoints + "}"); 
 	}  
 
 	function updateQuestionFormElements(currentTab,i){  
@@ -236,7 +237,7 @@ jQuery(document).ready(function(){
 					totalPoints += INCORRECT_ANSWER; 
 				break;
 		} 
-		currentQuizState.tPoints = totalPoints.toString();
+		currentQuizStatus.tPoints = totalPoints.toString();
 	}
 
 	// Restores the previous tab state of the last session before closing the browser
@@ -283,7 +284,7 @@ jQuery(document).ready(function(){
 					url	 		: "../config/"+action+"QuizState.php", 
 					data 		: jsonData,
 					success 	: function(data){
-									updateCurrentQuizState(data);
+									updatecurrentQuizStatus(data);
 								},
 					error 		:function(xhr,err,e) { 
 									alert ("Error: " + err);
@@ -292,10 +293,16 @@ jQuery(document).ready(function(){
 				});
 				break;
 			case 'store':
+				var aggregate = parseFloat(jsonData.tPoints) / parseInt(jsonData.age);
+				var totalAggregate = parseFloat(jsonData.totalAggregate) + aggregate;
+				jsonData.totalAggregate = Math.round(totalAggregate * 1000) / 1000;
+				console.log("aggregate is: " + aggregate);
+				console.log("totalAggregate is: " + totalAggregate);
+				var serializeCurrentQuizStatus = {status: jsonData}; // This converts currentQuizStatus from an object to a string (an object of an object) 
 				jQuery.ajax({
 					type 		: "POST",
 					url	 		: "../config/"+action+"QuizState.php", 
-					data 		: jsonData,
+					data 		: serializeCurrentQuizStatus,
 					success 	: function(data){ 
 									console.log(data);
 								},
@@ -307,19 +314,24 @@ jQuery(document).ready(function(){
 		}
 	} 
 
-	function updateCurrentQuizState(data){  
-		currentQuizState.cTab = data.currentTab;
-		currentQuizState.wQAnswered = data.worshipQuestionsAnswered;
-		currentQuizState.mQAnswered = data.messageQuestionsAnswered;
-		currentQuizState.sTyped = data.scripturesTyped;
-		currentQuizState.tPoints = data.totalPoints;
-		currentQuizState.email = data.email;
+	function updatecurrentQuizStatus(data){  
+		console.log(data);
+		currentQuizStatus.totalAggregate = data.totalAggregate;
+		currentQuizStatus.email = data.email;
+		currentQuizStatus.age = data.age; 
+		console.log(currentQuizStatus);
+		// currentQuizStatus.cTab = data.currentTab;
+		// currentQuizStatus.wQAnswered = data.worshipQuestionsAnswered;
+		// currentQuizStatus.mQAnswered = data.messageQuestionsAnswered;
+		// currentQuizStatus.sTyped = data.scripturesTyped;
+		// currentQuizStatus.tPoints = data.totalPoints;
+		// currentQuizStatus.email = data.email;
 
-		questionSet = currentQuizState.cTab;
-		totalPoints = parseInt(currentQuizState.tPoints);
-		worshipQuestionsAnswered = parseInt(currentQuizState.wQAnswered);
-		messageQuestionsAnswered = parseInt(currentQuizState.mQAnswered);
-		scripturesTyped = parseInt(currentQuizState.sTyped);
-		getQuestionsToLoadAndLoadFromDb(questionSet);
+		// questionSet = currentQuizStatus.cTab;
+		// totalPoints = parseInt(currentQuizStatus.tPoints);
+		// worshipQuestionsAnswered = parseInt(currentQuizStatus.wQAnswered);
+		// messageQuestionsAnswered = parseInt(currentQuizStatus.mQAnswered);
+		// scripturesTyped = parseInt(currentQuizStatus.sTyped);
+		// getQuestionsToLoadAndLoadFromDb(questionSet);
 	}
 });  

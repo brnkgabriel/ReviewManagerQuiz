@@ -34,6 +34,7 @@ jQuery(document).ready(function(){
 
 	function resourcesAlreadyLoaded(){ 
 		if(finishedAllDataLoadingOperation === true){
+			selectedDateIndex = allStudents[0].scores.length - 1; // Set thte selected date to the recent date
 			clearInterval(interval);  
 			sortScoresAndDrawOnCanvas();
 			jQuery('#prevTrendBtn, #nextTrendBtn').removeAttr('disabled'); 
@@ -204,10 +205,11 @@ jQuery(document).ready(function(){
 			allStudentsUnsorted.push(studentJSONUnsorted);
 		}  
 		getParticularStudent();
+		console.log(allStudents);
 	}
  
 	function getStudentScores(scores){ 
-		var jsonScore = jQuery.parseJSON(scores);
+		var jsonScore = jQuery.parseJSON(scores); 
 		return jsonScore; 
 	} 
 
@@ -216,8 +218,8 @@ jQuery(document).ready(function(){
 			type 		: "POST",
 			url	 		: "../config/particularStudent.php", 
 			success 	: function(data){ 
-							finishedAllDataLoadingOperation = true;
 							updateParticularStudentScoresTableName(data); 
+							finishedAllDataLoadingOperation = true;
 						},
 			error 		:function(xhr,err,e) { 
 							alert ("Error: " + err + " from getParticularStudent");
@@ -250,8 +252,9 @@ jQuery(document).ready(function(){
 	function initializeCanvas(){
 		myCanvas = document.getElementById('scoreTrendCanvas');
 		// 40 and 90 below were picked arbitrarily so the canvas centers to the middle of the panel 
-		myCanvas.width = jQuery("#canvasPanelBody")[0].clientWidth - 40; 
-		myCanvas.height = jQuery("#canvasPanelBody")[0].clientHeight - 90;
+		console.log(jQuery('#canvasPanelBody'));
+		// myCanvas.width = jQuery("#canvasPanelBody")[0].clientWidth - 40; 
+		// myCanvas.height = jQuery("#canvasPanelBody")[0].clientHeight - 90;
 		myContext = myCanvas.getContext('2d'); 
 		canvasDetails = {
 			width: myCanvas.width,

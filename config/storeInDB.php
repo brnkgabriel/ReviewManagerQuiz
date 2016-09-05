@@ -4,7 +4,7 @@
 	
 	$scoresTableName = $_POST['first'] . $_POST['last'] . 'scores';
 	$scoresTableName = strtolower($scoresTableName);  
-  
+  	echo $scoresTableName;
 	$doesEntryExist = queryDbForExistingEntry($dbc, 'date', $_POST['date'], $scoresTableName); 
 	
 	if($doesEntryExist)
