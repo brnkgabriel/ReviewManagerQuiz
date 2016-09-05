@@ -23,11 +23,8 @@ var questionSet = "";
 var CORRECT_ANSWER = 5;
 var INCORRECT_ANSWER = 2;
 var NO_ANSWER = 0;
-var totalPoints = 0;
-var worshipQuestionsAnswered = 0;
-var messageQuestionsAnswered = 0; 
-var scripturesTyped = 0;
-var currentQuizStatus = {cTab: "", wQAnswered: "", mQAnswered: "", sTyped: "", tPoints: "", totalAggregate: "", email: "", age: ""};
+var totalPoints = 0; 
+var currentQuizStatus = {cTab: "", wQAnswered: "0", mQAnswered: "0", sTyped: "0", tPoints: "", totalAggregate: "", email: "", age: ""};
 
 jQuery(document).ready(function(){    
 	
@@ -92,10 +89,23 @@ jQuery(document).ready(function(){
 
 	// I need the current selection from below to update the panel footer
 	// This is also the reset of the whole quiz page
-	jQuery('a[data-toggle="tab"]').on('shown.bs.tab', function (evt) { 
+	jQuery('a[data-toggle="tab"]').on('shown.bs.tab', function (evt) {  
 	 	var target = jQuery(evt.target).text(); // activated tab
-	  	questionSet = target;
-	  	questionOrScripturesActedOn = 0;
+	  	questionSet = target
+
+	  	// The following line sets the questionOrScripturesActedOn to the latest # of questions or scriptures acted on as gotten from the database
+	  	switch(questionSet){
+	  		case 'Worship':
+	  			questionOrScripturesActedOn = parseInt(currentQuizStatus.wQAnswered);
+	  			break;
+	  		case 'Message':
+	  			questionOrScripturesActedOn = parseInt(currentQuizStatus.mQAnswered);
+	  			break;
+	  		case 'Scripture':
+	  			questionOrScripturesActedOn = parseInt(currentQuizStatus.sTyped);
+	  			break;
+	  	}
+	  	console.log("Heyyy what are you? " + questionOrScripturesActedOn);
 	  	currentQuizStatus.cTab = questionSet; // so when the next button of the question is clicked the cTab is already updated
 		getQuestionsToLoadAndLoadFromDb(currentQuizStatus.cTab);
 	});
@@ -150,7 +160,7 @@ jQuery(document).ready(function(){
 				allProcessedQuestions.push(questionJSON);
 			}
 		} 
-		
+
 		jQuery('#quizPanelFooter').html(questionSet + " {Tasks: " + questionOrScripturesActedOn + "/" + allProcessedQuestions.length +", Total Points (worship + message + scripture): " + totalPoints + "}"); 
 	}  
 
@@ -249,8 +259,7 @@ jQuery(document).ready(function(){
 				jQuery('#scriptureListItem').removeAttr('class');
 				jQuery('#worship').addClass('in active');
 				jQuery('#message').removeClass('in active');
-				jQuery('#scripture').removeClass('in active');
-				questionOrScripturesActedOn = worshipQuestionsAnswered;
+				jQuery('#scripture').removeClass('in active'); 
 				updateQuestionFormElements(questionSet.toLowerCase(), questionOrScripturesActedOn);
 				break;
 			case 'Message':
@@ -259,8 +268,7 @@ jQuery(document).ready(function(){
 				jQuery('#scriptureListItem').removeAttr('class');
 				jQuery('#worship').removeClass('in active');
 				jQuery('#message').addClass('in active');
-				jQuery('#scripture').removeClass('in active');
-				questionOrScripturesActedOn = messageQuestionsAnswered;
+				jQuery('#scripture').removeClass('in active'); 
 				updateQuestionFormElements(questionSet.toLowerCase(), questionOrScripturesActedOn);
 				break;
 			case 'Scripture':
@@ -269,8 +277,7 @@ jQuery(document).ready(function(){
 				jQuery('#scriptureListItem').attr('class', 'active');
 				jQuery('#worship').removeClass('in active');
 				jQuery('#message').removeClass('in active');
-				jQuery('#scripture').addClass('in active');
-				questionOrScripturesActedOn = scripturesTyped;
+				jQuery('#scripture').addClass('in active'); 
 				updateQuestionFormElements(questionSet.toLowerCase(), questionOrScripturesActedOn);
 				break;
 		}
@@ -281,7 +288,7 @@ jQuery(document).ready(function(){
 			case 'get':
 				jQuery.ajax({
 					type 		: "POST",
-					url	 		: "../config/"+action+"QuizState.php", 
+					url	 		: "../config/"+action+"QuizStatus.php", 
 					data 		: jsonData,
 					success 	: function(data){
 									updatecurrentQuizStatus(data);
@@ -301,7 +308,7 @@ jQuery(document).ready(function(){
 				var serializeCurrentQuizStatus = {status: jsonData}; // This converts currentQuizStatus from an object to a string (an object of an object) 
 				jQuery.ajax({
 					type 		: "POST",
-					url	 		: "../config/"+action+"QuizState.php", 
+					url	 		: "../config/"+action+"QuizStatus.php", 
 					data 		: serializeCurrentQuizStatus,
 					success 	: function(data){ 
 									console.log(data);
@@ -314,24 +321,20 @@ jQuery(document).ready(function(){
 		}
 	} 
 
-	function updatecurrentQuizStatus(data){  
-		console.log(data);
-		currentQuizStatus.totalAggregate = data.totalAggregate;
+	function updatecurrentQuizStatus(data){    
 		currentQuizStatus.email = data.email;
 		currentQuizStatus.age = data.age; 
+		// checking the following corner case ensures there's no unexpected end of JSON string from the jQuery's parseJSON method 
+		if(data.quizStatus !== ""){
+			var quizStatusObjectFromDB = jQuery.parseJSON(data.quizStatus);  
+			currentQuizStatus.cTab = quizStatusObjectFromDB.cTab;
+			currentQuizStatus.wQAnswered = quizStatusObjectFromDB.wQAnswered;
+			currentQuizStatus.mQAnswered = quizStatusObjectFromDB.mQAnswered;
+			currentQuizStatus.sTyped = quizStatusObjectFromDB.sTyped;
+			currentQuizStatus.tPoints = quizStatusObjectFromDB.tPoints;
+			currentQuizStatus.totalAggregate = quizStatusObjectFromDB.totalAggregate;
+		}else
+			currentQuizStatus.totalAggregate = data.totalAggregate; 
 		console.log(currentQuizStatus);
-		// currentQuizStatus.cTab = data.currentTab;
-		// currentQuizStatus.wQAnswered = data.worshipQuestionsAnswered;
-		// currentQuizStatus.mQAnswered = data.messageQuestionsAnswered;
-		// currentQuizStatus.sTyped = data.scripturesTyped;
-		// currentQuizStatus.tPoints = data.totalPoints;
-		// currentQuizStatus.email = data.email;
-
-		// questionSet = currentQuizStatus.cTab;
-		// totalPoints = parseInt(currentQuizStatus.tPoints);
-		// worshipQuestionsAnswered = parseInt(currentQuizStatus.wQAnswered);
-		// messageQuestionsAnswered = parseInt(currentQuizStatus.mQAnswered);
-		// scripturesTyped = parseInt(currentQuizStatus.sTyped);
-		// getQuestionsToLoadAndLoadFromDb(questionSet);
 	}
 });  
