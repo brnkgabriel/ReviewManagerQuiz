@@ -16,7 +16,7 @@ var canvasDetails;
 var myGraph = {graphWidth: 0, graphHeight: 0, paddingX: 0, paddingY: 0, columnWidth: 0}; 
 
 jQuery(document).ready(function(){
-	google.charts.load('43', {packages: ['corechart', 'bar']});
+	// google.charts.load('43', {packages: ['corechart', 'bar']});
  
 	jQuery(document).on({
 	    ajaxStart: function() { 
@@ -59,8 +59,8 @@ jQuery(document).ready(function(){
 	function sortScoresAndDrawOnCanvas(){ 
 		sortStudentsAccordingToCurrentAggregate();
 		assignStudentPosition();  
-		drawFromGoogleChart();
-		// drawWithoutPlugin();
+		// drawFromGoogleChart();
+		drawWithoutPlugin();
 	} 
 
 	function drawFromGoogleChart(){

@@ -18,7 +18,7 @@
 			window.jQuery || document.write("<script src='js/jquery-3.1.0.min.js'><\/script>");
 		</script>
 		<!-- <script src="js/Chart.min.js"></script>  -->
-		<script src="js/loader.js"></script> 
+		<!-- <script src="js/loader.js"></script>  -->
 		
 		<!-- Include all compiled plugins (below), or include individual files as needed -->
 		<script src="js/bootstrap.min.js"></script>
@@ -129,9 +129,9 @@
 							</div>
 							<div class="row"> 
 								<p align="center">
-									<div id="scoreTrendContainer" style="height:335px;">
+									<canvas id="scoreTrendCanvas" style="height:335px;">
 										Loading...
-									</div>
+									</canvas>
 								</p>
 							</div> 
 						</div><!-- end attributes panel body --> 

@@ -194,7 +194,8 @@
 		    insertToOrUpdateTable($dbc, $scoresTableName, 'insert', $post['date'], $post['exercise'], $post['type'], $post['source'], $post['score'], $post['currentage'], $post['aggregate'], $post['currentTotalAggregate']);
 	}
 	
-	function queryDbForExistingEntry($dbc, $columnName, $id, $tableName){  
+	function queryDbForExistingEntry($dbc, $columnName, $id, $tableName){
+		$id = mysqli_real_escape_string($dbc, $id); 
 		$cond = ($id === "") ? "" : "WHERE $columnName = '$id'"; 
 		
 		$q = "SELECT * FROM $tableName $cond";
