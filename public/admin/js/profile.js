@@ -33,8 +33,7 @@ jQuery(document).ready(function(){
 				alert("Select a Student...");
 			else{
 				splitStudentNames();
-				getCurrentTotalAggregate({first: studentJSONScore.first, last: studentJSONScore.last});
-				// sendToDatabase();
+				getCurrentTotalAggregate({first: studentJSONScore.first, last: studentJSONScore.last, date: studentJSONScore.date}); 
 			}
 		} 
 	});
@@ -51,8 +50,8 @@ jQuery(document).ready(function(){
 			type 		: "POST",
 			url	 		: "../../config/getCurrentTotalAggregate.php",
 			data 		: nameJSON,
-			success 	: function(data){  
-							assembleStudentJSONScore('currentTotalAggregate', data);
+			success 	: function(data){   
+							assembleStudentJSONScore('currentTotalAggregate', data); 
 							sendToDatabase(); 
 			},
 			error 		:function(xhr,err,e) { 

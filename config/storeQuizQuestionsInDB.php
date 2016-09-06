@@ -1,6 +1,6 @@
 <?php
 	include_once 'connection.php';
-	include_once 'dataAdmin.php';
+	include_once 'data.php';
 	
 	// the implode function converts an array to string
 	$options = implode(",", $_POST['options']);

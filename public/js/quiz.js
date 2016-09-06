@@ -19,22 +19,24 @@ var messageQuestions = {tableName: "messagequestions"};
 var scriptures = {tableName: "scripturematerials"};
 var allProcessedQuestions = [];
 var questionOrScripturesActedOn = 0;
-var questionSet = "";
+var questionSet = "Worship";
 var CORRECT_ANSWER = 5;
 var INCORRECT_ANSWER = 2;
 var NO_ANSWER = 0;
 var totalPoints = 0; 
-var currentQuizStatus = {cTab: "", wQAnswered: "0", mQAnswered: "0", sTyped: "0", tPoints: "", totalAggregate: "", email: "", age: ""};
+var currentQuizStatus = {cTab: "Worship", wQAnswered: "0", mQAnswered: "0", sTyped: "0", tPoints: "0", totalAggregate: "", email: "", age: ""};
+var messageTitle = "Repositioning for Exploits";
+var messageType = "Online Quiz";
+var messageSource = "Bishop David Oyedepo";
 
 jQuery(document).ready(function(){    
 	
 	jQuery('#scriptureTextArea, #scriptureReferenceInput').on("cut copy paste",function(e) {
       	e.preventDefault();
-  	});
-
+  	}); 
 	// jQuery('#quizPanelFooter').html(questionSet + " {Tasks: " + questionOrScripturesActedOn + "/" + allProcessedQuestions.length +", Total Points (worship + message + scripture): " + totalPoints + "}");
 
-	quizState('get', {});
+	quizState('get', {}); 
 
 	jQuery('#worshipOptionsSelectList, #messageOptionsSelectList').change(function(){
 		var currentSelectList = jQuery(this);
@@ -83,31 +85,20 @@ jQuery(document).ready(function(){
 		quizState('store', currentQuizStatus);
 
 		if(currentBtn.attr('id') !== "scriptureNextBtn")
-			currentBtn.attr('disabled', 'true'); 
-		console.log(currentQuizStatus);
+			currentBtn.attr('disabled', 'true');  
 	});
 
 	// I need the current selection from below to update the panel footer
 	// This is also the reset of the whole quiz page
 	jQuery('a[data-toggle="tab"]').on('shown.bs.tab', function (evt) {  
 	 	var target = jQuery(evt.target).text(); // activated tab
-	  	questionSet = target
+	  	// questionSet = target;
 
 	  	// The following line sets the questionOrScripturesActedOn to the latest # of questions or scriptures acted on as gotten from the database
-	  	switch(questionSet){
-	  		case 'Worship':
-	  			questionOrScripturesActedOn = parseInt(currentQuizStatus.wQAnswered);
-	  			break;
-	  		case 'Message':
-	  			questionOrScripturesActedOn = parseInt(currentQuizStatus.mQAnswered);
-	  			break;
-	  		case 'Scripture':
-	  			questionOrScripturesActedOn = parseInt(currentQuizStatus.sTyped);
-	  			break;
-	  	}
-	  	console.log("Heyyy what are you? " + questionOrScripturesActedOn);
-	  	currentQuizStatus.cTab = questionSet; // so when the next button of the question is clicked the cTab is already updated
-		getQuestionsToLoadAndLoadFromDb(currentQuizStatus.cTab);
+	  	updateQuestionsOrScripturesActedOn(target); 
+
+	  	currentQuizStatus.cTab = target; // so when the next button of the question is clicked the cTab is already updated 
+		updateQuestionSetQuestionsOrScripturesActedOnAndStoreInDb(target);
 	});
  
  	jQuery('#logout').click(function(){
@@ -301,15 +292,22 @@ jQuery(document).ready(function(){
 				break;
 			case 'store':
 				var aggregate = parseFloat(jsonData.tPoints) / parseInt(jsonData.age);
+				aggregate = Math.round(aggregate * 1000) / 1000;
 				var totalAggregate = parseFloat(jsonData.totalAggregate) + aggregate;
-				jsonData.totalAggregate = Math.round(totalAggregate * 1000) / 1000;
-				console.log("aggregate is: " + aggregate);
-				console.log("totalAggregate is: " + totalAggregate);
-				var serializeCurrentQuizStatus = {status: jsonData}; // This converts currentQuizStatus from an object to a string (an object of an object) 
+				jsonData.totalAggregate = Math.round(totalAggregate * 1000) / 1000;  
+				var sTData = {date: getCurrentDate(), 
+							  exercise: messageTitle, 
+							  type: messageType, 
+							  source: messageSource, 
+							  score:jsonData.tPoints, 
+							  currentage: jsonData.age, 
+							  aggregate: aggregate, 
+							  currentTotalAggregate: jsonData.totalAggregate};
+				var cQStatus = {status: jsonData, scoresTableData: sTData};  
 				jQuery.ajax({
 					type 		: "POST",
 					url	 		: "../config/"+action+"QuizStatus.php", 
-					data 		: serializeCurrentQuizStatus,
+					data 		: cQStatus,
 					success 	: function(data){ 
 									console.log(data);
 								},
@@ -323,8 +321,7 @@ jQuery(document).ready(function(){
 
 	function updatecurrentQuizStatus(data){    
 		currentQuizStatus.email = data.email;
-		currentQuizStatus.age = data.age; 
-		// checking the following corner case ensures there's no unexpected end of JSON string from the jQuery's parseJSON method 
+		currentQuizStatus.age = data.age;  
 		if(data.quizStatus !== ""){
 			var quizStatusObjectFromDB = jQuery.parseJSON(data.quizStatus);  
 			currentQuizStatus.cTab = quizStatusObjectFromDB.cTab;
@@ -334,7 +331,45 @@ jQuery(document).ready(function(){
 			currentQuizStatus.tPoints = quizStatusObjectFromDB.tPoints;
 			currentQuizStatus.totalAggregate = quizStatusObjectFromDB.totalAggregate;
 		}else
-			currentQuizStatus.totalAggregate = data.totalAggregate; 
-		console.log(currentQuizStatus);
+			currentQuizStatus.totalAggregate = data.totalAggregate;  
+		updateQuestionSetQuestionsOrScripturesActedOnAndStoreInDb(currentQuizStatus.cTab);
+	}
+
+	function updateQuestionSetQuestionsOrScripturesActedOnAndStoreInDb(qSet){
+		questionSet = qSet;
+		updateQuestionsOrScripturesActedOn(qSet);
+		getQuestionsToLoadAndLoadFromDb(qSet);
+	}
+
+	function getCurrentDate(){
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth()+1; //January is 0!
+		var yyyy = today.getFullYear();
+
+		if(dd<10) {
+		    dd='0'+dd
+		} 
+
+		if(mm<10) {
+		    mm='0'+mm
+		} 
+
+		today = yyyy+'-'+mm+'-'+dd;
+		return today;
+	}
+
+	function updateQuestionsOrScripturesActedOn(tab){
+		switch(tab){
+	  		case 'Worship':
+	  			questionOrScripturesActedOn = parseInt(currentQuizStatus.wQAnswered);
+	  			break;
+	  		case 'Message':
+	  			questionOrScripturesActedOn = parseInt(currentQuizStatus.mQAnswered);
+	  			break;
+	  		case 'Scripture':
+	  			questionOrScripturesActedOn = parseInt(currentQuizStatus.sTyped);
+	  			break;
+	  	}
 	}
 });  

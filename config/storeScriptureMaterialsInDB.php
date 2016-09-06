@@ -1,6 +1,6 @@
 <?php
 	include_once 'connection.php';
-	include_once 'dataAdmin.php';
+	include_once 'data.php';
 	
 	$doesEntryExist = queryDbForExistingEntry($dbc, 'reference', $_POST['reference'], $_POST['tableName']);  
 	

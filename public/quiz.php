@@ -60,7 +60,7 @@
 						<li id="scriptureListItem"><a href="#scripture" data-toggle="tab">Scripture</a></li>
 					</ul>
 					<div id="myTabContent" class="tab-content"> 
-						<div class="tab-pane fade table-responsive" id="worship">
+						<div class="tab-pane fade" id="worship">
 							<?php 	if($quizSettings['details'] === 'Materials'){ ?>
 							<p>Title: <strong>Sing to The Lord</strong></p>
 							<p>By: <strong>Marty Sampson</strong></p>
