@@ -112,12 +112,13 @@
 			//	Observed mofe's position was 21th that's why the following code is needed
 			//=====================================================//
 			$firstThree = substr($position, -3,1);
+			$preceedingFirstThree = substr($position, -4, 1);
 			$th = substr($position, -2);
-			if($firstThree === "1" && $th === "th")
+			if($firstThree === "1" && $th === "th" && $preceedingFirstThree !== "1")
 				$position = substr_replace($position, "st", -2);
-			else if($firstThree === "2" && $th === "th")
+			else if($firstThree === "2" && $th === "th" && $preceedingFirstThree !== "1")
 				$position = substr_replace($position, "nd", -2);
-			else if($firstThree === "3" && $th === "th")
+			else if($firstThree === "3" && $th === "th" && $preceedingFirstThree !== "1")
 				$position = substr_replace($position, "rd", -2);
 			//====================================================//
 			$totalAggregate = $profiles[$i]['totalAggregate'];
