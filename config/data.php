@@ -109,6 +109,17 @@
 					$prize = 0;
 					break;
 			}
+			//	Observed mofe's position was 21th that's why the following code is needed
+			//=====================================================//
+			$firstThree = substr($position, -3,1);
+			$th = substr($position, -2);
+			if($firstThree === "1" && $th === "th")
+				$position = substr_replace($position, "st", -2);
+			else if($firstThree === "2" && $th === "th")
+				$position = substr_replace($position, "nd", -2);
+			else if($firstThree === "3" && $th === "th")
+				$position = substr_replace($position, "rd", -2);
+			//====================================================//
 			$totalAggregate = $profiles[$i]['totalAggregate'];
 			updateTable($dbc, 'position', $position, 'totalAggregate', $totalAggregate);
 			updateTable($dbc, 'prize', round($prize), 'totalAggregate', $totalAggregate);
