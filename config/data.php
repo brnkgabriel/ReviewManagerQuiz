@@ -159,6 +159,13 @@
 		$stmt->close(); 
 	}  
 	 
+	function updateTotalAggregateAndQuizStatusProfilesTable($dbc, $column1, $columnEntry1, $column2, $columnEntry2, $idColumn, $id){ 
+		$q = "UPDATE profiles SET $column1 = ?, $column2 = ? WHERE $idColumn = ?"; 
+		$stmt = $dbc->prepare($q);
+		$stmt->bind_param('sss', $columnEntry1, $columnEntry2, $id);
+		$stmt->execute();  
+		$stmt->close(); 
+	} 
 	function updateAllProfilesTableEntries($dbc){
 		// Get Student's Profiles 					(1)
 		// Get Student scores 						(2)

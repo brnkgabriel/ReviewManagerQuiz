@@ -134,6 +134,7 @@ jQuery(document).ready(function(){
 				break;
 			case 'currentTotalAggregate': 
 				studentJSONScore.currentTotalAggregate = parseFloat(studentJSONScore.aggregate) + parseFloat(value);
+				studentJSONScore.currentTotalAggregate = Math.round(studentJSONScore.currentTotalAggregate * 1000) / 1000;
 				break;
 		}
 	}

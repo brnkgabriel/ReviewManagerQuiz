@@ -24,6 +24,8 @@ var CORRECT_ANSWER = 5;
 var INCORRECT_ANSWER = 2;
 var NO_ANSWER = 0;
 var totalPoints = 0; 
+var earnedPoints = 0;
+var earnedAggregateForToday = 0;
 var currentQuizStatus = {cTab: "Worship", wQAnswered: "0", mQAnswered: "0", sTyped: "0", tPoints: "0", totalAggregate: "", email: "", age: ""};
 var messageTitle = "Repositioning for Exploits";
 var messageType = "Online Quiz";
@@ -205,37 +207,57 @@ jQuery(document).ready(function(){
 			case 'worshipNextBtn': 
 				var selection = jQuery('#worshipOptionsSelectList').val();
 				var answer = allProcessedQuestions[i].answers;
-				if(selection.toLowerCase() === answer.toLowerCase())
+				if(selection.toLowerCase() === answer.toLowerCase()){
 					totalPoints += CORRECT_ANSWER;
-				else
+					earnedPoints = CORRECT_ANSWER;
+				}
+				else{
 					totalPoints += INCORRECT_ANSWER;
+					earnedPoints = INCORRECT_ANSWER;
+				}
 				break;
 			case 'messageNextBtn': 
 				var selection = jQuery('#messageOptionsSelectList').val();
 				var answer = allProcessedQuestions[i].answers;
-				if(selection.toLowerCase() === answer.toLowerCase())
+				if(selection.toLowerCase() === answer.toLowerCase()){
 					totalPoints += CORRECT_ANSWER;
-				else
+					earnedPoints = CORRECT_ANSWER;
+				}
+				else{
 					totalPoints += INCORRECT_ANSWER;
+					earnedPoints = INCORRECT_ANSWER;
+				}
 				break;
 			case 'scriptureNextBtn':
 				var scriptureVerse = jQuery('#scriptureTextArea').val();
 				var scriptureReference = jQuery('#scriptureReferenceInput').val();
 				var givenScriptureVerse = allProcessedQuestions[i].words;
 				var givenScriptureReference = allProcessedQuestions[i].reference;
-				if(scriptureVerse.toLowerCase() === givenScriptureVerse.toLowerCase())
+				if(scriptureVerse.toLowerCase() === givenScriptureVerse.toLowerCase()){
 					totalPoints += CORRECT_ANSWER;
-				else if(jQuery.trim(scriptureVerse.toLowerCase()) === "")
+					earnedPoints = CORRECT_ANSWER;
+				}
+				else if(jQuery.trim(scriptureVerse.toLowerCase()) === ""){
 					totalPoints += NO_ANSWER;
-				else
+					earnedPoints = NO_ANSWER;
+				}
+				else{
 					totalPoints += INCORRECT_ANSWER;
+					earnedPoints = INCORRECT_ANSWER;
+				}
 
-				if(scriptureReference.toLowerCase() === givenScriptureReference.toLowerCase())
+				if(scriptureReference.toLowerCase() === givenScriptureReference.toLowerCase()){
 					totalPoints += CORRECT_ANSWER;
-				else if(jQuery.trim(scriptureReference.toLowerCase()) === "")
+					earnedPoints = CORRECT_ANSWER;
+				}
+				else if(jQuery.trim(scriptureReference.toLowerCase()) === ""){
 					totalPoints += NO_ANSWER;
-				else
+					earnedPoints = NO_ANSWER;
+				}
+				else{
 					totalPoints += INCORRECT_ANSWER; 
+					earnedPoints = INCORRECT_ANSWER;
+				}
 				break;
 		} 
 		currentQuizStatus.tPoints = totalPoints.toString();
@@ -291,8 +313,10 @@ jQuery(document).ready(function(){
 				});
 				break;
 			case 'store':
-				var aggregate = parseFloat(jsonData.tPoints) / parseInt(jsonData.age);
+				var aggregate = earnedPoints / parseInt(jsonData.age); 
 				aggregate = Math.round(aggregate * 1000) / 1000;
+				earnedAggregateForToday += aggregate;
+				earnedAggregateForToday = Math.round(earnedAggregateForToday * 1000) / 1000;
 				var totalAggregate = parseFloat(jsonData.totalAggregate) + aggregate;
 				jsonData.totalAggregate = Math.round(totalAggregate * 1000) / 1000;  
 				var sTData = {date: getCurrentDate(), 
@@ -301,7 +325,7 @@ jQuery(document).ready(function(){
 							  source: messageSource, 
 							  score:jsonData.tPoints, 
 							  currentage: jsonData.age, 
-							  aggregate: aggregate, 
+							  aggregate: earnedAggregateForToday, 
 							  currentTotalAggregate: jsonData.totalAggregate};
 				var cQStatus = {status: jsonData, scoresTableData: sTData};  
 				jQuery.ajax({
