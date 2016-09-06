@@ -263,7 +263,7 @@ jQuery(document).ready(function(){
 		myGraph.paddingX = 0.05 * canvasDetails.width; // .05 was selected by observation
 		myGraph.paddingY = 0.25 * canvasDetails.height; // .25 was selected by observation
 
-		myContext.fillStyle = "#ff0";
+		myContext.fillStyle = "#eee";
 		myContext.rect(0,0, myCanvas.width,myCanvas.height);
 		myContext.stroke(); 
 		myContext.fill(); 
@@ -276,7 +276,7 @@ jQuery(document).ready(function(){
 		myGraph.graphWidth = Math.round((myGraph.graphWidth * 100) / 100);
 		myGraph.graphHeight = Math.round((myGraph.graphHeight * 100) / 100);
 		myContext.beginPath();
-		myContext.fillStyle = "#f00";
+		myContext.fillStyle = "#ccc";
 		myContext.rect(myGraph.paddingX, .4 * myGraph.paddingY, myGraph.graphWidth, myGraph.graphHeight);
 		myContext.fill();  
 	}

@@ -22,11 +22,9 @@ var questionOrScripturesActedOn = 0;
 var questionSet = "Worship";
 var CORRECT_ANSWER = 5;
 var INCORRECT_ANSWER = 2;
-var NO_ANSWER = 0;
-var totalPoints = 0; 
-var earnedPoints = 0;
-var earnedAggregateForToday = 0;
-var currentQuizStatus = {cTab: "Worship", wQAnswered: "0", mQAnswered: "0", sTyped: "0", tPoints: "0", totalAggregate: "", email: "", age: ""};
+var NO_ANSWER = 0;  
+var earnedPoints = 0; 
+var currentQuizStatus = {cTab: "Worship", wQAnswered: "0", mQAnswered: "0", sTyped: "0", tPoints: "0", eAForToday: "0", totalAggregate: "", email: "", age: ""};
 var messageTitle = "Repositioning for Exploits";
 var messageType = "Online Quiz";
 var messageSource = "Bishop David Oyedepo";
@@ -35,8 +33,7 @@ jQuery(document).ready(function(){
 	
 	jQuery('#scriptureTextArea, #scriptureReferenceInput').on("cut copy paste",function(e) {
       	e.preventDefault();
-  	}); 
-	// jQuery('#quizPanelFooter').html(questionSet + " {Tasks: " + questionOrScripturesActedOn + "/" + allProcessedQuestions.length +", Total Points (worship + message + scripture): " + totalPoints + "}");
+  	});  
 
 	quizState('get', {}); 
 
@@ -68,7 +65,7 @@ jQuery(document).ready(function(){
 		var currentBtn = jQuery(this);
 		var currentTab = questionSet.toLowerCase();
 
-		updateTotalPoints(questionOrScripturesActedOn, currentBtn.attr('id')); 
+		updateEarnedPoints(questionOrScripturesActedOn, currentBtn.attr('id')); 
 		questionOrScripturesActedOn++; 
 		switch(currentBtn.attr('id')){
 			case 'worshipNextBtn':
@@ -80,8 +77,9 @@ jQuery(document).ready(function(){
 			case 'scriptureNextBtn':
 				currentQuizStatus.sTyped = questionOrScripturesActedOn.toString();
 				break;
-		}
-		jQuery('#quizPanelFooter').html(questionSet + " {Tasks: " + questionOrScripturesActedOn + "/" + allProcessedQuestions.length +", Total Points (worship + message + scripture): " + totalPoints + "}");
+		} 
+
+		jQuery('#quizPanelFooter').html(questionSet + " {Tasks Completed: " + questionOrScripturesActedOn + "/" + allProcessedQuestions.length +", Total Points (worship + message + scripture): " + currentQuizStatus.tPoints + "}");
 		
 		updateQuestionFormElements(currentTab, questionOrScripturesActedOn);  
 		quizState('store', currentQuizStatus);
@@ -93,19 +91,14 @@ jQuery(document).ready(function(){
 	// I need the current selection from below to update the panel footer
 	// This is also the reset of the whole quiz page
 	jQuery('a[data-toggle="tab"]').on('shown.bs.tab', function (evt) {  
-	 	var target = jQuery(evt.target).text(); // activated tab
-	  	// questionSet = target;
+	 	var target = jQuery(evt.target).text(); // activated tab 
 
 	  	// The following line sets the questionOrScripturesActedOn to the latest # of questions or scriptures acted on as gotten from the database
 	  	updateQuestionsOrScripturesActedOn(target); 
 
 	  	currentQuizStatus.cTab = target; // so when the next button of the question is clicked the cTab is already updated 
 		updateQuestionSetQuestionsOrScripturesActedOnAndStoreInDb(target);
-	});
- 
- 	jQuery('#logout').click(function(){
- 		quizState('store', currentQuizStatus);
- 	});
+	}); 
 
 	function getQuestionsToLoadAndLoadFromDb(currentTab){
 		switch(currentTab){
@@ -154,7 +147,7 @@ jQuery(document).ready(function(){
 			}
 		} 
 
-		jQuery('#quizPanelFooter').html(questionSet + " {Tasks: " + questionOrScripturesActedOn + "/" + allProcessedQuestions.length +", Total Points (worship + message + scripture): " + totalPoints + "}"); 
+		jQuery('#quizPanelFooter').html(questionSet + " {Tasks Completed: " + questionOrScripturesActedOn + "/" + allProcessedQuestions.length +", Total Points (worship + message + scripture): " + currentQuizStatus.tPoints + "}");
 	}  
 
 	function updateQuestionFormElements(currentTab,i){  
@@ -202,65 +195,46 @@ jQuery(document).ready(function(){
 		} 
 	} 
 
-	function updateTotalPoints(i,elementId){
+	function updateEarnedPoints(i,elementId){
 		switch(elementId){
 			case 'worshipNextBtn': 
 				var selection = jQuery('#worshipOptionsSelectList').val();
 				var answer = allProcessedQuestions[i].answers;
-				if(selection.toLowerCase() === answer.toLowerCase()){
-					totalPoints += CORRECT_ANSWER;
-					earnedPoints = CORRECT_ANSWER;
-				}
-				else{
-					totalPoints += INCORRECT_ANSWER;
-					earnedPoints = INCORRECT_ANSWER;
-				}
+				if(selection.toLowerCase() === answer.toLowerCase())
+					earnedPoints = CORRECT_ANSWER; 
+				else
+					earnedPoints = INCORRECT_ANSWER; 
 				break;
 			case 'messageNextBtn': 
 				var selection = jQuery('#messageOptionsSelectList').val();
 				var answer = allProcessedQuestions[i].answers;
-				if(selection.toLowerCase() === answer.toLowerCase()){
-					totalPoints += CORRECT_ANSWER;
-					earnedPoints = CORRECT_ANSWER;
-				}
-				else{
-					totalPoints += INCORRECT_ANSWER;
-					earnedPoints = INCORRECT_ANSWER;
-				}
+				if(selection.toLowerCase() === answer.toLowerCase())
+					earnedPoints = CORRECT_ANSWER; 
+				else
+					earnedPoints = INCORRECT_ANSWER; 
 				break;
 			case 'scriptureNextBtn':
 				var scriptureVerse = jQuery('#scriptureTextArea').val();
 				var scriptureReference = jQuery('#scriptureReferenceInput').val();
 				var givenScriptureVerse = allProcessedQuestions[i].words;
 				var givenScriptureReference = allProcessedQuestions[i].reference;
-				if(scriptureVerse.toLowerCase() === givenScriptureVerse.toLowerCase()){
-					totalPoints += CORRECT_ANSWER;
-					earnedPoints = CORRECT_ANSWER;
-				}
-				else if(jQuery.trim(scriptureVerse.toLowerCase()) === ""){
-					totalPoints += NO_ANSWER;
-					earnedPoints = NO_ANSWER;
-				}
-				else{
-					totalPoints += INCORRECT_ANSWER;
-					earnedPoints = INCORRECT_ANSWER;
-				}
+				if(scriptureVerse.toLowerCase() === givenScriptureVerse.toLowerCase())
+					earnedPoints = CORRECT_ANSWER; 
+				else if(jQuery.trim(scriptureVerse.toLowerCase()) === "")
+					earnedPoints = NO_ANSWER; 
+				else
+					earnedPoints = INCORRECT_ANSWER; 
 
-				if(scriptureReference.toLowerCase() === givenScriptureReference.toLowerCase()){
-					totalPoints += CORRECT_ANSWER;
-					earnedPoints = CORRECT_ANSWER;
-				}
-				else if(jQuery.trim(scriptureReference.toLowerCase()) === ""){
-					totalPoints += NO_ANSWER;
-					earnedPoints = NO_ANSWER;
-				}
-				else{
-					totalPoints += INCORRECT_ANSWER; 
-					earnedPoints = INCORRECT_ANSWER;
-				}
+				if(scriptureReference.toLowerCase() === givenScriptureReference.toLowerCase())
+					earnedPoints = CORRECT_ANSWER; 
+				else if(jQuery.trim(scriptureReference.toLowerCase()) === "")
+					earnedPoints = NO_ANSWER; 
+				else
+					earnedPoints = INCORRECT_ANSWER; 
 				break;
-		} 
-		currentQuizStatus.tPoints = totalPoints.toString();
+		}  
+
+		currentQuizStatus.tPoints = (parseInt(currentQuizStatus.tPoints) + earnedPoints).toString();
 	}
 
 	// Restores the previous tab state of the last session before closing the browser
@@ -314,9 +288,9 @@ jQuery(document).ready(function(){
 				break;
 			case 'store':
 				var aggregate = earnedPoints / parseInt(jsonData.age); 
-				aggregate = Math.round(aggregate * 1000) / 1000;
-				earnedAggregateForToday += aggregate;
-				earnedAggregateForToday = Math.round(earnedAggregateForToday * 1000) / 1000;
+				aggregate = Math.round(aggregate * 1000) / 1000;  
+				currentQuizStatus.eAForToday = (parseFloat(currentQuizStatus.eAForToday) + aggregate).toString();
+				currentQuizStatus.eAForToday = (Math.round(currentQuizStatus.eAForToday * 1000) / 1000).toString(); 
 				var totalAggregate = parseFloat(jsonData.totalAggregate) + aggregate;
 				jsonData.totalAggregate = Math.round(totalAggregate * 1000) / 1000;  
 				var sTData = {date: getCurrentDate(), 
@@ -325,7 +299,7 @@ jQuery(document).ready(function(){
 							  source: messageSource, 
 							  score:jsonData.tPoints, 
 							  currentage: jsonData.age, 
-							  aggregate: earnedAggregateForToday, 
+							  aggregate: currentQuizStatus.eAForToday, 
 							  currentTotalAggregate: jsonData.totalAggregate};
 				var cQStatus = {status: jsonData, scoresTableData: sTData};  
 				jQuery.ajax({
@@ -352,7 +326,8 @@ jQuery(document).ready(function(){
 			currentQuizStatus.wQAnswered = quizStatusObjectFromDB.wQAnswered;
 			currentQuizStatus.mQAnswered = quizStatusObjectFromDB.mQAnswered;
 			currentQuizStatus.sTyped = quizStatusObjectFromDB.sTyped;
-			currentQuizStatus.tPoints = quizStatusObjectFromDB.tPoints;
+			currentQuizStatus.tPoints = quizStatusObjectFromDB.tPoints; 
+			currentQuizStatus.eAForToday = quizStatusObjectFromDB.eAForToday;
 			currentQuizStatus.totalAggregate = quizStatusObjectFromDB.totalAggregate;
 		}else
 			currentQuizStatus.totalAggregate = data.totalAggregate;  
