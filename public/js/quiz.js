@@ -129,7 +129,7 @@ jQuery(document).ready(function(){
 							continueFromLastSession(currentTab); 
 						},
 			error 		:function(xhr,err,e) { 
-							alert ("Error: " + err);
+							alert ("Error: " + err + " from loadQuestionsFromDb");
 						},
 			dataType 	: "json"
 		});
@@ -285,7 +285,7 @@ jQuery(document).ready(function(){
 									updatecurrentQuizStatus(data);
 								},
 					error 		:function(xhr,err,e) { 
-									alert ("Error: " + err);
+									alert ("Error: " + err + " from quizState GET");
 								},
 					dataType 	: "json"
 				});
@@ -312,7 +312,7 @@ jQuery(document).ready(function(){
 									console.log(data);
 								},
 					error 		:function(xhr,err,e) { 
-									alert ("Error: " + err);
+									alert ("Error: " + err + " from quizState Store");
 								} 
 				});
 				break;
