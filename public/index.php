@@ -57,7 +57,7 @@
 							
 							<div class="panel-body"><!-- START PANEL BODY -->
 								
-								<form action="index.php" method="post" role="form"><!-- START FORM -->
+								<form action="index.php" method="post"><!-- START FORM -->
 									
 									<div class="form-group">
 										<label for="email">Email address</label>
