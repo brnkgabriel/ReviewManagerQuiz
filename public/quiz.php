@@ -147,9 +147,9 @@
 										</table><!-- end score history table --> 
 									</form>
 									<br /> 
-									<p>
+									<!-- <p>
 										<button class="btn btn-primary" id="scriptureNextBtn"><span class="glyphicon glyphicon-chevron-right"></span></button>
-									</p>
+									</p> -->
 								</div>
 							</div>			
 							<?php	} ?> 
