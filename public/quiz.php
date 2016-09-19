@@ -62,10 +62,12 @@
 					<div id="myTabContent" class="tab-content"> 
 						<div class="tab-pane fade" id="worship">
 							<?php 	if($quizSettings['details'] === 'Materials'){ ?>
-							<p>Title: <strong>Sing to The Lord</strong></p>
-							<p>By: <strong>Marty Sampson</strong></p>
+							<p>Title: <strong>Amazing Grace</strong></p>
+							<p>By: <strong>Annie Garrat</strong></p>
 							<p>Location: <strong>Hillsong Church Australia</strong></p>
-							<p><iframe width="420" height="315" src="https://www.youtube.com/embed/ICwUyLK54vE" frameborder="0" allowfullscreen></iframe></p>										
+							<p><iframe width="560" height="315" src="https://www.youtube.com/embed/BF-CLIhHstI?list=PLFzgN2iKn8bT6SP4MGQ7FHDkT4s_Fj3Qp" frameborder="0" allowfullscreen></iframe></p>	
+							<p><iframe width="560" height="315" src="https://www.youtube.com/embed/L1DtkmakPT0?list=PLFzgN2iKn8bT6SP4MGQ7FHDkT4s_Fj3Qp" frameborder="0" allowfullscreen></iframe></p>
+							<p><iframe width="560" height="315" src="https://www.youtube.com/embed/HU7aZXtd8OY?list=PLFzgN2iKn8bT6SP4MGQ7FHDkT4s_Fj3Qp" frameborder="0" allowfullscreen></iframe></p>									
 							<?php	}else if($quizSettings['details'] === 'Questions'){  // questions?>
 							<div class="row">
 								<div class="col-md-6 col-md-offset-3">
@@ -89,13 +91,13 @@
 										<div class="panel-heading">
 											<h4 class="panel-title">
 												<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-													<strong>[Career]</strong> Repositioning for Exploits by Bishop David Oyedepo
+													<strong>[Authority]</strong> Heralding the Emergence of World Changers by Bishop David Oyedepo
 												</a>
 											</h4><!-- end panel title -->
 										</div><!-- end panel heading -->
 										<div id="collapseTwo" class="panel-collapse collapse">
 											<div class="panel-body table-responsive">
-												<p><iframe width="560" height="315" src="https://www.youtube.com/embed/V6i395WNbAA?list=PLFzgN2iKn8bT6SP4MGQ7FHDkT4s_Fj3Qp" frameborder="0" allowfullscreen></iframe></p>
+												<p><iframe width="560" height="315" src="https://www.youtube.com/embed/c4Zde8C4GLc?list=PLFzgN2iKn8bT6SP4MGQ7FHDkT4s_Fj3Qp" frameborder="0" allowfullscreen></iframe></p>
 											</div><!-- end panel body -->
 										</div><!-- end panel-collapse -->
 									</div> <!-- end panel -->									
