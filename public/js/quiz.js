@@ -25,7 +25,7 @@ var INCORRECT_ANSWER = 1;
 var NO_ANSWER = 0;  
 var earnedPoints = 0; 
 var currentQuizStatus = {cTab: "Worship", wQAnswered: "0", mQAnswered: "0", sTyped: "0", tPoints: "0", eAForToday: "0", totalAggregate: "", email: "", age: ""};
-var messageTitle = "Repositioning for Exploits";
+var messageTitle = "Heralding the Emergence of World Changers";
 var messageType = "Online Quiz";
 var messageSource = "Bishop David Oyedepo";
 
