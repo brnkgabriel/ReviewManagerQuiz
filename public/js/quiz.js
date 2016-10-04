@@ -181,7 +181,7 @@ jQuery(document).ready(function(){
 					jQuery('#worshipInfo').html("You CANNOT RETAKE A QUESTION. Give this question your best attempt.");
 				else
 					jQuery('#messageInfo').html("You CANNOT RETAKE A QUESTION. Give this question your best attempt.");
-				jQuery('#'+currentTab+'QuestionLabel').text(allProcessedQuestions[i].question);
+				jQuery('#'+currentTab+'QuestionLabel').html(allProcessedQuestions[i].question);
 				jQuery('#'+currentTab+'OptionsSelectList').html("");
 				jQuery('#'+currentTab+'OptionsSelectList').append(
 					jQuery('<option />', {text : "Select the most appropriate answer..."})
