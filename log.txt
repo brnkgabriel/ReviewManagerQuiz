@@ -17,3 +17,9 @@ Create a select list that updates details column of the quiz row on quizsettings
 > materials or
 > questions
 Then based on this two options, javaScript should populate the tab pane content forms that update the [x]materials table or [x]questions table
+
+// October 23 2016 9:21pm
+Things to note when adding a new student
+. Ensure tableScoresName is properly set in profiles table
+. Ensure auto increment id column is set for the tableScoresName
+. Ensure the default value for the tableName column for the tableScoresName is set
