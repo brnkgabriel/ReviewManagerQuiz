@@ -1,0 +1,15 @@
+Database for yths
+username: hpmyths
+password: DagunduroYouths5899!!!
+
+Site Admin
+username: brnkgabriel
+password: 5899hpmyths!!!
+
+Database for media
+username: HPMMedia
+password: HPMMedia8001!!!
+
+Site Admin
+username: brnkgabriel
+password: 5899hpmmedia!!!
