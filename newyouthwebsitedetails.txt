@@ -3,7 +3,7 @@ username: hpmyths
 password: DagunduroYouths5899!!!
 
 Site Admin
-username: brnkgabriel
+username: youthsadmin
 password: 5899hpmyths!!!
 
 Database for media

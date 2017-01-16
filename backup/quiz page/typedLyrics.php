@@ -62,65 +62,40 @@
 					<div id="myTabContent" class="tab-content"> 
 						<div class="tab-pane fade" id="worship">
 							<?php 	if($quizSettings['details'] === 'Materials'){ ?>
-							<p>Title: <strong>I Surrender</strong></p>
-							<p>By: <strong>Matt Crocker</strong></p>
+							<p>Title: <strong>Love So Great</strong></p>
+							<p>By: <strong>Dave Ware</strong></p>
 							<p>Location: <strong>Hillsong Church Australia</strong></p>
                             <div class="row">
                                 <div class="col-md-6" id="lyrics">
-                                    Here I am
-                                    Down on my knees again
-                                    Surrendering all
-                                    Surrendering all
-                                    
-                                    Find me here
-                                    Lord as You draw me near
-                                    Desperate for You
-                                    Desperate for You
-                                    
-                                    I surrender
-                                    
-                                    Drench my soul
-                                    As mercy and grace unfold
-                                    I hunger and thirst
-                                    I hunger and thirst
-                                    
-                                    With arms stretched wide
-                                    I know You hear my cry
-                                    Speak to me now
-                                    Speak to me now
-                                    
-                                    I surrender
-                                    I surrender
-                                    I wanna know You more
-                                    I wanna know You more
-                                    
-                                    I surrender
-                                    I surrender
-                                    I wanna know You more
-                                    I wanna know You more
-                                    
-                                    Like a rushing wind
-                                    Jesus breathe within
-                                    Lord have Your way
-                                    Lord have Your way in me
-                                    
-                                    Like a mighty storm
-                                    Stir within my soul
-                                    Lord have Your way
-                                    Lord have Your way in me
-                                    
-                                    Like a rushing wind
-                                    Jesus breathe within
-                                    Lord have Your way
-                                    Lord have Your way in me
-                                    
-                                    Like a mighty storm
-                                    Stir within my soul
-                                    Lord have Your way
-                                    Lord have…
+                                    Verse 1<br/>
+									Your love so great<br/>
+									Jesus in all things<br/>
+									I’ve seen a glimpse of Your heart<br/>
+									A billion years<br/>
+									Still I’ll be singing<br/>
+									How can I praise You enough<br/>
+									<br/><br/>
+									Chorus<br/>
+									You are the Lord Almighty<br/>
+									Out shining all the stars in glory<br/>
+									Your love is like the wildest ocean<br/>
+									Oh nothing else compares<br/>
+									<br/><br/>
+									Verse 2<br/>
+									Creation calls<br/>
+									All to the Saviour<br/>
+									We are alive for Your praise<br/>
+									In earth and sky no one is higher<br/>
+									Our God of wonders You reign<br/>
+									<br/><br/>
+									Bridge <br/>
+									Not to us<br/>
+									But to Your Name<br/>
+									We lift up<br/>
+									All praise<br/>
                                 </div>
                                 <div class="col-md-6 table-responsive">
-                                    <p><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/HcnfT4arZtI" frameborder="0" allowfullscreen></iframe></p>    									
+                                    <p><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/59-PQeL8E08" frameborder="0" allowfullscreen></iframe></p>    									
                                 </div>
                             </div>
                             <?php	}else if($quizSettings['details'] === 'Questions'){  // questions?>
@@ -141,10 +116,9 @@
 						</div>
 						<div class="tab-pane fade" id="message">
 							<?php 	if($quizSettings['details'] === 'Materials'){ ?>
-                                <p>Title: <strong>Vital Keys to Achieving Your Vision</strong></p>
-        						<p>By: <strong>Myles Munroe</strong></p>
-                                <p>Type: <strong>Faith</strong></p> 
-                                <p class="table-responsive"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/PFNYOJeaab0?list=PLFzgN2iKn8bT6SP4MGQ7FHDkT4s_Fj3Qp" frameborder="0" allowfullscreen></iframe></p>																			
+                                <p>Title: <strong>Eternal Life</strong></p>
+        						<p>By: <strong>Andrew Wommack</strong></p> 
+                                <p class="table-responsive"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/YuDko6iJWIk?list=PLFzgN2iKn8bT6SP4MGQ7FHDkT4s_Fj3Qp" frameborder="0" allowfullscreen></iframe></p>																			
 							<?php	}else if($quizSettings['details'] === 'Questions'){  // questions?>
 							<div class="row">
 								<div class="col-md-6 col-md-offset-3">
