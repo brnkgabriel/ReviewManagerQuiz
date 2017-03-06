@@ -23,3 +23,4 @@ Things to note when adding a new student
 . Ensure tableScoresName is properly set in profiles table
 . Ensure auto increment id column is set for the tableScoresName
 . Ensure the default value for the tableName column for the tableScoresName is set
+. Ensure the id column is set to PRIMARY and AUTO_INCREMENT
