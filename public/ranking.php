@@ -31,15 +31,13 @@
 		<link rel="stylesheet" href="css/bootstrap-glyphicons.css">
 		<link rel="stylesheet" href="css/myCSSFile.css">
 		<style>
-			.navbar{
-				background-color: <?php echo "#" . $student_profile['color']; ?>
-			}
 			.panel .panel-heading{
 				background-color: <?php echo "#" . $student_profile['color']; ?>
 			}
+
 			.panel .panel-body .nav li a{
 				color: <?php echo "#" . $student_profile['color']; ?>;
-			}
+			} 
 		</style>
 		<title>Ranking-HPM Youths</title>
 	</head>

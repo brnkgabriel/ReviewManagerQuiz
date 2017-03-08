@@ -36,6 +36,7 @@
 		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<link rel="stylesheet" href="css/jquery-ui.css" media="screen">
 		<link rel="stylesheet" href="css/myCSSFile.css">
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 		<title>HPM Youth Login</title>
 	</head>
 	<body>
@@ -47,18 +48,19 @@
 					
 					<div class="col-md-4 col-md-offset-4"><!-- START COLUMN -->
 						
-						<div class="panel panel-info"><!-- START PANEL -->
+						<div class="panel panel-info" id="loginPanel"><!-- START PANEL -->
 							
 							<div class="panel-heading"><!-- START PANEL HEADING -->
 								
-								<strong>Harvest Point Ministries Youth Login</strong>
+								<img alt="HarvestPoint Ministries Youths Logo" class="img-responsive" id="HPMYouthsLoginBanner" src="images/HPMYouthsLogo.svg" />
 								
 							</div><!-- END PANEL HEADING -->
 							
 							<div class="panel-body"><!-- START PANEL BODY -->
 								
 								<form action="index.php" method="post"><!-- START FORM -->
-									
+									<h1>Sign in-Local Host</h1>
+                                    <hr/>
 									<div class="form-group">
 										<label for="email">Email address</label>
 										<input type="email" class="form-control" id="email" name="email" placeholder="Email">
@@ -83,6 +85,6 @@
 				
 			</div><!-- END CONTAINER -->
 			
-		</div><!-- END WRAP -->
+		</div><!-- END WRAP --> 
 	</body>
 </html>
