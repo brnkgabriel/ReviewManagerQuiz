@@ -15,8 +15,7 @@ var myContext;
 var canvasDetails;
 var myGraph = {graphWidth: 0, graphHeight: 0, paddingX: 0, paddingY: 0, columnWidth: 0}; 
 
-jQuery(document).ready(function(){
-	// google.charts.load('43', {packages: ['corechart', 'bar']});
+jQuery(document).ready(function(){ 
  
 	jQuery(document).on({
 	    ajaxStart: function() { 
@@ -36,7 +35,7 @@ jQuery(document).ready(function(){
 		if(finishedAllDataLoadingOperation === true){
 			selectedDateIndex = allStudents[0].scores.length - 1; // Set thte selected date to the recent date
 			clearInterval(interval);  
-			sortScoresAndDrawOnCanvas();
+			sortScores();
 			jQuery('#prevTrendBtn, #nextTrendBtn').removeAttr('disabled'); 
 			jQuery('#prevTrendBtn, #nextTrendBtn').click(function(){
 				var elementId = jQuery(this).attr('id'); 
@@ -51,16 +50,14 @@ jQuery(document).ready(function(){
 				else if(selectedDateIndex > allStudents[0].scores.length - 1)
 					selectedDateIndex = 0;  
 
-				sortScoresAndDrawOnCanvas();  
+				sortScores();  
 			});
 		} 
 	}
 
-	function sortScoresAndDrawOnCanvas(){ 
+	function sortScores(){ 
 		sortStudentsAccordingToCurrentAggregate();
-		assignStudentPosition();  
-		// drawFromGoogleChart();
-		drawWithoutPlugin();
+		assignStudentPosition();
 	} 
 
 	function drawFromGoogleChart(){
@@ -240,87 +237,5 @@ jQuery(document).ready(function(){
 			}
 		}  
 		console.log("Finished");
-	} 
-
-	function drawWithoutPlugin(){ 
-		initializeCanvas();
-		drawGraphArea();
-		obtainColumnWidth();
-		console.log(myGraph);
-	} 
-
-	function initializeCanvas(){
-		myCanvas = document.getElementById('scoreTrendCanvas');
-		// 40 and 90 below were picked arbitrarily so the canvas centers to the middle of the panel 
-		console.log(jQuery('#canvasPanelBody'));
-		// myCanvas.width = jQuery("#canvasPanelBody")[0].clientWidth - 40; 
-		// myCanvas.height = jQuery("#canvasPanelBody")[0].clientHeight - 90;
-		myContext = myCanvas.getContext('2d'); 
-		canvasDetails = {
-			width: myCanvas.width,
-			height: myCanvas.height
-		};
-		myGraph.paddingX = 0.05 * canvasDetails.width; // .05 was selected by observation
-		myGraph.paddingY = 0.25 * canvasDetails.height; // .25 was selected by observation
-
-		myContext.fillStyle = "#eee";
-		myContext.rect(0,0, myCanvas.width,myCanvas.height);
-		myContext.stroke(); 
-		myContext.fill(); 
-	}
-
-	function drawGraphArea(){ 
-		myGraph.graphWidth = canvasDetails.width - (2 * myGraph.paddingX); // 2 was selected to cover the left and right padding
-		myGraph.graphHeight = canvasDetails.height - (1.2 * myGraph.paddingY); // 1.2 was selected so the graph's height increases by .2 on both ends
-
-		myGraph.graphWidth = Math.round((myGraph.graphWidth * 100) / 100);
-		myGraph.graphHeight = Math.round((myGraph.graphHeight * 100) / 100);
-		myContext.beginPath();
-		myContext.fillStyle = "#ccc";
-		myContext.rect(myGraph.paddingX, .4 * myGraph.paddingY, myGraph.graphWidth, myGraph.graphHeight);
-		myContext.fill();  
-	}
-
-	function obtainColumnWidth(){
-		// The reason the number of students is multiplied by 2 is because the spacing between each column is same as the column width 
-		// otherwise we'll have just divided the graph width by the number of students
-		myGraph.columnWidth = myGraph.graphWidth / (allStudentsUnsorted.length * 2);
-		myGraph.columnWidth = Math.round((myGraph.columnWidth * 100) / 100) 
-	}
-
-	jQuery(window).on('resize', function(){
-		drawWithoutPlugin();
-	});
-});
-
-// jQuery(document).ready(function(){
-// 	var theThing = document.querySelector('#thing');
-// 	var currentPos = 0;
-// 	var angle = 0;
-// 	var incrementer = .1;
-
-// 	var requestAnimationFrame = window.requestAnimationFrame ||
-// 								window.mozRequestAnimationFrame ||
-// 								window.webkitRequestAnimationFrame ||
-// 								window.msRequestAnimationFrame;
-
-// 	function moveThing(){
-// 		currentPos += 5;
-// 		angle += incrementer;
-
-// 		theThing.style.left = currentPos + "px";
-// 		theThing.style.top = 25 + 50 * Math.sin(angle) + "px";
-
-// 		if(Math.abs(currentPos) >= 900){
-// 			currentPos = -500; 
-// 			incrementer = .05 + Math.random() / 2;
-// 		}
-
-// 		if(angle > 2 * Math.PI)
-// 			angle = 0;
-
-// 		requestAnimationFrame(moveThing);
-// 	}
-
-// 	moveThing();
-// });
+	}   
+}); 

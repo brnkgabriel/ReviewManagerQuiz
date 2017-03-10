@@ -11,6 +11,8 @@
 	$student_profiles = numericallyOrderedStudentProfiles($dbc, 'profiles');
 	$student_scores = getFromTable($dbc, 'all', "", getStudentScoresTableName($student_profile));
 	$quizSettings = getFromTable($dbc, 'page', 'quiz', 'quizsettings');  
+
+	//print_r(getCurrentAggregate($dbc, "aggregate", $studentScoresTableName));
 	
 	$prizes = getFromTable($dbc, 'all', "", 'prizes');
 	$total_prize = getTotalPrize($prizes);

@@ -1,11 +1,45 @@
 /* =========================== BODY ============================*/
 body{
-    font-family: 'Ubuntu', 'Trebuchet MS', 'Tw Cen MT';
-    background-color: #F1ECFF;
-    margin: 0px;
-    padding: 0px;
+  font-family: 'Ubuntu', 'Trebuchet MS', 'Tw Cen MT', sans-serif;
+  background-color: #F1ECFF;
+  margin: 0px;
+  padding: 0px;
+} 
+
+h3, th{
+  font-family: 'Josefin Sans', 'Trebuchet MS', 'Tw Cen MT', sans-serif;
+  font-weight: bold;
+  font-size: 1.2em;
 }  
 
+table,th,td{
+}
+
+th, td{
+  padding: 3px;
+  text-align: center;
+}
+
+td{
+  font-size: 10pt;
+}
+
+th{
+  color: white;
+  border: 2px solid white; 
+} 
+
+tr:nth-child(even){
+  background-color: #e8e8e8;
+}
+
+tr:nth-child(odd){
+  background-color: white;
+}
+
+table{
+  width: 80%;
+}
 /* =========================== NAVIGATION ============================*/
 #menu, 
 #WelcomeAndExit{ 
@@ -19,16 +53,23 @@ body{
   padding: 5px 10px;
   text-decoration: none;
   font-weight: bold;
+  margin: 3px 0px;
+  background-color: #fff;
+  font-family: 'Josefin Sans', 'Trebuchet MS', 'Tw Cen MT', sans-serif;
+  font-weight: bold;
+  font-size: 1.1em;
 }  
 
 #menu a:hover,
 #WelcomeAndExit a:hover{
   background: rgb(220,220,220);
 }
-
+ 
 /* =========================== BANNER ============================*/
 #banner{  
-  margin: 0px 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 10px;
 }
 
 #banner img{
@@ -39,12 +80,23 @@ body{
 }
 
 /* =========================== MAIN CONTENT ============================*/
+
+#accountOwner{
+  color: white;
+}
+
+#student_profileName{
+  font-family: 'Josefin Sans', 'Trebuchet MS', 'Tw Cen MT', sans-serif; 
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
 #centerStage{
   margin-top: 10px;
 }
 
 #lyrics{
-    text-align: center; 
+  text-align: center; 
 }  
 
 #scoreHistoryPanelBody{
@@ -64,15 +116,7 @@ body{
 #verticalAlignmentWithinCircle{
   display: inline-block;
   vertical-align: middle;
-}
-
-#circleForRankTable{ 
-  width: 20px;
-  height: 20px;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px; 
-  border-radius: 10px; 
-}
+} 
 
 .panel .panel-heading .panel-title{
   color: white;  
@@ -83,64 +127,72 @@ body{
 }
 
 #lyrics{
-    overflow-y:scroll;
-    height: 315px;
+  overflow-y:scroll;
+  height: 315px;
 }
 
 .panel-info>.panel-heading{
-    background-color: #5D1572;
-    border-color: #5D1572;
-    border-radius: 0px;
+  background-color: #ffffff;
+  border-color: #ffffff;
+  border-radius: 0px;
 }
 
 .panel-info{
-    border:5px solid #5D1572;
+  box-shadow: 0px 0px 5px #5D1572;
+  border: none;
 }
 
 .panel-body{ 
-    background: #ffffff;
+  background: #ffffff;
 }
 
-.btn-default{
-    color: #5D1572; 
-    font-size: 12px; 
-} 
 .panel-heading {
-    padding: 10px 15px;
-    border-bottom: 1px solid transparent;
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px;
+  padding: 10px 15px;
+  border-bottom: 1px solid transparent;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
 }
 
 .container-fluid{
-    padding-left: 10px;
-    padding-right: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .panel{
-    border-radius: 0px;
+  border-radius: 0px;
 }
 
 /* =========================== LOGIN FORM ============================*/
 h1, label{
-    color: #5D1572;  
-}
+  color: #5D1572;  
+} 
 
 #loginPanel{
-    margin-top:20px;
+  margin-top:20px;
 }
 
-#HPMYouthsLoginBanner{
-    width: 100%;
-    height: 100%;
-    object-fit:contain;
+#HPMYouthsLoginBanner{ 
+  display: block;  
+  width: 100%;
+  height: auto;
+  object-fit:contain;
 }
 
 #email:focus, #password:focus{ 
-    border: 2px solid rgba(93,21,114,0.3);
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(93,21,114,.6);
+  border-color: rgb(93,21,114);
+  box-shadow: 0 0 3px 2px rgba(93,21,114,.8);
+} 
+
+#login-btn{
+  padding: 10px 15px;
+  color: #5D1572; 
+  font-weight: bold;
 }
 
+#login-btn:active{
+  outline: none;  
+  box-shadow: 0 0 3px #5D1572;
+}
 /* ========================= LARGE SCREEN ============================*/
 @media screen and (min-width: 601px){
   /* ==================== NAVIGATION =====================*/
@@ -159,7 +211,7 @@ h1, label{
     right: -20px;
     width: 250px;
     transform-origin: 0,0; 
-    transform: rotate(45deg) translate(69px, -35px);
+    transform: rotate(45deg) translate(60px, -35px);
   }
 
   #WelcomeAndExit #studentName{
@@ -174,12 +226,8 @@ h1, label{
     font-weight: bold;
   }
 
-  #banner{ 
-    margin-top: 10px;
-  }
-
-  #menu, 
-  #WelcomeAndExit{
-    background-color: whiteSmoke;
+  #menu a, 
+  #WelcomeAndExit a{
+    background-color: #F1ECFF;
   }
 }

@@ -17,26 +17,12 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
-		<!-- [if lt IE 9] -->
-		<script src="js/html5shiv.js"></script>
-		<!-- [endif] -->
-		<!-- JavaScript -->
-		<script src="js/jquery-3.1.0.min.js"></script>
-		<script src="js/jquery-ui.min.js"></script>
-		<script src="js/jquery.videosub.min.js"></script>
-		<script src="js/modernizr-2.6.2.min.js"></script>
-		<script src="js/swfobject.js"></script>
-		<!-- <script src="js/googlemapsapi.js"></script> -->
-		<!-- <script src="http://maps.google.com/maps/api/js?sensor=false"></script> -->
-		<!-- <script src="js/global.js"></script> -->
-
+		<meta charset="utf-8"> 
 		<!-- CSS -->
-		<link rel="stylesheet" href="css/bootstrap.min.css">
-		<link rel="stylesheet" href="css/jquery-ui.css" media="screen">
+		<link rel="stylesheet" href="css/bootstrap.min.css"> 
+        <link href="https://fonts.googleapis.com/css?family=Cabin|Dosis|Josefin+Sans|Montserrat|Raleway|Ubuntu" rel="stylesheet">
+        <link rel="stylesheet" href="css/font-awesome.min.css">
 		<link rel="stylesheet" href="css/myCSSFile.css">
-        <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 		<title>HPM Youth Login</title>
 	</head>
 	<body>
@@ -71,7 +57,7 @@
 										<input type="password" class="form-control" id="password" name="password" placeholder="Password">
 									</div>
 							   
-									<button type="submit" id="login" class="btn btn-default">Login</button>
+									<button type="submit" id="login-btn"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</button>
 							  
 								</form><!-- END FORM -->
 							

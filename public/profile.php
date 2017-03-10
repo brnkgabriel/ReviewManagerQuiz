@@ -31,14 +31,22 @@
 		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<link rel="stylesheet" href="css/jquery-ui.css">
 		<link rel="stylesheet" href="css/bootstrap-glyphicons.css">
+		<link href="https://fonts.googleapis.com/css?family=Cabin|Dosis|Josefin+Sans|Montserrat|Raleway|Ubuntu" rel="stylesheet">
+        <link rel="stylesheet" href="css/font-awesome.min.css">
 		<link rel="stylesheet" href="css/myCSSFile.css">
 		<style>
-			.panel .panel-heading{
-				background-color: <?php echo "#" . $student_profile['color']; ?>
+			.panel{
+				box-shadow: 0px 0px 2px <?php echo "#" . $student_profile['color']; ?>;
+				border: none;
+			}
+
+			.panel .panel-heading, th{
+				background-color: <?php echo "#" . $student_profile['color']; ?>;
 			}
 			.panel .panel-body .nav li a{
 				color: <?php echo "#" . $student_profile['color']; ?>;
-			}   
+			}
+   
 		</style>
 		<title>Profile-HPM Youths</title>
 	</head>
@@ -79,16 +87,16 @@
 									<h3 class="panel-title">Score History</h3>
 								</div><!-- end score history panel heading -->
 								<div class="panel-body table-responsive" id="scoreHistoryPanelBody">
-									<table class="table table-bordered table-condensed"> 
+									<table align="center"> 
 										<thead id="scoreHistoryTableHead">
 											<tr>
 												<th>Day</th>
-												<th>Exercise</th>
-												<th>Type</th>
-												<th>Source</th>
-												<th>Score</th>
+												<th>Exc</th>
+												<th>Typ</th>
+												<th>Src</th>
+												<th>Sco</th>
 												<th>Age</th>
-												<th>Aggregate</th>
+												<th>Agg</th>
 											</tr>
 										</thead>
 										<tbody id="scoreHistoryTableBody">
@@ -119,19 +127,7 @@
 							<h3 class="panel-title" id="rankTrendPanelTitle">Rank Trend</h3>
 						</div>
 						<div class="panel-body table-responsive" id="canvasPanelBody">
-							<div class="row">
-								<p>
-									<button disabled="true" class="btn btn-default" id="prevTrendBtn"><span class="glyphicon glyphicon-chevron-left"></span></button>
-									<button disabled="true" class="btn btn-default" id="nextTrendBtn"><span class="glyphicon glyphicon-chevron-right"></span></button>
-								</p>
-							</div>
-							<div class="row"> 
-								<p align="center">
-									<canvas id="scoreTrendCanvas" style="height:335px;">
-										Loading...
-									</canvas>
-								</p>
-							</div> 
+							
 						</div><!-- end attributes panel body --> 
 					</div><!-- end attributes panel -->
 				</div><!-- end attributes column -->

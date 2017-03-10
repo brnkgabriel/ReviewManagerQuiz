@@ -1,5 +1,13 @@
-> using the ajax call
-> load all pages to their respective container
-> get the text or html properties of the containers
-> convert them to strings
-> place them in local storage
+To do list  
+4. Include footer in the login form
+5. Study the design schemes in Football manager and immitate it 
+7. Write down places to visit at UH. 
+   - Main lobby Cullen
+   - L2 D2
+   - Room 118 Bauer
+   - Student Center
+   - Library 
+8. Style the label of the login form input textfields 
+15. seek beautiful web gradients 
+17. include current aggregate on the rank table
+18. Include the prize icon from brad's tutorial

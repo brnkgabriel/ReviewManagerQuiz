@@ -29,9 +29,16 @@
 		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<link rel="stylesheet" href="css/jquery-ui.css">
 		<link rel="stylesheet" href="css/bootstrap-glyphicons.css">
+		<link rel="stylesheet" href="css/bootstrap-glyphicons.css">
+		<link href="https://fonts.googleapis.com/css?family=Cabin|Dosis|Josefin+Sans|Montserrat|Raleway|Ubuntu" rel="stylesheet">
+        <link rel="stylesheet" href="css/font-awesome.min.css">
 		<link rel="stylesheet" href="css/myCSSFile.css">
 		<style>
-			.panel .panel-heading{
+			.panel{
+				box-shadow: 0px 0px 2px <?php echo "#" . $student_profile['color']; ?>;
+				border: none;
+			}
+			.panel .panel-heading, th, #accountOwner{
 				background-color: <?php echo "#" . $student_profile['color']; ?>
 			}
 
@@ -41,9 +48,8 @@
 		</style>
 		<title>Ranking-HPM Youths</title>
 	</head>
-	<body>
-		
-		<?php include_once 'template/navigation.php'; ?>
+	<body> 
+		<?php include_once 'template/navigation.php'; ?> 
 		<br><br>
 		<!-- Body -->
 		<div id="centerStage" class="container-fluid" style="color:<?php echo "#" . $student_profile['color']; ?>;">
@@ -54,15 +60,16 @@
 							<h3 class="panel-title" id="ranking">Overall Ranking</h3>
 						</div><!-- end score history panel heading -->
 						<div class="panel-body table-responsive">
-							<table class="table table-bordered table-condensed"> 
+							<table align="center"> 
 								<thead>
 									<tr>
-										<th>Position</th>
-										<th>Colors</th>
-										<th>Name</th> 
-										<th>Age</th>
-										<th>Total Aggregate</th>
-										<th><?php echo "Prize($" . $total_prize . ")"; ?></th> 
+										<th>Pos</th>
+										<th>Col</th>
+										<th>ID</th> 
+										<th>Age</th> 
+										<th>Agg</th>
+										<th>Tot. Agg</th>
+										<th><?php echo "Prz($" . $total_prize . ")"; ?></th> 
 									</tr>
 								</thead>
 								<tbody> 
@@ -70,25 +77,29 @@
 										$tableSize = count($student_profiles);
 										// in the student_profiles array the position is from last to first
 										// that's why the counter $i below starts from the last index to get the first position
-										for($i = $tableSize - 1; $i > -1; $i--){
+										for($i = $tableSize - 1; $i > -1; $i--){  
+											// the code below gets the recent score of each student to be displayed on the Agg column of the rank table
+											$studentCurrentAggregate = getCurrentAggregate($dbc, "aggregate", $student_profiles[$i]['scorestablename']);
 											$studentNamesFromAllDataEntry = $student_profiles[$i]['first'] . ' ' . $student_profiles[$i]['last'];
 											$studentNamesFromThisSession = $student_profile['first'] . ' ' . $student_profile['last'];
 											if($studentNamesFromThisSession === $studentNamesFromAllDataEntry){ 
 									?>
-												<tr>
+												<tr id="accountOwner">
 													<td><strong><?php echo $student_profiles[$i]['position'] ?></strong></td>
-													<td><div id="circleForRankTable" style="background: <?php echo "#" . $student_profiles[$i]['color']; ?>"></div></td>
+													<td><span class="glyphicon glyphicon-user" aria-hidden="true"></span></td>
 													<td><strong><?php echo $studentNamesFromAllDataEntry; ?></strong></td>
-													<td><strong><?php echo $student_profiles[$i]['age']; ?></strong></td>
+													<td><strong><?php echo $student_profiles[$i]['age']; ?></strong></td> 
+													<td><strong><?php echo $studentCurrentAggregate['aggregate'] ?></strong></td>
 													<td><strong><?php echo $student_profiles[$i]['totalAggregate']; ?></strong></td>
 													<td><strong><?php echo $student_profiles[$i]['prize']; ?></strong></td> 
 												</tr>	
 									<?php	}else{ ?>
 												<tr style="color: <?php echo "#" . $student_profiles[$i]['color']; ?>">
 													<td><?php echo $student_profiles[$i]['position']; ?></td>
-													<td><div id="circleForRankTable" style="background: <?php echo "#" . $student_profiles[$i]['color']; ?>"></div></td>
+													<td><span class="glyphicon glyphicon-user" aria-hidden="true" style="color: <?php echo "#" . $student_profiles[$i]['color']; ?>"></span></td>
 													<td><?php echo $student_profiles[$i]['codename']; ?></td>
-													<td><?php echo $student_profiles[$i]['age']; ?></td>
+													<td><?php echo $student_profiles[$i]['age']; ?></td> 
+													<td><?php echo $studentCurrentAggregate['aggregate'] ?></td>
 													<td><?php echo $student_profiles[$i]['totalAggregate']; ?></td>
 													<td><?php echo $student_profiles[$i]['prize']; ?></td> 
 												</tr> 

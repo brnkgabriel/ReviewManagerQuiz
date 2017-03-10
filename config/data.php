@@ -11,7 +11,7 @@
 		switch ($id) {
 			case "": 
 				$cond = "";
-				break; 
+				break;  
 			default:
 				$cond = "WHERE $columnName = '$id'";
 				break;
@@ -372,5 +372,12 @@
 		$allScores = queryDbForExistingEntry($dbc, "", "", $scoresTableName);
 		$scores = json_encode($allScores);
 		updateScoresInProfilesTable($dbc, $scores, $scoresTableName); 
+	}
+
+	function getCurrentAggregate($dbc, $columnName, $studentScoresTableName){ 
+		$q = "SELECT aggregate FROM $studentScoresTableName ORDER BY id DESC LIMIT 1";
+		$r = mysqli_query($dbc, $q);
+		$data = mysqli_fetch_assoc($r); 
+		return $data;
 	}
 ?>
