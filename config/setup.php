@@ -10,10 +10,7 @@
 	$student_profile = getFromTable($dbc, 'email', $_SESSION['email'], 'profiles');  
 	$student_profiles = numericallyOrderedStudentProfiles($dbc, 'profiles');
 	$student_scores = getFromTable($dbc, 'all', "", getStudentScoresTableName($student_profile));
-	$quizSettings = getFromTable($dbc, 'page', 'quiz', 'quizsettings');  
-
-	//print_r(getCurrentAggregate($dbc, "aggregate", $studentScoresTableName));
-	
+	$quizSettings = getFromTable($dbc, 'page', 'quiz', 'quizsettings');   
 	$prizes = getFromTable($dbc, 'all', "", 'prizes');
 	$total_prize = getTotalPrize($prizes);
 	$studentProfilesForPositionAndPrize = numericallyOrderedStudentProfiles($dbc, 'profiles'); 

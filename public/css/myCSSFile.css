@@ -4,15 +4,12 @@ body{
   background-color: #F1ECFF;
   margin: 0px;
   padding: 0px;
-} 
+}
 
 h3, th{
   font-family: 'Josefin Sans', 'Trebuchet MS', 'Tw Cen MT', sans-serif;
   font-weight: bold;
   font-size: 1.2em;
-}  
-
-table,th,td{
 }
 
 th, td{
@@ -21,24 +18,24 @@ th, td{
 }
 
 td{
-  font-size: 10pt;
+  font-size: 10pt; 
 }
 
 th{
   color: white;
-  border: 2px solid white; 
-} 
-
-tr:nth-child(even){
-  background-color: #e8e8e8;
+  border: 2px solid white;  
 }
 
 tr:nth-child(odd){
+  background-color: #e8e8e8;
+}
+
+tr:nth-child(even){
   background-color: white;
 }
 
 table{
-  width: 80%;
+  width: 90%;
 }
 /* =========================== NAVIGATION ============================*/
 #menu, 
@@ -80,6 +77,27 @@ table{
 }
 
 /* =========================== MAIN CONTENT ============================*/
+#amount{
+  font-family: 'Ubuntu', 'Trebuchet MS', 'Tw Cen MT', sans-serif;
+  font-weight: bold;
+}
+
+#messageInfo{
+  font-family: 'Josefin Sans', 'Trebuchet MS', 'Tw Cen MT', sans-serif; 
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+#worshipQuestionLabel,#messageQuestionLabel{
+  display: block;
+  text-align: center; 
+  font-weight: normal;
+}
+
+#scoreHistoryTable{
+  margin-left: auto;
+  margin-right: auto;
+}
 
 #accountOwner{
   color: white;
@@ -229,5 +247,24 @@ h1, label{
   #menu a, 
   #WelcomeAndExit a{
     background-color: #F1ECFF;
+  } 
+}
+
+/* ========================= SMALL SCREEN ============================*/
+@media screen and (max-width: 400px){
+  .reduceLeftRightPaddingOnSmallScreen{
+    padding-left:1px;
+    padding-right:1px;
+  }
+  table{
+      padding-left: 1px;
+      padding-right: 1px; ;
+  }
+  .hideOnSmallScreens{
+    display: none;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    visibility: collapse;
   }
 }

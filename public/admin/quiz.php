@@ -46,7 +46,19 @@
 				</div><!-- end quiz panel heading -->
 				<div class="panel-body"> 
 					<div class="row">
-						<div class="col-md-4 col-md-offset-4">
+						<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"> 
+							<form> 
+								<div class="form-group">
+									<label for="postDay">Select Post Day</label>
+									<input id="postDay" type="date" class="form-control contentInput">
+								</div>
+								<div class="form-group"> 
+									<label for="postTime">Select Post Time</label>
+									<input id="postTime" type="time" class="form-control contentInput">
+								</div>   
+							</form> 
+						</div>
+						<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"> 
 							<form>
 								<div class="form-group">
 									<label for="name">Quiz Options</label>

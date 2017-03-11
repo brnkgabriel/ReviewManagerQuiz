@@ -25,9 +25,9 @@ var INCORRECT_ANSWER = 1;
 var NO_ANSWER = 0;  
 var earnedPoints = 0; 
 var currentQuizStatus = {cTab: "Worship", wQAnswered: "0", mQAnswered: "0", sTyped: "0", tPoints: "0", eAForToday: "0", totalAggregate: "", email: "", age: ""};
-var messageTitle = "Heralding the Emergence of World Changers";
+var messageTitle = "The Kingdom Power of Self Government";
 var messageType = "Online Quiz";
-var messageSource = "Bishop David Oyedepo";
+var messageSource = "Myles Munroe";
 
 jQuery(document).ready(function(){    
 	
@@ -79,8 +79,11 @@ jQuery(document).ready(function(){
 				break;
 		} 
 
-		jQuery('#quizPanelFooter').html(questionSet + " {Tasks Completed: " + questionOrScripturesActedOn + "/" + allProcessedQuestions.length +", Total Points (worship + message + scripture): " + currentQuizStatus.tPoints + "}");
-		
+		//jQuery('#quizPanelFooter').html(questionSet + " {Tasks Completed: " + questionOrScripturesActedOn + "/" + allProcessedQuestions.length +", Total Points (worship + message + scripture): " + currentQuizStatus.tPoints + "}");
+		jQuery('.totalQuestionNumber').text(allProcessedQuestions.length);
+		jQuery('.totalQuestionsAnswered').text(questionOrScripturesActedOn);
+		jQuery('.totalPointsGained').text(currentQuizStatus.tPoints);
+
 		updateQuestionFormElements(currentTab, questionOrScripturesActedOn);  
 		quizState('store', currentQuizStatus);
 
@@ -147,7 +150,10 @@ jQuery(document).ready(function(){
 			}
 		} 
 
-		jQuery('#quizPanelFooter').html(questionSet + " {Tasks Completed: " + questionOrScripturesActedOn + "/" + allProcessedQuestions.length +", Total Points (worship + message + scripture): " + currentQuizStatus.tPoints + "}");
+		//jQuery('#quizPanelFooter').html(questionSet + " {Tasks Completed: " + questionOrScripturesActedOn + "/" + allProcessedQuestions.length +", Total Points (worship + message + scripture): " + currentQuizStatus.tPoints + "}");
+		jQuery('.totalQuestionNumber').text(allProcessedQuestions.length);
+		jQuery('.totalQuestionsAnswered').text(questionOrScripturesActedOn);
+		jQuery('.totalPointsGained').text(currentQuizStatus.tPoints);
 	}  
 
 	function updateQuestionFormElements(currentTab,i){  

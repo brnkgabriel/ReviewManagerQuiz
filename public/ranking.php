@@ -28,8 +28,7 @@
 		<!-- CSS -->
 		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<link rel="stylesheet" href="css/jquery-ui.css">
-		<link rel="stylesheet" href="css/bootstrap-glyphicons.css">
-		<link rel="stylesheet" href="css/bootstrap-glyphicons.css">
+		<link rel="stylesheet" href="css/bootstrap-glyphicons.css"> 
 		<link href="https://fonts.googleapis.com/css?family=Cabin|Dosis|Josefin+Sans|Montserrat|Raleway|Ubuntu" rel="stylesheet">
         <link rel="stylesheet" href="css/font-awesome.min.css">
 		<link rel="stylesheet" href="css/myCSSFile.css">
@@ -59,49 +58,63 @@
 						<div class="panel-heading">
 							<h3 class="panel-title" id="ranking">Overall Ranking</h3>
 						</div><!-- end score history panel heading -->
-						<div class="panel-body table-responsive">
+						<div class="reduceLeftRightPaddingOnSmallScreen panel-body table-responsive">
 							<table align="center"> 
 								<thead>
 									<tr>
 										<th>Pos</th>
-										<th>Col</th>
-										<th>ID</th> 
-										<th>Age</th> 
+										<th>Col <i class="fa fa-tag" aria-hidden="true"><span id="amount"><sup>$</sup><?php echo $total_prize; ?></span></i></th>
+										<th>Name</th> 
+										<th class="hideOnSmallScreens">Age</th> 
 										<th>Agg</th>
-										<th>Tot. Agg</th>
-										<th><?php echo "Prz($" . $total_prize . ")"; ?></th> 
+										<th>Tot. Agg</th> 
 									</tr>
 								</thead>
 								<tbody> 
 									<?php 
 										$tableSize = count($student_profiles);
 										// in the student_profiles array the position is from last to first
-										// that's why the counter $i below starts from the last index to get the first position
+										// that's why the counter $i below starts from the last index to get the first position  
 										for($i = $tableSize - 1; $i > -1; $i--){  
 											// the code below gets the recent score of each student to be displayed on the Agg column of the rank table
-											$studentCurrentAggregate = getCurrentAggregate($dbc, "aggregate", $student_profiles[$i]['scorestablename']);
+											$studentLastScore = getStudentLastScore($dbc, $student_profiles[$i]['scorestablename']);
+
+											if($quizSettings['date'] != ""){
+												$studentCurrentAggregate = getCurrentQuizScore($quizSettings['date'], $studentLastScore); 
+											}
+
 											$studentNamesFromAllDataEntry = $student_profiles[$i]['first'] . ' ' . $student_profiles[$i]['last'];
 											$studentNamesFromThisSession = $student_profile['first'] . ' ' . $student_profile['last'];
 											if($studentNamesFromThisSession === $studentNamesFromAllDataEntry){ 
 									?>
 												<tr id="accountOwner">
 													<td><strong><?php echo $student_profiles[$i]['position'] ?></strong></td>
-													<td><span class="glyphicon glyphicon-user" aria-hidden="true"></span></td>
+													<td>
+														<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+															<?php  
+																if($student_profiles[$i]['prize'] !== "0"){ ?>
+																<i class="fa fa-tag" aria-hidden="true"><span id="amount"><sup>$</sup><?php echo $student_profiles[$i]['prize']; ?></span></i>
+															<?php }?>
+													</td>
 													<td><strong><?php echo $studentNamesFromAllDataEntry; ?></strong></td>
-													<td><strong><?php echo $student_profiles[$i]['age']; ?></strong></td> 
-													<td><strong><?php echo $studentCurrentAggregate['aggregate'] ?></strong></td>
-													<td><strong><?php echo $student_profiles[$i]['totalAggregate']; ?></strong></td>
-													<td><strong><?php echo $student_profiles[$i]['prize']; ?></strong></td> 
+													<td class="hideOnSmallScreens"><strong><?php echo $student_profiles[$i]['age']; ?></strong></td> 
+													<td><strong><?php echo $studentCurrentAggregate; ?></strong></td>
+													<td><strong><?php echo $student_profiles[$i]['totalAggregate']; ?></strong></td> 
 												</tr>	
 									<?php	}else{ ?>
 												<tr style="color: <?php echo "#" . $student_profiles[$i]['color']; ?>">
 													<td><?php echo $student_profiles[$i]['position']; ?></td>
-													<td><span class="glyphicon glyphicon-user" aria-hidden="true" style="color: <?php echo "#" . $student_profiles[$i]['color']; ?>"></span></td>
-													<td><?php echo $student_profiles[$i]['codename']; ?></td>
-													<td><?php echo $student_profiles[$i]['age']; ?></td> 
-													<td><?php echo $studentCurrentAggregate['aggregate'] ?></td>
-													<td><?php echo $student_profiles[$i]['totalAggregate']; ?></td>
-													<td><?php echo $student_profiles[$i]['prize']; ?></td> 
+													<td>
+														<span class="glyphicon glyphicon-user" aria-hidden="true" style="color: <?php echo "#" . $student_profiles[$i]['color']; ?>"></span>
+														<?php 
+															if($student_profiles[$i]['prize'] !== "0"){ ?>
+																<i class="fa fa-tag" aria-hidden="true"><span id="amount"><sup>$</sup><?php echo $student_profiles[$i]['prize']; ?></span></i>
+														<?php }?>
+													</td>
+													<td><?php echo $student_profiles[$i]['codename'];?></td>
+													<td class="hideOnSmallScreens"><?php echo $student_profiles[$i]['age']; ?></td> 
+													<td><?php echo $studentCurrentAggregate; ?></td>
+													<td><?php echo $student_profiles[$i]['totalAggregate']; ?></td> 
 												</tr> 
 									  <?php } ?> 
 									<?php } ?>

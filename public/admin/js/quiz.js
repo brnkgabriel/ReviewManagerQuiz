@@ -9,12 +9,11 @@
 var worshipMaterialJSON = {title : "", type : "", author : "", link : "", tableName: "worshipmaterials"};
 var messageMaterialJSON = {title : "", type : "", author : "", link : "", tableName: "messagematerials"};
 var scriptureMaterialJSON = {book : "", chapter : "", verse : "", words : "", reference: "", tableName: "scripturematerials"};
-var scriptureReference = "";
-
+var scriptureReference = ""; 
 var worshipQuestionJSON = {question : "", type : "", options : [], answers : [], tableName: "worshipquestions"}; 
 var messageQuestionJSON = {question : "", type : "", options : [], answers : [], tableName: "messagequestions"};  
 
-jQuery(document).ready(function(){
+jQuery(document).ready(function(){ 
 	jQuery('#quizOptions').change(function(){
 		var selectTarget = jQuery('#quizOptions').val();
 
@@ -343,11 +342,13 @@ jQuery(document).ready(function(){
 				messageQuestionJSON.answers = [];
 				break; 
 			case 'Materials': 
-				var settingJSON = {setting : elementIdOrSetting}; 
+				var postDate = jQuery('#postDay').val() + " " + jQuery('#postTime').val() + ":00";
+				var settingJSON = {materialOrQuestion : elementIdOrSetting, date: postDate}; 
 				updateDatabase(settingJSON,'QuizSettings');
 				break;
 			case 'Questions': 
-				var settingJSON = {setting : elementIdOrSetting}; 
+				var postDate = jQuery('#postDay').val() + " " + jQuery('#postTime').val() + ":00";
+				var settingJSON = {materialOrQuestion : elementIdOrSetting, date: postDate}; 
 				updateDatabase(settingJSON,'QuizSettings');
 				break;
 		}
@@ -362,5 +363,5 @@ jQuery(document).ready(function(){
 				console.log(data);
 			}
 		});
-	}
+	} 
 });

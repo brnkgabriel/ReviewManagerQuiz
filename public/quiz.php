@@ -28,22 +28,40 @@
 		<!-- CSS -->
 		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<link rel="stylesheet" href="css/jquery-ui.css">
-		<link rel="stylesheet" href="css/bootstrap-glyphicons.css"><link href="https://fonts.googleapis.com/css?family=Cabin|Dosis|Josefin+Sans|Montserrat|Raleway|Ubuntu" rel="stylesheet">
+		<link rel="stylesheet" href="css/bootstrap-glyphicons.css">
+		<link href="https://fonts.googleapis.com/css?family=Cabin|Dosis|Josefin+Sans|Montserrat|Raleway|Ubuntu" rel="stylesheet">
         <link rel="stylesheet" href="css/font-awesome.min.css">
 		<link rel="stylesheet" href="css/myCSSFile.css">
 		<style> 
 			.panel{
 				box-shadow: 0px 0px 2px <?php echo "#" . $student_profile['color']; ?>;
 				border: none;
-			}
-
-			.panel .panel-heading{
+			} 
+			.panel .panel-heading, th, .btn-primary{
 				background-color: <?php echo "#" . $student_profile['color']; ?>
 			}
 
-			.panel .panel-body .nav li a{
+			.btn-primary{
+				border: none;
+			}
+
+			.panel .panel-body .nav li a, td, #worshipQuestionLabel, #messageQuestionLabel{
 				color: <?php echo "#" . $student_profile['color']; ?>;
 			} 
+
+			/* ==================== QUESTION INFO BADGE =======================*/
+			.questionStatContainer{
+				text-align: center;
+			}
+			.questionStat{
+				display: inline-block;
+				width: 50px;
+				height: 50px;
+				border-radius: 25px;
+				background-color: <?php echo "#" . $student_profile['color']; ?>;
+				margin-left: 5px;
+				margin-right: 5px;
+			}
 		</style>
 		<title>Quiz-HPM Youths</title>
 	</head>
@@ -86,9 +104,25 @@
 			                            <p><iframe style="object-fit: contain;" src="https://www.youtube-nocookie.com/embed/HdYYR19wmYM" frameborder="0" allowfullscreen></iframe></p> 
 									</div>
 									<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-		                                <p><strong>Questions</strong></p> 
+		                                <p><strong>Questions</strong></p>  
 										<form id="worshipForm"> 
 											<p id="worshipInfo"></p>
+			                                <table align="center">
+			                                	<thead>
+				                                	<tr>
+				                                		<th>Tot.</th>
+				                                		<th>Ans.</th>
+				                                		<th>Pts.</th>
+				                                	</tr>
+			                                	</thead>
+			                                	<tbody>
+				                                	<tr>
+				                                		<td class="totalQuestionNumber"></td>
+				                                		<td class="totalQuestionsAnswered"></td>
+				                                		<td class="totalPointsGained"></td>
+				                                	</tr>
+			                                	</tbody>
+			                                </table>
 											<label id="worshipQuestionLabel"></label>
 											<select id="worshipOptionsSelectList" class="form-control"></select>
 										</form>
@@ -124,6 +158,22 @@
 		                                <p><strong>Questions</strong></p> 
 										<form id="messageForm"> 
 											<p id="messageInfo"></p>
+											<table align="center">
+			                                	<thead>
+				                                	<tr>
+				                                		<th>Tot.</th>
+				                                		<th>Ans.</th>
+				                                		<th>Pts.</th>
+				                                	</tr>
+			                                	</thead>
+			                                	<tbody>
+				                                	<tr>
+				                                		<td class="totalQuestionNumber"></td>
+				                                		<td class="totalQuestionsAnswered"></td>
+				                                		<td class="totalPointsGained"></td>
+				                                	</tr>
+			                                	</tbody>
+			                                </table>
 											<label id="messageQuestionLabel"></label>
 											<select id="messageOptionsSelectList" class="form-control"></select>
 										</form>

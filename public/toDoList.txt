@@ -8,6 +8,14 @@ To do list
    - Student Center
    - Library 
 8. Style the label of the login form input textfields 
-15. seek beautiful web gradients 
-17. include current aggregate on the rank table
-18. Include the prize icon from brad's tutorial
+15. seek beautiful web gradients  
+19. Files to edit on remote server
+	- data.php (getCurrentAggregate);
+	- ranking.php 
+21. To come back to work on having the quiz materials not override the quiz date
+22. Update quiz.php and quiz.js in the admin directory
+23. Create media query for table when screen width is less than 400px
+24. Create birthday column in profiles table
+25. Include logic to automatically increment age of students in profiles and scorestable 
+26. Check Elijah Shonde's system and fix it
+27. Update quiz.php, quiz.js and myCSSFile.css on remote host

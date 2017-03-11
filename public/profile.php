@@ -86,16 +86,16 @@
 								<div class="panel-heading">
 									<h3 class="panel-title">Score History</h3>
 								</div><!-- end score history panel heading -->
-								<div class="panel-body table-responsive" id="scoreHistoryPanelBody">
-									<table align="center"> 
+								<div class="reduceLeftRightPaddingOnSmallScreen panel-body table-responsive" id="scoreHistoryPanelBody">
+									<table align="center" id="scoreHistoryTable"> 
 										<thead id="scoreHistoryTableHead">
 											<tr>
 												<th>Day</th>
 												<th>Exc</th>
-												<th>Typ</th>
+												<th class="hideOnSmallScreens">Typ</th>
 												<th>Src</th>
 												<th>Sco</th>
-												<th>Age</th>
+												<th class="hideOnSmallScreens">Age</th>
 												<th>Agg</th>
 											</tr>
 										</thead>
@@ -107,10 +107,10 @@
 													<tr>
 														<td><?php echo $student_scores[$i]['date'] ?></td>
 														<td><?php echo $student_scores[$i]['exercise'] ?></td>
-														<td><?php echo $student_scores[$i]['type'] ?></td>
+														<td class="hideOnSmallScreens"><?php echo $student_scores[$i]['type'] ?></td>
 														<td><?php echo $student_scores[$i]['source'] ?></td>
 														<td><?php echo $student_scores[$i]['score'] ?></td>
-														<td><?php echo $student_scores[$i]['currentage'] ?></td>
+														<td class="hideOnSmallScreens"><?php echo $student_scores[$i]['currentage'] ?></td>
 														<td><?php echo $student_scores[$i]['aggregate'] ?></td>
 													</tr>
 											<?php }?> 

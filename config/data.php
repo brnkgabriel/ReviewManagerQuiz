@@ -192,7 +192,7 @@
 			$total_aggregate = addAllAggregateScores($dbc, getStudentScoresTableName($allStudents_profile[$i])); // (3)
 			updateTable($dbc, 'totalAggregate', $total_aggregate, 'email', $allStudents_profile[$i]['email']); // (4)
 			$student_scores_length = count($student_scores); // (5)
-			updateTable($dbc, 'age', $student_scores[$student_scores_length - 1]['currentage'], 'totalAggregate', $total_aggregate);
+			updateTable($dbc, 'age', $student_scores[$student_scores_length - 1]['currentage'], 'scorestablename', getStudentScoresTableName($allStudents_profile[$i]));
 		}
 	}
 
@@ -342,12 +342,13 @@
 		$stmt->close();
 	}
 	
-	function updateQuizSettingsTable($dbc, $setting, $page){
+	function updateQuizSettingsTable($dbc, $materialOrQuestion, $date, $page){
+		echo "lanre" . $date;
 		$q = "";
 		$stmt; 
-		$q = "UPDATE quizsettings SET details = ? WHERE page = ?";
+		$q = "UPDATE quizsettings SET details = ?, date = ? WHERE page = ?";
 		$stmt = $dbc->prepare($q);
-		$stmt->bind_param('ss', $setting, $page);
+		$stmt->bind_param('sss', $materialOrQuestion, $date, $page);
 		
 		if($stmt->execute() > 0)
 			echo "Settings Table Updated";
@@ -374,10 +375,18 @@
 		updateScoresInProfilesTable($dbc, $scores, $scoresTableName); 
 	}
 
-	function getCurrentAggregate($dbc, $columnName, $studentScoresTableName){ 
-		$q = "SELECT aggregate FROM $studentScoresTableName ORDER BY id DESC LIMIT 1";
+	function getStudentLastScore($dbc, $studentScoresTableName){ 
+		$q = "SELECT * FROM $studentScoresTableName ORDER BY id DESC LIMIT 1";
 		$r = mysqli_query($dbc, $q);
 		$data = mysqli_fetch_assoc($r); 
 		return $data;
+	}
+
+	function getCurrentQuizScore($quizSettingsDate, $studentLastScore){ 
+		if(strtotime($quizSettingsDate) <= strtotime($studentLastScore['date'])){ 
+			return $studentLastScore['aggregate'];
+		}else{
+			return "0";
+		}
 	}
 ?>
