@@ -4,6 +4,7 @@ body{
   background-color: #F1ECFF;
   margin: 0px;
   padding: 0px;
+  overflow-x: hidden;
 }
 
 h3, th{
@@ -251,7 +252,7 @@ h1, label{
 }
 
 /* ========================= SMALL SCREEN ============================*/
-@media screen and (max-width: 400px){
+@media screen and (max-width: 720px){ 
   .reduceLeftRightPaddingOnSmallScreen{
     padding-left:1px;
     padding-right:1px;

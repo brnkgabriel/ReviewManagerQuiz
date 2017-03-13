@@ -18,4 +18,4 @@ To do list
 24. Create birthday column in profiles table
 25. Include logic to automatically increment age of students in profiles and scorestable 
 26. Check Elijah Shonde's system and fix it
-27. Update quiz.php, quiz.js and myCSSFile.css on remote host
+27. Update quiz.php, quiz.js and myCSSFile.css on remote host 
