@@ -188,6 +188,7 @@ jQuery(document).ready(function(){
 	}
 
 	function getSlicedCodeNameAndScoresTableName(data){ 
+		console.log(data);
 		for(var i = 0; i < data.length; i++){
 			var codeName = data[i].codename;
 			var sCodeName = codeName.substring(0,4);

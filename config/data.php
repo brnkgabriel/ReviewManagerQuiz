@@ -1,25 +1,27 @@
 <?php   					 
 
-	function getCurrentTotalAggregateFromTable($dbc, $columnName1, $id1, $columnName2, $id2, $tableName){ 
-		$q = "SELECT totalAggregate FROM $tableName WHERE $columnName1 = '$id1' AND $columnName2 = '$id2'";
-		$r = mysqli_query($dbc, $q);
-		$data = mysqli_fetch_assoc($r); 
-		return $data;
-	} 
-	
-	function getFromTable($dbc, $columnName, $id, $tableName){
-		switch ($id) {
-			case "": 
+	// function getCurrentTotalAggregateFromTable($dbc, $columnName1, $id1, $columnName2, $id2, $tableName){ 
+	// 	$q = "SELECT totalAggregate FROM $tableName WHERE $columnName1 = '$id1' AND $columnName2 = '$id2'";
+	// 	$r = mysqli_query($dbc, $q);
+	// 	$data = mysqli_fetch_assoc($r); 
+	// 	return $data;
+	// } 
+
+	function getFromTable2($inputArray){ 
+		switch($inputArray['value'][0]){
+			case "":
 				$cond = "";
-				break;  
-			default:
-				$cond = "WHERE $columnName = '$id'";
 				break;
-		}  
-		$q = "SELECT * FROM $tableName $cond";
-		$r = mysqli_query($dbc, $q);
-		
-		switch ($id) {
+			default:
+				$column = $inputArray['column'][0];
+				$value = $inputArray['value'][0]; 
+				$cond = " WHERE $column = '$value'"; 
+				break;
+		} 
+		$q = "SELECT * FROM " . $inputArray['table'] . $cond;
+		$r = mysqli_query($inputArray['database'], $q); 
+
+		switch ($inputArray['value'][0]) {
 			case "":
 				//Copy result into a associative array
 				$data = array(); 
@@ -30,7 +32,7 @@
 				break; 
 			default: 
 				$data = mysqli_fetch_assoc($r);
-				if($columnName === 'email'){
+				if($inputArray['column'][0] === 'email'){
 					$data['fullname'] = $data['first'] . ' ' . $data['last'];
 					$data['fullname_reverse'] = $data['last'] . ', ' . $data['first'];
 				}
@@ -39,6 +41,37 @@
 		return $data;
 	} 
 	
+	// function getFromTable($dbc, $columnName, $id, $tableName){
+	// 	switch ($id) {
+	// 		case "": 
+	// 			$cond = "";
+	// 			break;  
+	// 		default:
+	// 			$cond = "WHERE $columnName = '$id'";
+	// 			break;
+	// 	}  
+	// 	$q = "SELECT * FROM $tableName $cond";
+	// 	$r = mysqli_query($dbc, $q);  
+	// 	switch ($id) {
+	// 		case "":
+	// 			//Copy result into a associative array
+	// 			$data = array(); 
+	// 			while ($row = mysqli_fetch_assoc($r)) {
+	// 				$data[] = $row;
+	// 			}
+	// 			// $data = $r->fetch_all(MYSQLI_ASSOC); 
+	// 			break; 
+	// 		default: 
+	// 			$data = mysqli_fetch_assoc($r);
+	// 			if($columnName === 'email'){
+	// 				$data['fullname'] = $data['first'] . ' ' . $data['last'];
+	// 				$data['fullname_reverse'] = $data['last'] . ', ' . $data['first'];
+	// 			}
+	// 			break;
+	// 	}
+	// 	return $data;
+	// } 
+	
 	function getStudentScoresTableName($student_profile){
 		$studentScoresTableName = $student_profile['first'] . $student_profile['last'] . 'scores';
 		$studentScoresTableName = strtolower($studentScoresTableName);
@@ -46,7 +79,15 @@
 	} 
 
 	function numericallyOrderedStudentProfiles($dbc, $table){
-		$profiles = getFromTable($dbc, 'all', "", $table);
+		$profilesInput = array(
+			'database' => $dbc,
+			'selection' => array(),
+			'table' => $table,
+			'column' => array('all'),
+			'value' => array('')
+		);
+		$profiles = getFromTable2($profilesInput);
+		// $profiles = getFromTable($dbc, 'all', "", $table);
 		usort($profiles, "cmp");  
 		return $profiles;
 	}
@@ -184,11 +225,27 @@
 		// Get Total Aggregate						(3)
 		// Update Total Aggregate in profiles table	(4)
 		// Update Age in profiles table				(5)
-		$allStudents_profile = getFromTable($dbc, 'all', "", 'profiles'); // (1)
+		$allStudentsProfileInput = array(
+			'database' => $dbc,
+			'selection' => array(),
+			'table' => 'profiles',
+			'column' => array('all'),
+			'value' => array('')
+		);
+		$allStudents_profile = getFromTable2($allStudentsProfileInput); // (1)
+		// $allStudents_profile = getFromTable($dbc, 'all', "", 'profiles');
 		$totalNumberOfStudents = count($allStudents_profile);
 		
 		for($i = 0; $i < $totalNumberOfStudents; $i++){
-			$student_scores = getFromTable($dbc, 'all', "", getStudentScoresTableName($allStudents_profile[$i])); // (2)
+			$studentScoresInput = array(
+				'database' => $dbc,
+				'selection' => array(),
+				'table' => getStudentScoresTableName($allStudents_profile[$i]),
+				'column' => array('all'),
+				'value' => array('')
+			);
+			$student_scores = getFromTable2($studentScoresInput);// (2)
+			// $student_scores = getFromTable($dbc, 'all', "", getStudentScoresTableName($allStudents_profile[$i]));
 			$total_aggregate = addAllAggregateScores($dbc, getStudentScoresTableName($allStudents_profile[$i])); // (3)
 			updateTable($dbc, 'totalAggregate', $total_aggregate, 'email', $allStudents_profile[$i]['email']); // (4)
 			$student_scores_length = count($student_scores); // (5)
