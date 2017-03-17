@@ -1,77 +1,30 @@
-<?php   					 
-
-	// function getCurrentTotalAggregateFromTable($dbc, $columnName1, $id1, $columnName2, $id2, $tableName){ 
-	// 	$q = "SELECT totalAggregate FROM $tableName WHERE $columnName1 = '$id1' AND $columnName2 = '$id2'";
-	// 	$r = mysqli_query($dbc, $q);
-	// 	$data = mysqli_fetch_assoc($r); 
-	// 	return $data;
-	// } 
-
+<?php   					  
 	function getFromTable2($inputArray){ 
+		$q = "SELECT * FROM " . $inputArray['table'];
 		switch($inputArray['value'][0]){
-			case "":
-				$cond = "";
-				break;
-			default:
-				$column = $inputArray['column'][0];
-				$value = $inputArray['value'][0]; 
-				$cond = " WHERE $column = '$value'"; 
-				break;
-		} 
-		$q = "SELECT * FROM " . $inputArray['table'] . $cond;
-		$r = mysqli_query($inputArray['database'], $q); 
-
-		switch ($inputArray['value'][0]) {
-			case "":
-				//Copy result into a associative array
+			case "": 
+				$r = mysqli_query($inputArray['database'], $q); 
 				$data = array(); 
 				while ($row = mysqli_fetch_assoc($r)) {
 					$data[] = $row;
 				}
-				// $data = $r->fetch_all(MYSQLI_ASSOC); 
-				break; 
-			default: 
+				break;
+			default:
+				$column = $inputArray['column'][0];
+				$value = $inputArray['value'][0]; 
+				$cond = " WHERE $column = '$value'";
+				$q .= $cond;  
+				$r = mysqli_query($inputArray['database'], $q);
 				$data = mysqli_fetch_assoc($r);
 				if($inputArray['column'][0] === 'email'){
 					$data['fullname'] = $data['first'] . ' ' . $data['last'];
 					$data['fullname_reverse'] = $data['last'] . ', ' . $data['first'];
 				}
 				break;
-		}
+		}  
 		return $data;
 	} 
-	
-	// function getFromTable($dbc, $columnName, $id, $tableName){
-	// 	switch ($id) {
-	// 		case "": 
-	// 			$cond = "";
-	// 			break;  
-	// 		default:
-	// 			$cond = "WHERE $columnName = '$id'";
-	// 			break;
-	// 	}  
-	// 	$q = "SELECT * FROM $tableName $cond";
-	// 	$r = mysqli_query($dbc, $q);  
-	// 	switch ($id) {
-	// 		case "":
-	// 			//Copy result into a associative array
-	// 			$data = array(); 
-	// 			while ($row = mysqli_fetch_assoc($r)) {
-	// 				$data[] = $row;
-	// 			}
-	// 			// $data = $r->fetch_all(MYSQLI_ASSOC); 
-	// 			break; 
-	// 		default: 
-	// 			$data = mysqli_fetch_assoc($r);
-	// 			if($columnName === 'email'){
-	// 				$data['fullname'] = $data['first'] . ' ' . $data['last'];
-	// 				$data['fullname_reverse'] = $data['last'] . ', ' . $data['first'];
-	// 			}
-	// 			break;
-	// 	}
-	// 	return $data;
-	// } 
-	
+
 	function getStudentScoresTableName($student_profile){
 		$studentScoresTableName = $student_profile['first'] . $student_profile['last'] . 'scores';
 		$studentScoresTableName = strtolower($studentScoresTableName);
@@ -86,8 +39,7 @@
 			'column' => array('all'),
 			'value' => array('')
 		);
-		$profiles = getFromTable2($profilesInput);
-		// $profiles = getFromTable($dbc, 'all', "", $table);
+		$profiles = getFromTable2($profilesInput); 
 		usort($profiles, "cmp");  
 		return $profiles;
 	}
@@ -106,13 +58,12 @@
 		return $totalPrize; 
 	}
 	 
-// 	Thinking why one user should alter the table of everyone's entry
-//  This ought to be because one's position affects the others meaning if one person goes up others have to go down
+	// 	Thinking why one user should alter the table of everyone's entry
+	//  This ought to be because one's position affects the others meaning if one person goes up others have to go down
 	function updatePositionAndPrize($dbc, $profiles, $totalPrize){
 		$numOfStudents = count($profiles);   
 		$sumOfFirstToFourthTotalAggregate = sumOfTotalAggregates($profiles, "firstToFourth");
 		$sumOfFifthToSeventhTotalAggregate = sumOfTotalAggregates($profiles, "fifthToSeventh"); 
-		
 		for($i = $numOfStudents - 1, $j = 0; $i > -1, $j < $numOfStudents; $i--, $j++){
 			$position = ""; 
 			$prize = 0;
@@ -232,8 +183,7 @@
 			'column' => array('all'),
 			'value' => array('')
 		);
-		$allStudents_profile = getFromTable2($allStudentsProfileInput); // (1)
-		// $allStudents_profile = getFromTable($dbc, 'all', "", 'profiles');
+		$allStudents_profile = getFromTable2($allStudentsProfileInput); // (1) 
 		$totalNumberOfStudents = count($allStudents_profile);
 		
 		for($i = 0; $i < $totalNumberOfStudents; $i++){
@@ -244,8 +194,7 @@
 				'column' => array('all'),
 				'value' => array('')
 			);
-			$student_scores = getFromTable2($studentScoresInput);// (2)
-			// $student_scores = getFromTable($dbc, 'all', "", getStudentScoresTableName($allStudents_profile[$i]));
+			$student_scores = getFromTable2($studentScoresInput);// (2) 
 			$total_aggregate = addAllAggregateScores($dbc, getStudentScoresTableName($allStudents_profile[$i])); // (3)
 			updateTable($dbc, 'totalAggregate', $total_aggregate, 'email', $allStudents_profile[$i]['email']); // (4)
 			$student_scores_length = count($student_scores); // (5)
@@ -263,26 +212,17 @@
 		    insertToOrUpdateTable($dbc, $scoresTableName, 'insert', $post['date'], $post['exercise'], $post['type'], $post['source'], $post['score'], $post['currentage'], $post['aggregate'], $post['currentTotalAggregate']);
 	}
 	
-	function queryDbForExistingEntry($dbc, $columnName, $id, $tableName){
-		$id = mysqli_real_escape_string($dbc, $id); 
-		$cond = ($id === "") ? "" : "WHERE $columnName = '$id'"; 
-		
-		$q = "SELECT * FROM $tableName $cond";
-		$r = mysqli_query($dbc, $q);
-		
-		$data = array();
-		switch($cond){
-			case "": 
-				while ($row = mysqli_fetch_assoc($r)) {
-					$data[] = $row;
-				}  
-				break;
-			default:
-				$data = mysqli_fetch_assoc($r);
-				break;
-		} 
-		
-		return $data;
+	function queryDbForExistingEntry($dbc, $columnName, $id, $tableName){ 
+		$id = mysqli_real_escape_string($dbc, $id);  
+		$existingEntryInput = array(
+			'database' => $dbc,
+			'selection' => array(),
+			'table' => $tableName,
+			'column' => array($columnName),
+			'value' => array($id)
+		);
+		$existingEntry = getFromTable2($existingEntryInput);
+		return $existingEntry;
 	}
 
 	function insertToOrUpdateTable($dbc, $tableScoresName, $queryType, $date, $exercise, $type, $source, $score, $currentage, $aggregate, $currentTotalAggregate){
@@ -308,8 +248,7 @@
 
 	// Contains utility functions for updating values in a table
 	function addToOrUpdateDatabase($tableName, $dbc, $q, $action){
-		$r = mysqli_query($dbc, $q);
-		
+		$r = mysqli_query($dbc, $q); 
 		if($r)
 			echo 'Page was ' . $action;
 		else{
@@ -321,7 +260,6 @@
 	function addAllAggregateScores($dbc, $tableScoresName){
 		$q = "SELECT aggregate FROM $tableScoresName";
 		$r = mysqli_query($dbc, $q); 
-		
 		$data = array(); 
 		while ($row = mysqli_fetch_assoc($r)) {
 			$data[] = $row;
@@ -329,10 +267,8 @@
 		// $data = $r->fetch_all(MYSQLI_ASSOC);
 		$dataLength = count($data);
 		$totalAggregate = "";
-		 
 		for($i = 0; $i < $dataLength; $i++)
 			$totalAggregate += $data[$i]['aggregate'];
-		
 		return $totalAggregate;
 	}
 	
@@ -406,12 +342,10 @@
 		$q = "UPDATE quizsettings SET details = ?, date = ? WHERE page = ?";
 		$stmt = $dbc->prepare($q);
 		$stmt->bind_param('sss', $materialOrQuestion, $date, $page);
-		
 		if($stmt->execute() > 0)
 			echo "Settings Table Updated";
 		else
 			echo "Settings Table Not Updated";
-		
 		$stmt->close(); 
 	}
 	
@@ -419,7 +353,6 @@
 		$q = "UPDATE profiles SET scores = ? WHERE scorestablename = ?";
 		$stmt = $dbc->prepare($q);
 		$stmt->bind_param('ss', $scores, $scoresTableName);
-		
 		if($stmt->execute() > 0)
 			echo "Profiles Table Updated";
 		else
