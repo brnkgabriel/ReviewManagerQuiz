@@ -8,7 +8,7 @@
 // > create extra columns representing the data stored in local storage
 
 // August 27 2016 12:24pm
-// why does dataType 	: "json" work for loadQuestionsFromDb() and not quizState()
+// why does dataType     : "json" work for loadQuestionsFromDb() and not quizState()
 
 // Aug 27 2016 2:02pm
 // Got the answer to the previous log. I echoed two types of data one was echo "get \n"; 
@@ -24,22 +24,10 @@ var CORRECT_ANSWER = 5;
 var INCORRECT_ANSWER = 1;
 var NO_ANSWER = 0;  
 var earnedPoints = 0; 
-var currentQuizStatus = {cTab: "Worship", 
-						 wQAnswered: "0", 
-						 wQGotten: "0", 
-						 wQMissed: "0",
-						 mQAnswered: "0", 
-						 mQGotten: "0",
-						 mQMissed: "0",
-						 sTyped: "0", 
-						 tPoints: "0", 
-						 eAForToday: "0", 
-						 totalAggregate: "", 
-						 email: "", age: ""};
-
-var messageTitle = "Life 2";
+var currentQuizStatus = {cTab: "Worship", wQAnswered: "0", mQAnswered: "0", sTyped: "0", tPoints: "0", eAForToday: "0", totalAggregate: "", email: "", age: ""};
+var messageTitle = "The Kingdom Power of Self Government";
 var messageType = "Online Quiz";
-var messageSource = "Bishop David Oyedepo";
+var messageSource = "Myles Munroe";
 
 jQuery(document).ready(function(){    
 	
@@ -91,7 +79,10 @@ jQuery(document).ready(function(){
 				break;
 		} 
 
-		updateQuizStatusTable();
+		//jQuery('#quizPanelFooter').html(questionSet + " {Tasks Completed: " + questionOrScripturesActedOn + "/" + allProcessedQuestions.length +", Total Points (worship + message + scripture): " + currentQuizStatus.tPoints + "}");
+		jQuery('.totalQuestionNumber').text(allProcessedQuestions.length);
+		jQuery('.totalQuestionsAnswered').text(questionOrScripturesActedOn);
+		jQuery('.totalPointsGained').text(currentQuizStatus.tPoints);
 
 		updateQuestionFormElements(currentTab, questionOrScripturesActedOn);  
 		quizState('store', currentQuizStatus);
@@ -159,16 +150,13 @@ jQuery(document).ready(function(){
 			}
 		} 
 
-		updateQuizStatusTable();
+		//jQuery('#quizPanelFooter').html(questionSet + " {Tasks Completed: " + questionOrScripturesActedOn + "/" + allProcessedQuestions.length +", Total Points (worship + message + scripture): " + currentQuizStatus.tPoints + "}");
+		jQuery('.totalQuestionNumber').text(allProcessedQuestions.length);
+		jQuery('.totalQuestionsAnswered').text(questionOrScripturesActedOn);
+		jQuery('.totalPointsGained').text(currentQuizStatus.tPoints);
 	}  
 
 	function updateQuestionFormElements(currentTab,i){  
-		// Next 2 lines update the last question and answer sections
-		if(i > 0){
-			jQuery('#'+currentTab+'LastQuestion').html(allProcessedQuestions[i-1].question);
-			jQuery('#'+currentTab+'LastAnswer').html(allProcessedQuestions[i-1].answers);
-		}
-
 		if(i > allProcessedQuestions.length - 1){
 			if(currentTab === "scripture"){
 				jQuery('#scriptureInfo').html("");
@@ -198,7 +186,7 @@ jQuery(document).ready(function(){
 				if(currentTab === "worship")
 					jQuery('#worshipInfo').html("You CANNOT RETAKE A QUESTION. Give this question your best attempt.");
 				else
-					jQuery('#messageInfo').html("You CANNOT RETAKE A QUESTION. Give this question your best attempt."); 
+					jQuery('#messageInfo').html("You CANNOT RETAKE A QUESTION. Give this question your best attempt.");
 				jQuery('#'+currentTab+'QuestionLabel').html(allProcessedQuestions[i].question);
 				jQuery('#'+currentTab+'OptionsSelectList').html("");
 				jQuery('#'+currentTab+'OptionsSelectList').append(
@@ -213,31 +201,23 @@ jQuery(document).ready(function(){
 		} 
 	} 
 
-	function evaluatePointsRightAndWrongAnswers(i){
-		var currentTab = currentQuizStatus.cTab.toLowerCase();
-		var selection = jQuery('#' + currentTab + 'OptionsSelectList').val();
-		var answer = allProcessedQuestions[i].answers;
-		var questionsGotten = (currentTab === "worship") ? parseInt(currentQuizStatus.wQGotten) : parseInt(currentQuizStatus.mQGotten);
-		var questionsMissed = (currentTab === "worship") ? parseInt(currentQuizStatus.wQMissed) : parseInt(currentQuizStatus.mQMissed);
-
-		if(selection.toLowerCase() === answer.toLowerCase()){
-			earnedPoints = CORRECT_ANSWER;
-			questionsGotten++;
-			(currentTab === "worship") ? currentQuizStatus.wQGotten = questionsGotten : currentQuizStatus.mQGotten = questionsGotten;
-		}else{
-			earnedPoints = INCORRECT_ANSWER;
-			questionsMissed++;
-			(currentTab === "worship") ? currentQuizStatus.wQMissed = questionsMissed : currentQuizStatus.mQMissed = questionsMissed;
-		}
-	}
-
 	function updateEarnedPoints(i,elementId){
 		switch(elementId){
 			case 'worshipNextBtn': 
-				evaluatePointsRightAndWrongAnswers(i);
+				var selection = jQuery('#worshipOptionsSelectList').val();
+				var answer = allProcessedQuestions[i].answers;
+				if(selection.toLowerCase() === answer.toLowerCase())
+					earnedPoints = CORRECT_ANSWER; 
+				else
+					earnedPoints = INCORRECT_ANSWER; 
 				break;
 			case 'messageNextBtn': 
-				evaluatePointsRightAndWrongAnswers(i);
+				var selection = jQuery('#messageOptionsSelectList').val();
+				var answer = allProcessedQuestions[i].answers;
+				if(selection.toLowerCase() === answer.toLowerCase())
+					earnedPoints = CORRECT_ANSWER; 
+				else
+					earnedPoints = INCORRECT_ANSWER; 
 				break;
 			case 'scriptureNextBtn':
 				var scriptureVerse = jQuery('#scriptureTextArea').val();
@@ -263,31 +243,35 @@ jQuery(document).ready(function(){
 		currentQuizStatus.tPoints = (parseInt(currentQuizStatus.tPoints) + earnedPoints).toString();
 	}
 
-	function activateActiveElementsDeactivateInactiveElements(currentTab){
-		var activeElement = currentTab.toLowerCase();
-		var elements = ['worship','message','scripture'];
-		for(i = 0; i < elements.length; i++){
-			if(activeElement === elements[i]){
-				jQuery('#' + elements[i] + 'ListItem').attr('class', 'active');
-				jQuery('#' + elements[i]).addClass('in active');
-			}else{
-				jQuery('#' + elements[i] + 'ListItem').removeAttr('class');
-				jQuery('#' + elements[i]).removeClass('in active');
-			}
-		} 
-		updateQuestionFormElements(questionSet.toLowerCase(), questionOrScripturesActedOn);
-	}
 	// Restores the previous tab state of the last session before closing the browser
 	function continueFromLastSession(currentTab){
 		switch(currentTab){
-			case 'Worship':
-				activateActiveElementsDeactivateInactiveElements(currentTab);  
+			case 'Worship': 
+				jQuery('#worshipListItem').attr('class', 'active');
+				jQuery('#messageListItem').removeAttr('class');
+				jQuery('#scriptureListItem').removeAttr('class');
+				jQuery('#worship').addClass('in active');
+				jQuery('#message').removeClass('in active');
+				jQuery('#scripture').removeClass('in active'); 
+				updateQuestionFormElements(questionSet.toLowerCase(), questionOrScripturesActedOn);
 				break;
 			case 'Message':
-				activateActiveElementsDeactivateInactiveElements(currentTab); 
+				jQuery('#worshipListItem').removeAttr('class');
+				jQuery('#messageListItem').attr('class', 'active');
+				jQuery('#scriptureListItem').removeAttr('class');
+				jQuery('#worship').removeClass('in active');
+				jQuery('#message').addClass('in active');
+				jQuery('#scripture').removeClass('in active'); 
+				updateQuestionFormElements(questionSet.toLowerCase(), questionOrScripturesActedOn);
 				break;
 			case 'Scripture':
-				activateActiveElementsDeactivateInactiveElements(currentTab); 
+				jQuery('#worshipListItem').removeAttr('class');
+				jQuery('#messageListItem').removeAttr('class');
+				jQuery('#scriptureListItem').attr('class', 'active');
+				jQuery('#worship').removeClass('in active');
+				jQuery('#message').removeClass('in active');
+				jQuery('#scripture').addClass('in active'); 
+				updateQuestionFormElements(questionSet.toLowerCase(), questionOrScripturesActedOn);
 				break;
 		}
 	} 
@@ -346,11 +330,7 @@ jQuery(document).ready(function(){
 			var quizStatusObjectFromDB = jQuery.parseJSON(data.quizStatus);  
 			currentQuizStatus.cTab = quizStatusObjectFromDB.cTab;
 			currentQuizStatus.wQAnswered = quizStatusObjectFromDB.wQAnswered;
-			currentQuizStatus.wQGotten = quizStatusObjectFromDB.wQGotten;
-			currentQuizStatus.wQMissed = quizStatusObjectFromDB.wQMissed;
 			currentQuizStatus.mQAnswered = quizStatusObjectFromDB.mQAnswered;
-			currentQuizStatus.mQGotten = quizStatusObjectFromDB.mQGotten;
-			currentQuizStatus.mQMissed = quizStatusObjectFromDB.mQMissed;
 			currentQuizStatus.sTyped = quizStatusObjectFromDB.sTyped;
 			currentQuizStatus.tPoints = quizStatusObjectFromDB.tPoints; 
 			currentQuizStatus.eAForToday = quizStatusObjectFromDB.eAForToday;
@@ -372,10 +352,13 @@ jQuery(document).ready(function(){
 		var mm = today.getMonth()+1; //January is 0!
 		var yyyy = today.getFullYear();
 
-		if(dd<10)
-		    dd='0'+dd; 
-		if(mm<10)
-		    mm='0'+mm; 
+		if(dd<10) {
+		    dd='0'+dd
+		} 
+
+		if(mm<10) {
+		    mm='0'+mm
+		} 
 
 		today = yyyy+'-'+mm+'-'+dd;
 		return today;
@@ -393,15 +376,5 @@ jQuery(document).ready(function(){
 	  			questionOrScripturesActedOn = parseInt(currentQuizStatus.sTyped);
 	  			break;
 	  	}
-	}
-
-	function updateQuizStatusTable(){
-		jQuery('.totalQuestionNumber').text(allProcessedQuestions.length);
-		jQuery('.totalQuestionsAnswered').text(questionOrScripturesActedOn);
-		jQuery('.totalWorshipQuestionsGotten').text(currentQuizStatus.wQGotten);
-		jQuery('.totalWorshipQuestionsMissed').text(currentQuizStatus.wQMissed);
-		jQuery('.totalMessageQuestionsGotten').text(currentQuizStatus.mQGotten);
-		jQuery('.totalMessageQuestionsMissed').text(currentQuizStatus.mQMissed);
-		jQuery('.totalPointsGained').text(currentQuizStatus.tPoints);
 	}
 });  

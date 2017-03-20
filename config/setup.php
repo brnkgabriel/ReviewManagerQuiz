@@ -31,7 +31,7 @@
 	$quizSettingsInput = array(
 		'database' => $dbc,
 		'selection' => array(),
-		'table' => 'quizSettings',
+		'table' => 'quizsettings',
 		'column' => array('page'),
 		'value' => array('quiz')
 	);

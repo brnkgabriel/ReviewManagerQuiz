@@ -63,26 +63,22 @@
 								<thead>
 									<tr>
 										<th>Pos</th>
-										<th><span class="glyphicon glyphicon-user" aria-hidden="true"></span> <i class="fa fa-tag" aria-hidden="true"><span id="amount"><sup>$</sup><?php echo $total_prize; ?></span></i></th>
+										<th>Col <i class="fa fa-tag" aria-hidden="true"><span id="amount"><sup>$</sup><?php echo $total_prize; ?></span></i></th>
 										<th>Name</th> 
-										<th class="hideOnSmallScreens">Tot. <i class="fa fa-question" aria-hidden="true"></i></th>
-										<th>Tot. <i class="fa fa-pencil" aria-hidden="true"></i></th>
-										<th>Tot. <i class="fa fa-check" aria-hidden="true"></i></th> 
-										<th class="hideOnSmallScreens">Tot. <i class="fa fa-times" aria-hidden="true"></i></th>
 										<th class="hideOnSmallScreens">Age</th> 
 										<th>Agg</th>
 										<th>Tot. Agg</th> 
 									</tr>
 								</thead>
 								<tbody> 
-									<?php    
+									<?php 
 										$tableSize = count($student_profiles);
 										// in the student_profiles array the position is from last to first
 										// that's why the counter $i below starts from the last index to get the first position  
 										for($i = $tableSize - 1; $i > -1; $i--){  
 											// the code below gets the recent score of each student to be displayed on the Agg column of the rank table
 											$studentLastScore = getStudentLastScore($dbc, $student_profiles[$i]['scorestablename']);
-											$quizStatus = getQuizStatus($student_profiles[$i]['quizStatus']);
+
 											if($quizSettings['date'] != ""){
 												$studentCurrentAggregate = getCurrentQuizScore($quizSettings['date'], $studentLastScore); 
 											}
@@ -100,11 +96,7 @@
 																<i class="fa fa-tag" aria-hidden="true"><span id="amount"><sup>$</sup><?php echo $student_profiles[$i]['prize']; ?></span></i>
 															<?php }?>
 													</td>
-													<td class="hideOnSmallScreens"><strong><?php echo $studentNamesFromAllDataEntry; ?></strong></td>
-													<td><?php echo getTotalQuestions($dbc); ?></td>
-													<td><?php echo $quizStatus['tQAnswered']; ?></td>
-													<td><?php echo $quizStatus['tQGotten']; ?></td>
-													<td class="hideOnSmallScreens"><?php echo $quizStatus['tQMissed']; ?></td>
+													<td><strong><?php echo $studentNamesFromAllDataEntry; ?></strong></td>
 													<td class="hideOnSmallScreens"><strong><?php echo $student_profiles[$i]['age']; ?></strong></td> 
 													<td><strong><?php echo $studentCurrentAggregate; ?></strong></td>
 													<td><strong><?php echo $student_profiles[$i]['totalAggregate']; ?></strong></td> 
@@ -119,11 +111,7 @@
 																<i class="fa fa-tag" aria-hidden="true"><span id="amount"><sup>$</sup><?php echo $student_profiles[$i]['prize']; ?></span></i>
 														<?php }?>
 													</td>
-													<td class="hideOnSmallScreens"><?php echo $student_profiles[$i]['codename'];?></td>
-													<td class="hideOnSmallScreens"><?php echo getTotalQuestions($dbc); ?></td>
-													<td><?php echo $quizStatus['tQAnswered']; ?></td>
-													<td><?php echo $quizStatus['tQGotten']; ?></td>
-													<td class="hideOnSmallScreens"><?php echo $quizStatus['tQMissed']; ?></td>
+													<td><?php echo $student_profiles[$i]['codename'];?></td>
 													<td class="hideOnSmallScreens"><?php echo $student_profiles[$i]['age']; ?></td> 
 													<td><?php echo $studentCurrentAggregate; ?></td>
 													<td><?php echo $student_profiles[$i]['totalAggregate']; ?></td> 

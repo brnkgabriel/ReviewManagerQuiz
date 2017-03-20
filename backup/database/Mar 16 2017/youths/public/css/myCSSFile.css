@@ -1,10 +1,10 @@
-/* =========================== BODY ============================*/
+/* =========================== BODY ============================*/  
 body{
   font-family: 'Ubuntu', 'Trebuchet MS', 'Tw Cen MT', sans-serif;
   background-color: #F1ECFF;
   margin: 0px;
   padding: 0px;
-  overflow-x: hidden;
+  overflow-x:hidden; 
 }
 
 h3, th{
@@ -78,15 +78,6 @@ table{
 }
 
 /* =========================== MAIN CONTENT ============================*/
-#messageLastQuestion, 
-#messageLastAnswer,
-#worshipLastQuestion,
-#worshipLastAnswer{
-  font-family: 'Josefin Sans', 'Trebuchet MS', 'Tw Cen MT', sans-serif; 
-  font-weight: bold;
-  font-style: italic;
-}
-
 #amount{
   font-family: 'Ubuntu', 'Trebuchet MS', 'Tw Cen MT', sans-serif;
   font-weight: bold;
@@ -223,7 +214,7 @@ h1, label{
 }
 /* ========================= LARGE SCREEN ============================*/
 @media screen and (min-width: 601px){
-  /* ==================== NAVIGATION =====================*/
+  /* ==================== NAVIGATION =====================*/ 
   #menu{
     position: absolute; 
     top: -16px;
@@ -261,7 +252,7 @@ h1, label{
 }
 
 /* ========================= SMALL SCREEN ============================*/
-@media screen and (max-width: 720px){ 
+@media screen and (max-width: 720px){
   .reduceLeftRightPaddingOnSmallScreen{
     padding-left:1px;
     padding-right:1px;

@@ -98,10 +98,8 @@
                                          <table align="center">
     		                                	<thead>
 				                                	<tr>
-				                                		<th><i class="fa fa-question" aria-hidden="true"></i></th>
-				                                		<th><i class="fa fa-pencil" aria-hidden="true"></i></th>
-				                                		<th><i class="fa fa-check" aria-hidden="true"></i></th>
-				                                		<th><i class="fa fa-times" aria-hidden="true"></i></th>
+				                                		<th>Tot.</th>
+				                                		<th>Ans.</th>
 				                                		<th>Pts.</th>
 				                                	</tr>
 			                                	</thead>
@@ -109,8 +107,6 @@
 				                                	<tr>
 				                                		<td class="totalQuestionNumber"></td>
 				                                		<td class="totalQuestionsAnswered"></td>
-				                                		<td class="totalWorshipQuestionsGotten"></td>
-				                                		<td class="totalWorshipQuestionsMissed"></td>
 				                                		<td class="totalPointsGained"></td>
 				                                	</tr>
 			                                	</tbody>
@@ -126,24 +122,12 @@
 									<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
 		                                <p><strong>Questions</strong></p>  
 										<form id="worshipForm"> 
-											<p id="worshipInfo"></p> 
-			                                <hr>
-			                                	<div class="row">
-			                                		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"> 
-			                                			<p><i class="fa fa-question-circle" aria-hidden="true"></i> <span id="worshipLastQuestion">This is the last Question</span></p>
-			                                		</div>
-			                                		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-			                                			<p><i class="fa fa-check-circle" aria-hidden="true"></i> <span id="worshipLastAnswer">This is the Answer</span></p>
-			                                		</div>
-			                                	</div>
-			                                <hr>
+											<p id="worshipInfo"></p>
 			                                <table align="center">
 			                                	<thead>
 				                                	<tr>
-				                                		<th><i class="fa fa-question" aria-hidden="true"></i></th>
-				                                		<th><i class="fa fa-pencil" aria-hidden="true"></i></th>
-				                                		<th><i class="fa fa-check" aria-hidden="true"></i></th>
-				                                		<th><i class="fa fa-times" aria-hidden="true"></i></th>
+				                                		<th>Tot.</th>
+				                                		<th>Ans.</th>
 				                                		<th>Pts.</th>
 				                                	</tr>
 			                                	</thead>
@@ -151,13 +135,10 @@
 				                                	<tr>
 				                                		<td class="totalQuestionNumber"></td>
 				                                		<td class="totalQuestionsAnswered"></td>
-				                                		<td class="totalWorshipQuestionsGotten"></td>
-				                                		<td class="totalWorshipQuestionsMissed"></td>
 				                                		<td class="totalPointsGained"></td>
 				                                	</tr>
 			                                	</tbody>
 			                                </table>
-			                                <hr>
 											<label id="worshipQuestionLabel"></label>
 											<select id="worshipOptionsSelectList" class="form-control"></select>
 										</form>
@@ -184,10 +165,8 @@
                                         <table align="center">
     		                                	<thead>
 				                                	<tr>
-				                                		<th><i class="fa fa-question" aria-hidden="true"></i></th>
-				                                		<th><i class="fa fa-pencil" aria-hidden="true"></i></th>
-				                                		<th><i class="fa fa-check" aria-hidden="true"></i></th>
-				                                		<th><i class="fa fa-times" aria-hidden="true"></i></th>
+				                                		<th>Tot.</th>
+				                                		<th>Ans.</th>
 				                                		<th>Pts.</th>
 				                                	</tr>
 			                                	</thead>
@@ -195,8 +174,6 @@
 				                                	<tr>
 				                                		<td class="totalQuestionNumber"></td>
 				                                		<td class="totalQuestionsAnswered"></td>
-				                                		<td class="totalMessageQuestionsGotten"></td>
-				                                		<td class="totalMessageQuestionsMissed"></td>
 				                                		<td class="totalPointsGained"></td>
 				                                	</tr>
 			                                	</tbody>
@@ -212,24 +189,12 @@
 									<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
 		                                <p><strong>Questions</strong></p> 
 										<form id="messageForm"> 
-											<p id="messageInfo"></p> 
-			                                <hr>
-			                                	<div class="row">
-			                                		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"> 
-			                                			<p><i class="fa fa-question-circle" aria-hidden="true"></i> <span id="messageLastQuestion">This is the last Question</span></p>
-			                                		</div>
-			                                		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-			                                			<p><i class="fa fa-check-circle" aria-hidden="true"></i> <span id="messageLastAnswer">This is the Answer</span></p>
-			                                		</div>
-			                                	</div>
-			                                <hr>
+											<p id="messageInfo"></p>
 											<table align="center">
 			                                	<thead>
 				                                	<tr>
-				                                		<th><i class="fa fa-question" aria-hidden="true"></i></th>
-				                                		<th><i class="fa fa-pencil" aria-hidden="true"></i></th>
-				                                		<th><i class="fa fa-check" aria-hidden="true"></i></th>
-				                                		<th><i class="fa fa-times" aria-hidden="true"></i></th>
+				                                		<th>Tot.</th>
+				                                		<th>Ans.</th>
 				                                		<th>Pts.</th>
 				                                	</tr>
 			                                	</thead>
@@ -237,13 +202,10 @@
 				                                	<tr>
 				                                		<td class="totalQuestionNumber"></td>
 				                                		<td class="totalQuestionsAnswered"></td>
-				                                		<td class="totalMessageQuestionsGotten"></td>
-				                                		<td class="totalMessageQuestionsMissed"></td>
 				                                		<td class="totalPointsGained"></td>
 				                                	</tr>
-			                                	</tbody> 
+			                                	</tbody>
 			                                </table>
-			                                <hr>
 											<label id="messageQuestionLabel"></label>
 											<select id="messageOptionsSelectList" class="form-control"></select>
 										</form>
