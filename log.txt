@@ -27,3 +27,6 @@ Things to note when adding a new student
 
 // March 18 2017 3:11pm
 . If server says parameter 1 is a boolean it's return all table names from camelcase to lowercase
+
+// March 22 2017 4:54pm
+. Remove the width and height from the embedded videos from YouTube

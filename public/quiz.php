@@ -126,18 +126,16 @@
 									<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
 		                                <p><strong>Questions</strong></p>  
 										<form id="worshipForm"> 
-											<p id="worshipInfo"></p> 
-			                                <hr>
-			                                	<div class="row">
-			                                		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"> 
-			                                			<p><i class="fa fa-question-circle" aria-hidden="true"></i> <span id="worshipLastQuestion">This is the last Question</span></p>
-			                                		</div>
-			                                		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-			                                			<p><i class="fa fa-check-circle" aria-hidden="true"></i> <span id="worshipLastAnswer">This is the Answer</span></p>
-			                                		</div>
-			                                	</div>
-			                                <hr>
-			                                <table align="center">
+											<p id="worshipInfo"></p>  
+		                                	<div class="row previousQuestionAndAnswer">
+		                                		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"> 
+		                                			<i class="fa fa-question-circle" aria-hidden="true"></i> <span id="worshipLastQuestion">This is the last Question</span>
+		                                		</div>
+		                                		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+		                                			<i class="fa fa-check-circle" aria-hidden="true"></i> <span id="worshipLastAnswer">This is the Answer</span>
+		                                		</div>
+		                                	</div> 
+			                                <table align="center"> 
 			                                	<thead>
 				                                	<tr>
 				                                		<th><i class="fa fa-question" aria-hidden="true"></i></th>
@@ -212,17 +210,15 @@
 									<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
 		                                <p><strong>Questions</strong></p> 
 										<form id="messageForm"> 
-											<p id="messageInfo"></p> 
-			                                <hr>
-			                                	<div class="row">
-			                                		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"> 
-			                                			<p><i class="fa fa-question-circle" aria-hidden="true"></i> <span id="messageLastQuestion">This is the last Question</span></p>
-			                                		</div>
-			                                		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-			                                			<p><i class="fa fa-check-circle" aria-hidden="true"></i> <span id="messageLastAnswer">This is the Answer</span></p>
-			                                		</div>
-			                                	</div>
-			                                <hr>
+											<p id="messageInfo"></p>  
+		                                	<div class="row previousQuestionAndAnswer">
+		                                		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"> 
+		                                			<p><i class="fa fa-question-circle" aria-hidden="true"></i> <span id="messageLastQuestion">This is the last Question</span></p>
+		                                		</div>
+		                                		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+		                                			<p><i class="fa fa-check-circle" aria-hidden="true"></i> <span id="messageLastAnswer">This is the Answer</span></p>
+		                                		</div>
+		                                	</div> 
 											<table align="center">
 			                                	<thead>
 				                                	<tr>
