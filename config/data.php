@@ -383,14 +383,15 @@
 	function getTotalQuestions($dbc){ 
 		$messageQuestions = addAllQuestions($dbc, 'messagequestions');
 		$worshipQuestions = addAllQuestions($dbc, 'worshipquestions'); 
-		return $messageQuestions + $worshipQuestions; 
+		$scriptures = addAllQuestions($dbc, 'scripturematerials');
+		return $messageQuestions + $worshipQuestions + $scriptures; 
 	}
 
 	function getQuizStatus($json){
 		$quizStatus = json_decode($json,true);
-		$questionsAnswered = $quizStatus['wQAnswered'] + $quizStatus['mQAnswered'];
-		$questionsGotten = $quizStatus['wQGotten'] + $quizStatus['mQGotten'];
-		$questionsMissed = $quizStatus['wQMissed'] + $quizStatus['mQMissed'];
+		$questionsAnswered = $quizStatus['wQAnswered'] + $quizStatus['mQAnswered'] + $quizStatus['sTyped'];
+		$questionsGotten = $quizStatus['wQGotten'] + $quizStatus['mQGotten'] + $quizStatus['sGotten'];
+		$questionsMissed = $quizStatus['wQMissed'] + $quizStatus['mQMissed'] + $quizStatus['sMissed'];
 
 		return array(
 			'tQAnswered' => $questionsAnswered,

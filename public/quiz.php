@@ -65,8 +65,7 @@
 		</style>
 		<title>Quiz-HPM Youths</title>
 	</head>
-	<body>
-		
+	<body> 
 		<?php include_once 'template/navigation.php'; ?>
 		<br><br>
 		<!-- Body -->
@@ -79,7 +78,7 @@
 					<ul class="nav nav-tabs">
 						<li id="worshipListItem"><a href="#worship" data-toggle="tab">Worship</a></li>
 						<li id="messageListItem"><a href="#message" data-toggle="tab">Message</a></li>
-						<!--<li id="scriptureListItem"><a href="#scripture" data-toggle="tab">Scripture</a></li>-->
+						<li id="scriptureListItem"><a href="#scripture" data-toggle="tab">Scripture</a></li>
 					</ul>
 					<div id="myTabContent" class="tab-content"> 
 						<div class="tab-pane fade table-responsive" id="worship">
@@ -233,8 +232,8 @@
 				                                	<tr>
 				                                		<td class="totalQuestionNumber"></td>
 				                                		<td class="totalQuestionsAnswered"></td>
-				                                		<td class="totalMessageQuestionsGotten"></td>
-				                                		<td class="totalMessageQuestionsMissed"></td>
+				                                		<td class="totalScripturesTyped"></td>
+				                                		<td class="totalScripturesMissed"></td>
 				                                		<td class="totalPointsGained"></td>
 				                                	</tr>
 			                                	</tbody> 
@@ -251,32 +250,55 @@
 								</div> 		
 							<?php	} ?> 
 						</div>
-						<!--<div class="tab-pane fade" id="scripture">
+						<div class="tab-pane fade" id="scripture">
 							<?php 	if($quizSettings['details'] === 'Materials'){ ?>
-							<p>This portion is for typing the bible</p>
-							<p>
-								It will consist a paragraph tag and a text area. The paragraph will show the next verse to be typed.
-								The text area is where the student should type the shown verse. Once the verse is
-								typed completely. The text area clears and the paragraph tag shows the next verse to be typed
-							</p>
-							<textarea class="form-control"></textarea>
+							<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"> 
+								<p>This portion is for typing the bible</p>
+								<p>
+									It will consist a paragraph tag and a text area. The paragraph will show the next verse to be typed.
+									The text area is where the student should type the shown verse. Once the verse is
+									typed completely. The text area clears and the paragraph tag shows the next verse to be typed
+								</p>
+								<textarea class="form-control"></textarea>
+                    		</div>
+							<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"> 
+								<hr>
+								<table align="center">
+                                	<thead>
+	                                	<tr>
+	                                		<th><i class="fa fa-question" aria-hidden="true"></i></th>
+	                                		<th><i class="fa fa-pencil" aria-hidden="true"></i></th>
+	                                		<th><i class="fa fa-check" aria-hidden="true"></i></th>
+	                                		<th><i class="fa fa-times" aria-hidden="true"></i></th>
+	                                		<th>Pts.</th>
+	                                	</tr>
+                                	</thead>
+                                	<tbody>
+	                                	<tr>
+	                                		<td class="totalQuestionNumber"></td>
+	                                		<td class="totalQuestionsAnswered"></td>
+	                                		<td class="totalScripturesGotten"></td>
+	                                		<td class="totalScripturesMissed"></td>
+	                                		<td class="totalPointsGained"></td>
+	                                	</tr>
+                                	</tbody> 
+                                </table>
+                    		</div>
 							<?php	}else if($quizSettings['details'] === 'Questions'){ ?> 
 							<div class="row"> 
-								<div class="col-md-6 col-md-offset-3 table-responsive">
+								<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
 									<form id="scriptureForm">  
 										<p id="scriptureInfo">
 											Type the Scripture below in the text area. Click the next button when you're done
 										</p>
 										<table class="table table-bordered table-condensed"> 
 											<thead>
-												<tr>
-													<th><label id="scriptureReferenceLabel"></label></th>
+												<tr> 
 													<th><label id="scriptureLabel"></label></th> 
 												</tr>
 											</thead>
 											<tbody> 
-												<tr>
-													<td><input type="text" id="scriptureReferenceInput" class="form-control"></textarea></td>
+												<tr> 
 													<td><textarea id="scriptureTextArea" class="form-control"></textarea></td> 
 												</tr> 
 											</tbody>
@@ -284,17 +306,37 @@
 									</form>
 									<br /> 
 									<p>
-										<button class="btn btn-primary" id="scriptureNextBtn"><span class="glyphicon glyphicon-chevron-right"></span></button>
+										<button disabled="true" class="btn btn-primary" id="scriptureNextBtn"><span class="glyphicon glyphicon-chevron-right"></span></button>
 									</p>
+								</div>
+								<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+									<hr>
+									<table align="center">
+	                                	<thead>
+		                                	<tr>
+		                                		<th><i class="fa fa-question" aria-hidden="true"></i></th>
+		                                		<th><i class="fa fa-pencil" aria-hidden="true"></i></th>
+		                                		<th><i class="fa fa-check" aria-hidden="true"></i></th>
+		                                		<th><i class="fa fa-times" aria-hidden="true"></i></th>
+		                                		<th>Pts.</th>
+		                                	</tr>
+	                                	</thead>
+	                                	<tbody>
+		                                	<tr>
+		                                		<td class="totalQuestionNumber"></td>
+		                                		<td class="totalQuestionsAnswered"></td>
+	                                			<td class="totalScripturesGotten"></td>
+	                                			<td class="totalScripturesMissed"></td>
+		                                		<td class="totalPointsGained"></td>
+		                                	</tr>
+	                                	</tbody> 
+	                                </table>
 								</div>
 							</div>			
 							<?php	} ?> 
-						</div>-->
+						</div>
 					</div><!-- end quiz tab-pane -->
-				</div><!-- end quiz panel body -->
-				<div class="panel-footer" id="quizPanelFooter"> 
-					
-				</div>
+				</div><!-- end quiz panel body --> 
 			</div><!-- end quiz panel -->
 		</div>
 	</body>

@@ -32,14 +32,16 @@ var currentQuizStatus = {cTab: "Worship",
 						 mQGotten: "0",
 						 mQMissed: "0",
 						 sTyped: "0", 
+						 sGotten: "0",
+						 sMissed: "0",
 						 tPoints: "0", 
 						 eAForToday: "0", 
 						 totalAggregate: "", 
 						 email: "", age: ""};
 
-var messageTitle = "Life 2";
+var messageTitle = "God's Love (Love Series 3)";
 var messageType = "Online Quiz";
-var messageSource = "Bishop David Oyedepo";
+var messageSource = "Andrew Wommack";
 
 jQuery(document).ready(function(){    
 	
@@ -73,6 +75,10 @@ jQuery(document).ready(function(){
 		}
 	});
 
+	jQuery('#scriptureTextArea').on('keyup',function(){
+		(jQuery('#scriptureTextArea').val() === "") ? jQuery('#scriptureNextBtn').attr('disabled', 'true') : jQuery('#scriptureNextBtn').removeAttr('disabled');
+	});
+
 	jQuery('#worshipNextBtn, #messageNextBtn, #scriptureNextBtn').click(function(){ 
 		var currentBtn = jQuery(this);
 		var currentTab = questionSet.toLowerCase();
@@ -96,11 +102,12 @@ jQuery(document).ready(function(){
 		updateQuestionFormElements(currentTab, questionOrScripturesActedOn);  
 		quizState('store', currentQuizStatus);
 
-		if(currentBtn.attr('id') !== "scriptureNextBtn")
-			currentBtn.attr('disabled', 'true');  
+		// if(currentBtn.attr('id') !== "scriptureNextBtn")
+		// 	currentBtn.attr('disabled', 'true'); 
+		currentBtn.attr('disabled', 'true'); 
 	});
 
-	// I need the current selection from below to update the panel footer
+	// I need the current selection from below to update the status table
 	// This is also the reset of the whole quiz page
 	jQuery('a[data-toggle="tab"]').on('shown.bs.tab', function (evt) {  
 	 	var target = jQuery(evt.target).text(); // activated tab 
@@ -164,7 +171,7 @@ jQuery(document).ready(function(){
 
 	function updateQuestionFormElements(currentTab,i){  
 		// Next 2 lines update the last question and answer sections
-		if(i > 0){
+		if(i > 0 && currentTab !== "scripture"){
 			jQuery('#'+currentTab+'LastQuestion').html(allProcessedQuestions[i-1].question);
 			jQuery('#'+currentTab+'LastAnswer').html(allProcessedQuestions[i-1].answers);
 		}
@@ -241,23 +248,29 @@ jQuery(document).ready(function(){
 				break;
 			case 'scriptureNextBtn':
 				var scriptureVerse = jQuery('#scriptureTextArea').val();
-				var scriptureReference = jQuery('#scriptureReferenceInput').val();
+				// var scriptureReference = jQuery('#scriptureReferenceInput').val();
 				var givenScriptureVerse = allProcessedQuestions[i].words;
-				var givenScriptureReference = allProcessedQuestions[i].reference;
-				if(scriptureVerse.toLowerCase() === givenScriptureVerse.toLowerCase())
+				// var givenScriptureReference = allProcessedQuestions[i].reference;
+				var scripturesGotten = parseInt(currentQuizStatus.sGotten);
+				var scripturesMissed = parseInt(currentQuizStatus.sMissed);
+				if(scriptureVerse.toLowerCase() === givenScriptureVerse.toLowerCase()){
 					earnedPoints = CORRECT_ANSWER; 
-				else if(jQuery.trim(scriptureVerse.toLowerCase()) === "")
-					earnedPoints = NO_ANSWER; 
-				else
-					earnedPoints = INCORRECT_ANSWER; 
+					scripturesGotten++;
+					currentQuizStatus.sGotten = scripturesGotten;
+				} 
+				else{
+					earnedPoints = INCORRECT_ANSWER;
+					scripturesMissed++;
+					currentQuizStatus.sMissed = scripturesMissed; 
+				}
 
-				if(scriptureReference.toLowerCase() === givenScriptureReference.toLowerCase())
-					earnedPoints = CORRECT_ANSWER; 
-				else if(jQuery.trim(scriptureReference.toLowerCase()) === "")
-					earnedPoints = NO_ANSWER; 
-				else
-					earnedPoints = INCORRECT_ANSWER; 
-				break;
+				// if(scriptureReference.toLowerCase() === givenScriptureReference.toLowerCase())
+				// 	earnedPoints += CORRECT_ANSWER; 
+				// else if(jQuery.trim(scriptureReference.toLowerCase()) === "")
+				// 	earnedPoints += NO_ANSWER; 
+				// else
+				// 	earnedPoints += INCORRECT_ANSWER; 
+				// break;
 		}  
 
 		currentQuizStatus.tPoints = (parseInt(currentQuizStatus.tPoints) + earnedPoints).toString();
@@ -352,6 +365,8 @@ jQuery(document).ready(function(){
 			currentQuizStatus.mQGotten = quizStatusObjectFromDB.mQGotten;
 			currentQuizStatus.mQMissed = quizStatusObjectFromDB.mQMissed;
 			currentQuizStatus.sTyped = quizStatusObjectFromDB.sTyped;
+			currentQuizStatus.sGotten = quizStatusObjectFromDB.sGotten;
+			currentQuizStatus.sMissed = quizStatusObjectFromDB.sMissed;
 			currentQuizStatus.tPoints = quizStatusObjectFromDB.tPoints; 
 			currentQuizStatus.eAForToday = quizStatusObjectFromDB.eAForToday;
 			currentQuizStatus.totalAggregate = quizStatusObjectFromDB.totalAggregate;
@@ -402,6 +417,8 @@ jQuery(document).ready(function(){
 		jQuery('.totalWorshipQuestionsMissed').text(currentQuizStatus.wQMissed);
 		jQuery('.totalMessageQuestionsGotten').text(currentQuizStatus.mQGotten);
 		jQuery('.totalMessageQuestionsMissed').text(currentQuizStatus.mQMissed);
+		jQuery('.totalScripturesGotten').text(currentQuizStatus.sGotten);
+		jQuery('.totalScripturesMissed').text(currentQuizStatus.sMissed);
 		jQuery('.totalPointsGained').text(currentQuizStatus.tPoints);
 	}
 });  
