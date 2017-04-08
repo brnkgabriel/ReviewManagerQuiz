@@ -92,10 +92,18 @@ table{
 #messageLastQuestion, 
 #messageLastAnswer,
 #worshipLastQuestion,
-#worshipLastAnswer{
+#worshipLastAnswer,
+#scriptureLastVerse,
+#scriptureLastTyped,
+#error,
+#scriptureErrorFragment{
   font-family: 'Josefin Sans', 'Trebuchet MS', 'Tw Cen MT', sans-serif; 
   font-weight: bold;
   font-style: italic;
+}
+
+#scriptureErrorFragment{
+  color: red;
 }
 
 #amount{

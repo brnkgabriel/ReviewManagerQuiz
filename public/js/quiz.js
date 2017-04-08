@@ -169,12 +169,36 @@ jQuery(document).ready(function(){
 		updateQuizStatusTable();
 	}  
 
+	function updateLastElements(currentTab, i){ 
+		if(i > 0){
+			if(currentTab !== "scripture"){
+				jQuery('#'+currentTab+'LastQuestion').html(allProcessedQuestions[i-1].question);
+				jQuery('#'+currentTab+'LastAnswer').html(allProcessedQuestions[i-1].answers);
+			}else{ 
+				var given = allProcessedQuestions[i-1].words;
+				var typed = jQuery('#scriptureTextArea').val(); 
+				jQuery('#scriptureLastVerse').html(allProcessedQuestions[i-1].words);
+				jQuery('#scriptureLastTyped').html(typed);
+				var eid = getStringErrorIndex(given, typed);
+				var errorFragment = typed.slice(0,eid);
+				jQuery('#scriptureErrorFragment').html(errorFragment); 
+			}
+		}
+	}
+
+	function getStringErrorIndex(given, typed){
+		var givenVerse = given.split("");
+		var typedVerse = typed.split("");
+		for(var i = 0; i < givenVerse.length; i++){
+			if(typedVerse[i] !== givenVerse[i])
+				return i; 
+		}
+		return 0;
+	}
+
 	function updateQuestionFormElements(currentTab,i){  
 		// Next 2 lines update the last question and answer sections
-		if(i > 0 && currentTab !== "scripture"){
-			jQuery('#'+currentTab+'LastQuestion').html(allProcessedQuestions[i-1].question);
-			jQuery('#'+currentTab+'LastAnswer').html(allProcessedQuestions[i-1].answers);
-		}
+		updateLastElements(currentTab, i);
 
 		if(i > allProcessedQuestions.length - 1){
 			if(currentTab === "scripture"){

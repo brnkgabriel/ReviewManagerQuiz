@@ -232,8 +232,8 @@
 				                                	<tr>
 				                                		<td class="totalQuestionNumber"></td>
 				                                		<td class="totalQuestionsAnswered"></td>
-				                                		<td class="totalScripturesTyped"></td>
-				                                		<td class="totalScripturesMissed"></td>
+				                                		<td class="totalMessageQuestionsGotten"></td>
+				                                		<td class="totalMessageQuestionsMissed"></td>
 				                                		<td class="totalPointsGained"></td>
 				                                	</tr>
 			                                	</tbody> 
@@ -251,18 +251,15 @@
 							<?php	} ?> 
 						</div>
 						<div class="tab-pane fade" id="scripture">
+							<p>Chapter: <strong>Luke 1</strong></p>
+							<p>Version: <strong>Amplified</strong></p>
 							<?php 	if($quizSettings['details'] === 'Materials'){ ?>
-							<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"> 
-								<p>This portion is for typing the bible</p>
+							<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">  
 								<p>
-									It will consist a paragraph tag and a text area. The paragraph will show the next verse to be typed.
-									The text area is where the student should type the shown verse. Once the verse is
-									typed completely. The text area clears and the paragraph tag shows the next verse to be typed
-								</p>
-								<textarea class="form-control"></textarea>
+									Scripture to be posted on Sunday!!!
+								</p> 
                     		</div>
-							<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"> 
-								<hr>
+							<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">  
 								<table align="center">
                                 	<thead>
 	                                	<tr>
@@ -309,8 +306,18 @@
 										<button disabled="true" class="btn btn-primary" id="scriptureNextBtn"><span class="glyphicon glyphicon-chevron-right"></span></button>
 									</p>
 								</div>
-								<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-									<hr>
+								<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"> 
+									<div class="row previousQuestionAndAnswer">
+                                		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"> 
+                                			<p><i class="fa fa-question-circle" aria-hidden="true"></i> <span id="scriptureLastVerse">This is the last verse</span></p>
+                                		</div>
+                                		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                			<p><i class="fa fa-check-circle" aria-hidden="true"></i> <span id="scriptureLastTyped">You typed this!!!</span></p>
+                                		</div>
+                                		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                			<p><i class="fa fa-check-circle" aria-hidden="true"></i> <span id="error">You mistyped at the end of this statement:</span> <span id="scriptureErrorFragment"></span></p>
+                                		</div>
+                                	</div> 
 									<table align="center">
 	                                	<thead>
 		                                	<tr>
