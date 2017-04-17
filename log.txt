@@ -30,3 +30,6 @@ Things to note when adding a new student
 
 // March 22 2017 4:54pm
 . Remove the width and height from the embedded videos from YouTube
+
+// April 17 2017 12:34am
+. After clicking to add new student, populate the scores table with student information

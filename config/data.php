@@ -246,6 +246,41 @@
 		$stmt->close();
 	}
 
+	function InsertToOrUpdateProfilesTable($dbc, $tableName, $first, $last, $age, $email, $password, $totalAggregate, $position, $prize, $color, $initials, $codeName, $scoresTableName, $scores, $quizStatus, $queryType){
+		$q = "";
+		$stmt;  
+		$pass = sha1($password);
+		echo $age;
+		$q = "INSERT INTO $tableName (first,last,age,email,totalAggregate,position,prize,color,initials,codename,scorestablename,scores,quizStatus,password) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		$stmt = $dbc->prepare($q); 
+		$stmt->bind_param('ssssssssssssss', $first, $last, $age, $email, $totalAggregate, $position, $prize, $color, $initials, $codeName, $scoresTableName, $scores, $quizStatus, $pass); 
+		$stmt->execute();  
+		$stmt->close();
+	}
+
+	function createStudentScoresTable($dbc,$tableName){
+		echo "\n" .$tableName . "\n";
+		$sql = "CREATE TABLE $tableName (
+			id MEDIUMINT(9) AUTO_INCREMENT PRIMARY KEY, 
+			date VARCHAR(100) NOT NULL,
+			exercise VARCHAR(200) NOT NULL,
+			type VARCHAR(200) NOT NULL,
+			source VARCHAR(200) NOT NULL,
+			score MEDIUMINT(9) NOT NULL,
+			currentage MEDIUMINT(9) NOT NULL,
+			aggregate VARCHAR(200) NOT NULL,
+			tableName VARCHAR(50) NOT NULL,
+			currentTotalAggregate VARCHAR(50) NOT NULL
+		)";
+		if ($dbc->query($sql) === TRUE) {
+		    echo "Table $tableName created successfully";
+		} else {
+		    echo "Error creating table: " . $dbc->error;
+		}
+
+		$dbc->close();
+	}
+	
 	// Contains utility functions for updating values in a table
 	function addToOrUpdateDatabase($tableName, $dbc, $q, $action){
 		$r = mysqli_query($dbc, $q); 

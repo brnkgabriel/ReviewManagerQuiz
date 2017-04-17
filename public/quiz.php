@@ -127,10 +127,10 @@
 										<form id="worshipForm"> 
 											<p id="worshipInfo"></p>  
 		                                	<div class="row previousQuestionAndAnswer">
-		                                		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"> 
+		                                		<div> 
 		                                			<i class="fa fa-question-circle" aria-hidden="true"></i> <span id="worshipLastQuestion">This is the last Question</span>
 		                                		</div>
-		                                		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+		                                		<div>
 		                                			<i class="fa fa-check-circle" aria-hidden="true"></i> <span id="worshipLastAnswer">This is the Answer</span>
 		                                		</div>
 		                                	</div> 
@@ -155,8 +155,8 @@
 			                                	</tbody>
 			                                </table>
 			                                <hr>
-											<label id="worshipQuestionLabel"></label>
-											<select id="worshipOptionsSelectList" class="form-control"></select>
+											<div id="worshipQuestionLabel"></div>
+											<div><select id="worshipOptionsSelectList" class="form-control"></select></div>
 										</form>
 										<br /> 
 										<p>
@@ -211,10 +211,10 @@
 										<form id="messageForm"> 
 											<p id="messageInfo"></p>  
 		                                	<div class="row previousQuestionAndAnswer">
-		                                		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"> 
+		                                		<div> 
 		                                			<p><i class="fa fa-question-circle" aria-hidden="true"></i> <span id="messageLastQuestion">This is the last Question</span></p>
 		                                		</div>
-		                                		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+		                                		<div>
 		                                			<p><i class="fa fa-check-circle" aria-hidden="true"></i> <span id="messageLastAnswer">This is the Answer</span></p>
 		                                		</div>
 		                                	</div> 
@@ -239,8 +239,8 @@
 			                                	</tbody> 
 			                                </table>
 			                                <hr>
-											<label id="messageQuestionLabel"></label>
-											<select id="messageOptionsSelectList" class="form-control"></select>
+											<div id="messageQuestionLabel"></div>
+											<div><select id="messageOptionsSelectList" class="form-control"></select></div>
 										</form>
 										<br /> 
 										<p>
@@ -308,13 +308,13 @@
 								</div>
 								<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"> 
 									<div class="row previousQuestionAndAnswer">
-                                		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"> 
+                                		<div> 
                                 			<p><i class="fa fa-question-circle" aria-hidden="true"></i> <span id="scriptureLastVerse">This is the last verse</span></p>
                                 		</div>
-                                		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                		<div>
                                 			<p><i class="fa fa-check-circle" aria-hidden="true"></i> <span id="scriptureLastTyped">You typed this!!!</span></p>
                                 		</div>
-                                		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                		<div>
                                 			<p><i class="fa fa-check-circle" aria-hidden="true"></i> <span id="error">You mistyped at the end of this statement:</span> <span id="scriptureErrorFragment"></span></p>
                                 		</div>
                                 	</div> 

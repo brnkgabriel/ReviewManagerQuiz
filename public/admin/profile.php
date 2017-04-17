@@ -38,7 +38,7 @@
 		<?php include_once 'template/navigation.php'; ?>
 		<br><br>
 		<!-- Body -->
-		<div id="centerStage" class="container-fluid">
+		<!-- <div id="centerStage" class="container-fluid">
 			<div class="row">
 				<div class="col-md-4 col-md-offset-2">
 					<form>
@@ -92,6 +92,59 @@
 							<label for="storeInDatabase">Store in Database</label>
 							<br>
 							<button type="button" id="storeInDatabase" class="btn btn-default">Store in Database</button>
+						</div> 
+					</form>
+				</div>
+			</div>
+		</div> -->
+		<div id="centerStage" class="container-fluid">
+			<div class="row">
+				<div class="col-md-4 col-md-offset-2">
+					<form> 
+						<div class="form-group">
+							<label for="firstName">First Name</label>
+							<input id="firstName" type="text" class="form-control" placeholder="Enter First Name...">
+						</div>
+						<div class="form-group">
+							<label for="lastName">Last Name</label>
+							<input id="lastName" type="text" class="form-control" placeholder="Enter Last Name...">
+						</div>
+						<div class="form-group">
+							<label for="initials">Initials</label>
+							<input id="initials" type="text" class="form-control" placeholder="Enter Initials...">
+						</div>
+						<div class="form-group">
+							<label for="codeName">Code Name</label>
+							<input id="codeName" type="text" class="form-control" placeholder="Enter Code Name...">
+						</div>
+						<div class="form-group">
+							<label for="age">Age</label>
+							<input id="age" type="number" class="form-control" placeholder="Enter Age..">
+						</div>
+						<div class="form-group">
+							<label for="color">Color</label>
+							<input id="color" type="color" class="form-control">
+						</div> 
+					</form>
+				</div> 
+				<div class="col-md-4">
+					<form>
+						<div class="form-group">
+							<label for="score">Score</label>
+							<input id="score" type="text" class="form-control" placeholder="Enter Score...">
+						</div> 
+						<div class="form-group">
+							<label for="email">Email</label>
+							<input id="email" type="email" class="form-control" placeholder="Enter Email...">
+						</div>
+						<div class="form-group">
+							<label for="password">Password</label>
+							<input id="password" type="text" class="form-control" placeholder="Enter Password...">
+						</div> 
+						<div class="form-group">
+							<label for="addStudent">Add Student</label>
+							<br>
+							<button type="button" id="addStudent" class="btn btn-default">Submit</button>
 						</div> 
 					</form>
 				</div>

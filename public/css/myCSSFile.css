@@ -78,6 +78,23 @@ table{
 }
 
 /* =========================== MAIN CONTENT ============================*/
+.theirPicture, .theirWords{
+  display: inline-block; 
+} 
+
+.theirPicture img.pictures{
+  border-radius: 70px;
+}
+ 
+.theirWords{ 
+  /*width: 350px;  */
+  border-radius: 15px;
+  padding: 5px;
+  margin: 5px;
+  -webkit-box-shadow: 1px 1px 2px #888;
+  -moz-box-shadow: 1px 1px 2px #888;
+  box-shadow: 1px 1px 2px #888;
+}  
 
 #scriptureLabel, #scriptureReferenceLabel{
   color: #fff;
@@ -120,7 +137,8 @@ table{
 #worshipQuestionLabel,#messageQuestionLabel{
   display: block;
   text-align: center; 
-  font-weight: normal;
+  font-weight: normal; 
+  margin-bottom: 15px;
 }
 
 #scoreHistoryTable{
@@ -302,4 +320,4 @@ h1, label{
     opacity: 0;
     visibility: collapse;
   }
-}
+} 
