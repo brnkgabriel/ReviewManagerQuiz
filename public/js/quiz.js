@@ -31,7 +31,8 @@ var currentQuizStatus = {cTab: "Worship",
 						 mQAnswered: "0", 
 						 mQGotten: "0",
 						 mQMissed: "0",
-						 sTyped: "0", 
+						 sTyped: "0",
+						 sWordsTyped:"", 
 						 sGotten: "0",
 						 sMissed: "0",
 						 tPoints: "0", 
@@ -94,6 +95,7 @@ jQuery(document).ready(function(){
 				break;
 			case 'scriptureNextBtn':
 				currentQuizStatus.sTyped = questionOrScripturesActedOn.toString();
+				currentQuizStatus.sWordsTyped = jQuery('#scriptureTextArea').val();
 				break;
 		} 
 
@@ -176,7 +178,7 @@ jQuery(document).ready(function(){
 				jQuery('#'+currentTab+'LastAnswer').html(allProcessedQuestions[i-1].answers);
 			}else{ 
 				var given = allProcessedQuestions[i-1].words;
-				var typed = jQuery('#scriptureTextArea').val(); 
+				var typed = currentQuizStatus.sWordsTyped; 
 				jQuery('#scriptureLastVerse').html(allProcessedQuestions[i-1].words);
 				jQuery('#scriptureLastTyped').html(typed);
 				var eid = getStringErrorIndex(given, typed);
@@ -392,6 +394,7 @@ jQuery(document).ready(function(){
 			currentQuizStatus.sGotten = quizStatusObjectFromDB.sGotten;
 			currentQuizStatus.sMissed = quizStatusObjectFromDB.sMissed;
 			currentQuizStatus.tPoints = quizStatusObjectFromDB.tPoints; 
+			currentQuizStatus.sWordsTyped = quizStatusObjectFromDB.sWordsTyped;
 			currentQuizStatus.eAForToday = quizStatusObjectFromDB.eAForToday;
 			currentQuizStatus.totalAggregate = quizStatusObjectFromDB.totalAggregate;
 		}else
