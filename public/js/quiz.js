@@ -24,6 +24,7 @@ var CORRECT_ANSWER = 5;
 var INCORRECT_ANSWER = 1;
 var NO_ANSWER = 0;  
 var earnedPoints = 0; 
+var startDate = "";
 var currentQuizStatus = {cTab: "Worship", 
 						 wQAnswered: "0", 
 						 wQGotten: "0", 
@@ -40,9 +41,9 @@ var currentQuizStatus = {cTab: "Worship",
 						 totalAggregate: "", 
 						 email: "", age: ""};
 
-var messageTitle = "God's Love (Love Series 3)";
+var messageTitle = "The Last Reformation(30:27-The End)";
 var messageType = "Online Quiz";
-var messageSource = "Andrew Wommack";
+var messageSource = "Akatio Films";
 
 jQuery(document).ready(function(){    
 	
@@ -346,6 +347,18 @@ jQuery(document).ready(function(){
 								},
 					dataType 	: "json"
 				});
+				jQuery.ajax({
+					type 		: "POST",
+					url	 		: "../config/quizSettings.php", 
+					data 		: jsonData,
+					success 	: function(data){
+									extractCurrentDate(data);
+								},
+					error 		:function(xhr,err,e) { 
+									alert ("Error: " + err + " from quizState GET");
+								},
+					dataType 	: "json"
+				});
 				break;
 			case 'store':
 				var aggregate = earnedPoints / parseInt(jsonData.age); 
@@ -354,7 +367,7 @@ jQuery(document).ready(function(){
 				currentQuizStatus.eAForToday = (Math.round(currentQuizStatus.eAForToday * 1000) / 1000).toString(); 
 				var totalAggregate = parseFloat(jsonData.totalAggregate) + aggregate;
 				jsonData.totalAggregate = Math.round(totalAggregate * 1000) / 1000;  
-				var sTData = {date: getCurrentDate(), 
+				var sTData = {date: startDate, 
 							  exercise: messageTitle, 
 							  type: messageType, 
 							  source: messageSource, 
@@ -377,6 +390,12 @@ jQuery(document).ready(function(){
 				break;
 		}
 	} 
+
+	function extractCurrentDate(data){
+		var dateAndTime = data[0].date;
+		var dateAndTimeArray = dateAndTime.split(" ");
+		startDate = dateAndTimeArray[0]; 
+	}
 
 	function updatecurrentQuizStatus(data){    
 		currentQuizStatus.email = data.email;
