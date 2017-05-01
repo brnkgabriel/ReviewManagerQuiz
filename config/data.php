@@ -408,7 +408,8 @@
 	}
 
 	function getCurrentQuizScore($quizSettingsDate, $studentLastScore){ 
-		if(strtotime($quizSettingsDate) <= strtotime($studentLastScore['date'])){ 
+		$quizSettingDay = explode(" ", $quizSettingsDate); 
+		if(strtotime($quizSettingDay[0]) <= strtotime($studentLastScore['date'])){ 
 			return $studentLastScore['aggregate'];
 		}else{
 			return "0";

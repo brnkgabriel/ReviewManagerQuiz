@@ -7,6 +7,10 @@ body{
   overflow-x: hidden;
 }
 
+.table-responsive{
+    overflow-x: visible;
+}
+
 h3, th{
   font-family: 'Josefin Sans', 'Trebuchet MS', 'Tw Cen MT', sans-serif;
   font-weight: bold;
