@@ -33,3 +33,6 @@ Things to note when adding a new student
 
 // April 17 2017 12:34am
 . After clicking to add new student, populate the scores table with student information
+
+// May 8 2017 3:49am
+. Finished Matthew 2 in the scripture portion. Continue from there.
