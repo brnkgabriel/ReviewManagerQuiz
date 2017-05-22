@@ -70,8 +70,8 @@
 										<th>Tot. <i class="fa fa-check" aria-hidden="true"></i></th> 
 										<th class="hideOnSmallScreens">Tot. <i class="fa fa-times" aria-hidden="true"></i></th>
 										<th class="hideOnSmallScreens">Age</th> 
-										<th>Agg</th>
-										<th>Tot. Agg</th> 
+										<th><i class="fa fa-cubes" aria-hidden="true"></i></th>
+										<th>Tot. <i class="fa fa-cubes" aria-hidden="true"></i></th> 
 									</tr>
 								</thead>
 								<tbody> 

@@ -130,7 +130,7 @@
 						</div>
 					</div>
 				</div>
-			</div><!-- end attributes row --> 
+			</div>--> 
 		</div>  
 	</body>
 </html>

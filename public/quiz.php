@@ -70,7 +70,7 @@
 		<br><br>
 		<!-- Body -->
 		<div id="centerStage" class="container-fluid" style="color:<?php echo "#" . $student_profile['color']; ?>;">
-    		<div class="panel panel-default">
+    	<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title">Quiz</h3>
 				</div><!-- end quiz panel heading -->
