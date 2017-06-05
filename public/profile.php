@@ -73,6 +73,12 @@
 										<div class="col-md-6" align="center">
 											<p>Position(<strong><?php echo $student_profile['position']; ?></strong>)</p>
 											<p>Total Aggregate(<strong><?php echo $student_profile['totalAggregate']; ?></strong>)</p> 
+											<p>
+												<?php  
+														if($student_profile['prize'] !== "0"){ ?>
+														<i class="fa fa-home" aria-hidden="true"></i><span> $50</span></i>
+													<?php }?>
+											</p>
 										</div><!-- end position and aggregate panel -->
 									</div><!-- end biodata row -->
 								</div><!-- end biodata panel body -->

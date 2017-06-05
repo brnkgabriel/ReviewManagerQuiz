@@ -20,11 +20,11 @@ var scriptures = {tableName: "scripturematerials"};
 var allProcessedQuestions = [];
 var questionOrScripturesActedOn = 0;
 var questionSet = "Worship";
-var CORRECT_ANSWER = 5;
-var INCORRECT_ANSWER = 1;
+var CORRECT_ANSWER = 10;
+var INCORRECT_ANSWER = 2;
 var NO_ANSWER = 0;  
 var earnedPoints = 0; 
-var startDate = "";
+var startDate = ""; 
 var currentQuizStatus = {cTab: "Worship", 
 						 wQAnswered: "0", 
 						 wQGotten: "0", 
@@ -50,6 +50,12 @@ jQuery(document).ready(function(){
 	jQuery('#scriptureTextArea, #scriptureReferenceInput').on("cut copy paste",function(e) {
       	e.preventDefault();
   	});  
+
+	jQuery('#scriptureTextArea').keypress(function(e){
+		// console.log(jQuery('#scriptureTextArea').val());
+		// console.log("the keycode pressed is: ");
+		// console.log(e.which);
+	});
 
 	quizState('get', {}); 
 
@@ -176,6 +182,7 @@ jQuery(document).ready(function(){
 		if(i > 0){
 			if(currentTab !== "scripture"){
 				jQuery('#'+currentTab+'LastQuestion').html(allProcessedQuestions[i-1].question);
+				jQuery('#' + currentTab + 'LastOptions').html(allProcessedQuestions[i-1].options.join(", ")); 
 				jQuery('#'+currentTab+'LastAnswer').html(allProcessedQuestions[i-1].answers);
 			}else{ 
 				var given = allProcessedQuestions[i-1].words;
@@ -189,11 +196,9 @@ jQuery(document).ready(function(){
 		}
 	}
 
-	function getStringErrorIndex(given, typed){
-		var givenVerse = given.split("");
-		var typedVerse = typed.split("");
-		for(var i = 0; i < givenVerse.length; i++){
-			if(typedVerse[i] !== givenVerse[i])
+	function getStringErrorIndex(given, typed){  
+		for(var i = 0; i < given.length; i++){
+			if(given.charCodeAt(i) !== typed.charCodeAt(i))
 				return i; 
 		}
 		return 0;

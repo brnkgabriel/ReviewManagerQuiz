@@ -213,6 +213,9 @@
 		                                	<div class="row previousQuestionAndAnswer">
 		                                		<div> 
 		                                			<p><i class="fa fa-question-circle" aria-hidden="true"></i> <span id="messageLastQuestion">This is the last Question</span></p>
+		                                		</div> 
+		                                		<div>
+		                                			<p><i class="fa fa-ellipsis-h" aria-hidden="true"></i> <span id="messageLastOptions">These are the last options</span></p>
 		                                		</div>
 		                                		<div>
 		                                			<p><i class="fa fa-check-circle" aria-hidden="true"></i> <span id="messageLastAnswer">This is the Answer</span></p>
