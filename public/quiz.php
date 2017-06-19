@@ -290,6 +290,9 @@
 									<form id="scriptureForm">  
 										<p id="scriptureInfo">
 											Type the Scripture below in the text area. Click the next button when you're done
+										</p>  
+										<p id="enterSpacebarNotice">
+											Use the SPACEBAR key to go to a new line, not the ENTER key
 										</p>
 										<table class="table table-bordered table-condensed"> 
 											<thead>
@@ -319,6 +322,7 @@
                                 		</div>
                                 		<div>
                                 			<p><i class="fa fa-check-circle" aria-hidden="true"></i> <span id="error">You mistyped at the end of this statement:</span> <span id="scriptureErrorFragment"></span></p>
+                                			<p><span id="enterInsteadOfSpace"></span></p>
                                 		</div>
                                 	</div> 
 									<table align="center">

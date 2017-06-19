@@ -21,7 +21,7 @@ var allProcessedQuestions = [];
 var questionOrScripturesActedOn = 0;
 var questionSet = "Worship";
 var CORRECT_ANSWER = 10;
-var INCORRECT_ANSWER = 2;
+var INCORRECT_ANSWER = -10;
 var NO_ANSWER = 0;  
 var earnedPoints = 0; 
 var startDate = ""; 
@@ -188,7 +188,7 @@ jQuery(document).ready(function(){
 				var given = allProcessedQuestions[i-1].words;
 				var typed = currentQuizStatus.sWordsTyped; 
 				jQuery('#scriptureLastVerse').html(allProcessedQuestions[i-1].words);
-				jQuery('#scriptureLastTyped').html(typed);
+				jQuery('#scriptureLastTyped').html(typed); 
 				var eid = getStringErrorIndex(given, typed);
 				var errorFragment = typed.slice(0,eid);
 				jQuery('#scriptureErrorFragment').html(errorFragment); 
@@ -196,10 +196,15 @@ jQuery(document).ready(function(){
 		}
 	}
 
-	function getStringErrorIndex(given, typed){  
+	function getStringErrorIndex(given, typed){ 
+		jQuery('#enterInsteadOfSpace').html("");
 		for(var i = 0; i < given.length; i++){
-			if(given.charCodeAt(i) !== typed.charCodeAt(i))
+			if(given.charCodeAt(i) !== typed.charCodeAt(i)){
+				if(typed.charCodeAt(i) === 13 || typed.charCodeAt(i) === 10){ 
+					jQuery('#enterInsteadOfSpace').html("You pressed the ENTER key instead of the SPACEBAR key");
+				}
 				return i; 
+			}
 		}
 		return 0;
 	}

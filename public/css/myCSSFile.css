@@ -124,7 +124,9 @@ table{
   font-style: italic;
 }
 
-#scriptureErrorFragment{
+#scriptureErrorFragment,
+#enterSpacebarNotice,
+#enterInsteadOfSpace{
   color: red;
 }
 
