@@ -159,6 +159,7 @@ jQuery(document).ready(function(){
 	}
 
 	function getQuestionsOrScripturesFromAjaxCall(data, currentTab){  
+		console.log(data);
 		allProcessedQuestions = [];  
 		for(var i = 0; i < data.length; i++){ 
 			if(currentTab === "Scripture"){
