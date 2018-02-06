@@ -11,7 +11,7 @@
 	);
 	
 	$questions = getFromTable2($questionsInput);
-	// $questions = getFromTable($dbc, 'all', "", $tableName);
+	// $questions = getFromTable($dbc, 'all', "", $tableName); 
 	
 	echo json_encode($questions);
 ?>

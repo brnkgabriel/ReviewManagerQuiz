@@ -144,15 +144,17 @@ jQuery(document).ready(function(){
 
 	function loadQuestionsFromDb(currentTab, questionType){
 		jQuery.ajax({
-			type 		: "POST",
+			method 		: "POST",
 			url	 		: "../config/getQuizQuestionsFromDB.php",
 			data 		: questionType,
-			success 	: function(data){ 
+			success 	: function(data){  
 							getQuestionsOrScripturesFromAjaxCall(data, currentTab); 
 							continueFromLastSession(currentTab); 
 						},
 			error 		:function(xhr,err,e) { 
-							alert ("Error: " + err + " from loadQuestionsFromDb");
+							console.log(err);
+							console.log(xhr);
+							console.log(e);
 						},
 			dataType 	: "json"
 		});
@@ -211,7 +213,7 @@ jQuery(document).ready(function(){
 	}
 
 	function updateQuestionFormElements(currentTab,i){  
-		// Next 2 lines update the last question and answer sections
+		// Next 2 lines update the last question and answer sections 
 		updateLastElements(currentTab, i);
 
 		if(i > allProcessedQuestions.length - 1){
@@ -228,7 +230,7 @@ jQuery(document).ready(function(){
 				else
 					jQuery('#messageInfo').html(""); 
 				jQuery('#'+currentTab+'QuestionLabel').text("You have completed the " + questionSet + " questions for the week!!!");
-				jQuery('#'+currentTab+'OptionsSelectList').html("");
+				jQuery('#'+currentTab+'OptionsSelectList').html(""); 
 				jQuery('#'+currentTab+'OptionsSelectList').append(
 					jQuery('<option />', {text : "Disabled..."})
 				);
@@ -245,7 +247,7 @@ jQuery(document).ready(function(){
 				else
 					jQuery('#messageInfo').html("You CANNOT RETAKE A QUESTION. Give this question your best attempt."); 
 				jQuery('#'+currentTab+'QuestionLabel').html(allProcessedQuestions[i].question);
-				jQuery('#'+currentTab+'OptionsSelectList').html("");
+				jQuery('#'+currentTab+'OptionsSelectList').html(""); 
 				jQuery('#'+currentTab+'OptionsSelectList').append(
 					jQuery('<option />', {text : "Select the most appropriate answer..."})
 				);
